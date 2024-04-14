@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from "react-router-dom"
-import { Harmburger, CloseMenuBtn } from "./svg"
-import WBT from "../../assets/WBT.png"
-import WillBeThere from "../../assets/Will be there.png"
+import { useEffect, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { Harmburger, CloseMenuBtn } from "./svg";
+import WBT from "../../assets/WBT.png";
+import WillBeThere from "../../assets/Will be there.png";
 
 const NavBar = () => {
-
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
-    console.log('isOpen:', isOpen);
+    console.log("isOpen:", isOpen);
   }, [isOpen]);
   const handleMenuToggle = () => {
-
-    setIsOpen(!isOpen)
-
-  }
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <nav className={`flex h-[10vh] sticky top-0 justify-between w-screen gpx-[100px] items-center px-8 py-12 md:px-24 md:py-10 font-normal text-sm font-montserrat`}>
-        <div className="">
-          <span className={`fle md:border-r-[1px] border-wybt-neutral-black md:pr-20 block pr-10 py-[.12em]`}><div className={` justify-center flex flex-col items-center`}><img src={WBT} alt="WBT Logo" width='64px' /><img src={WillBeThere} alt="WBT TagLine" className='w-20' /></div></span>
-        </div>
+        <Link to='/' className='cursor-pointer'>
+          <span className={styles.sidelineRight}>
+            <div className={styles.logo}>
+              <img src={WBT} alt='WBT Logo' width='64px' />
+              <img src={WillBeThere} alt='WBT TagLine' className='w-20' />
+            </div>
+          </span>
+        </Link>
         <div className={` text-wybt-primary justify-between gap-5 md:gap-10 sm:flex hidden`}>
           <NavLink to="">Event Details</NavLink>
           <NavLink to="">Dashboard</NavLink>
@@ -43,5 +45,4 @@ const NavBar = () => {
       </nav ></>
   )
 }
-
-export default NavBar
+export default NavBar;
