@@ -157,22 +157,82 @@ InstagramIcon.propTypes = {
 export const Harmburger = ({ className, handleClick }) => {
   return (
     <svg
-      fill="#000000"
-      onClick={handleClick} width="60px" height="44px" viewBox="-1.6 -1.6 19.20 19.20" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.272"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M.5 7.42h15v1.25H.5zm0 3.6h15v1.25H.5zm0-7.29h15v1.25H.5z"></path></g></svg>
-  )
-}
+      fill='#000000'
+      className={cn(className)}
+      onClick={handleClick}
+      width='60px'
+      height='44px'
+      viewBox='-1.6 -1.6 19.20 19.20'
+      xmlns='http://www.w3.org/2000/svg'
+      stroke='#000000'
+      strokeWidth='0.272'
+    >
+      <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+      <g
+        id='SVGRepo_tracerCarrier'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      ></g>
+      <g id='SVGRepo_iconCarrier'>
+        <path d='M.5 7.42h15v1.25H.5zm0 3.6h15v1.25H.5zm0-7.29h15v1.25H.5z'></path>
+      </g>
+    </svg>
+  );
+};
 
 Harmburger.propTypes = {
   className: PropTypes.string,
-}
+  handleClick: PropTypes.func,
+};
 
 export const CloseMenuBtn = ({ className, handleClick }) => {
-  return (<svg viewBox="-2.4 -2.4 28.80 28.80"
-    fill="none"
-
-    onClick={handleClick} width="60px" height="44px" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1.2"><g id="SVGRepo_bgCarrier" stroke-width="0" transform="translate(0,0), scale(1)"><rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="14.4" fill="#E5A4CB" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.152"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z" fill="#000000"></path></g></svg>)
-}
+  return (
+    <svg
+      viewBox='-2.4 -2.4 28.80 28.80'
+      fill='none'
+      className={cn(className)}
+      onClick={handleClick}
+      width='60px'
+      height='44px'
+      xmlns='http://www.w3.org/2000/svg'
+      stroke='#000000'
+      strokeWidth='1.2'
+    >
+      <g
+        id='SVGRepo_bgCarrier'
+        strokeWidth='0'
+        transform='translate(0,0), scale(1)'
+      >
+        <rect
+          x='-2.4'
+          y='-2.4'
+          width='28.80'
+          height='28.80'
+          rx='14.4'
+          fill='#E5A4CB'
+          strokeWidth='0'
+        ></rect>
+      </g>
+      <g
+        id='SVGRepo_tracerCarrier'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        stroke='#CCCCCC'
+        strokeWidth='1.152'
+      ></g>
+      <g id='SVGRepo_iconCarrier'>
+        <path
+          fillRule='evenodd'
+          clipRule='evenodd'
+          d='M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z'
+          fill='#000000'
+        ></path>
+      </g>
+    </svg>
+  );
+};
 
 CloseMenuBtn.propTypes = {
   className: PropTypes.string,
-}
+  handleClick: PropTypes.func,
+};

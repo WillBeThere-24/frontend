@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from "react-router-dom"
-import { Harmburger, CloseMenuBtn } from "./svg"
-import WBT from "../../assets/WBT.png"
-import WillBeThere from "../../assets/Will be there.png"
+import { useEffect, useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+
+import { Harmburger, CloseMenuBtn } from "./svg";
+import WBT from "../../assets/WBT.png";
+import WillBeThere from "../../assets/Will be there.png";
 
 const NavBar = () => {
-
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
-    console.log('isOpen:', isOpen);
+    console.log("isOpen:", isOpen);
   }, [isOpen]);
   const handleMenuToggle = () => {
-
-    setIsOpen(!isOpen)
-
-  }
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <nav className={`flex h-[10vh] sticky top-0 justify-between w-screen gpx-[100px] items-center px-8 py-12 md:px-24 md:py-10 font-normal text-sm font-montserrat`}>
@@ -43,5 +41,4 @@ const NavBar = () => {
       </nav ></>
   )
 }
-
-export default NavBar
+export default NavBar;
