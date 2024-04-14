@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { NavLink } from "react-router-dom"
 import { Harmburger, CloseMenuBtn } from "./svg"
 import WBT from "../../assets/WBT.png"
