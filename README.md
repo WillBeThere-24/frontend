@@ -35,13 +35,7 @@ We believe in the power of collaboration. If you have ideas for new features, bu
 <h3>Feedback:</h3>
 Your feedback is invaluable to us. Whether you encounter issues, have suggestions for improvements, or simply want to share your experience using "Will You Be There," please don't hesitate to reach out. We're constantly striving to enhance the app and provide the best possible experience for our users.
 
-<h3>License:</h3>
-This project is licensed under the [MIT License](link-to-license-file), allowing for flexibility in its usage and modification.
-
 <h5>Acknowledgements:</h5>
 We extend our gratitude to the open-source community for their invaluable contributions and support in making "Will You Be There" possible.
-
-**Connect with Us:**
-For any inquiries or support, feel free to contact us at [email@example.com](mailto:email@example.com) or join our community on [GitHub Discussions](link-to-discussions) to engage with other users and developers.
 
 Thank you for choosing "Will You Be There" for your event planning needs. We hope it brings ease and joy to your event organizing journey!
