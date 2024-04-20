@@ -10,6 +10,9 @@ const Login = ({ handleTabChange }) => {
     })
     const handleSubmit = (e) => {
         e.preventDefault()
+        setFormData(prevState => {
+            return { ...prevState, password: "", emailAddress: "" }
+        })
     }
     const handleChange = (e) => {
 
