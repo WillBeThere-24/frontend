@@ -27,7 +27,7 @@ const DashNavBar = () => {
           <NavLink to=""> Dashboard</NavLink>
           <NavLink to=""> Profile</NavLink>
         </div>
-        <div className='flex border-r-2 border items-center gap-8'>
+        <div className='flex items-center gap-8'>
           <p>Unpublished</p>
           <img src={Avatar2} alt="" width="30px" />
         </div>
@@ -35,17 +35,18 @@ const DashNavBar = () => {
 
       {/*MOBILE MENU */}
       <div className='sm:hidden block z-50 '><button onClick={handleDashNavOpen}>{dashNavOpen ? <CloseMenuBtn className="size-8" /> : <Harmburger className="size-8" />}</button></div>
-      {dashNavOpen && (<div className={`border-wybt-primary border justify-between w-auto ml-bauto border-solid  h-[50vh] items-center rounded-md gap-12 py-12 px-8 flex sm:hidden flex-col absolute right-3 top-4  bg-wybt-white ${dashNavOpen ? "fldex sm:hiddden" : ""}`}>
-        <div className='gap-5 flex whitespace-nowrap text-nowrap flex-col'>
-          <span>--EventName--</span>
-          <NavLink to=""> Dashboard</NavLink>
-          <NavLink to=""> Profile</NavLink>
-        </div>
-        <div className='flex border-r-2 border items-center gap-8'>
-          <p>Unpublished</p>
-          <img src={Avatar2} alt="" width="30px" />
-        </div>
-      </div >
+      {dashNavOpen && (
+        <div className={`border-wybt-primary border justify-between w-auto ml-bauto border-solid  h-[50vh] items-center rounded-md gap-12 py-12 px-8 flex sm:hidden flex-col absolute right-3 top-4  bg-wybt-white ${dashNavOpen ? "fldex sm:hiddden" : ""}`}>
+          <div className='gap-5 flex whitespace-nowrap text-nowrap flex-col'>
+            <span>--EventName--</span>
+            <NavLink to=""> Dashboard</NavLink>
+            <NavLink to=""> Profile</NavLink>
+          </div>
+          <div className='flex  items-center gap-8'>
+            <p>Unpublished</p>
+            <img src={Avatar2} alt="" width="30px" />
+          </div>
+        </div >
       )}
     </nav >
   )

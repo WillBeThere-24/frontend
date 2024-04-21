@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { Harmburger, CloseMenuBtn } from "./svg";
 import WBT from "../../assets/WBT.png";
-import WillBeThere from "../../assets/Will be there.png";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
