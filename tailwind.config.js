@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
       },
+      backgroundImage: {
+        'hero-img': "url('/images/hero-img.png')",
+      },
       colors: {
         wybt: {
           primary: "#45062E",
