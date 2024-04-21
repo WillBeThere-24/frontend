@@ -1,22 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
-import AccountSetup from "./pages/AccountSetup";
+import { Home, AccountSetup, HomeSharedLayout } from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/register",
-    element: <AccountSetup />,
+    element: <HomeSharedLayout />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/register", element: <AccountSetup /> },
+    ],
   },
 ]);
 
 const App = () => {
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
