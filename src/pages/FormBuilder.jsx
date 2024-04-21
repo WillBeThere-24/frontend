@@ -18,9 +18,9 @@ const FormBuilder = () => {
     return (
         <main>
             <DashNavBar />
-            <div className="flex gap-12">
+            <div className="flex gap-12 h-screen">
                 <SidebarContainer />
-                <div className='w-full md:pr-24 gap-5 flex flex-col items-center'>
+                <div className='w-full md:pr-24 gap-5 flex flex-col items-center h-screen'>
                     <div className='flex gap-4 justify-center mb-8'>
                         <button className={`${currentForm === 1 ? "font-semibold" : ""}`}>Event Name</button>
                         <button className={`${currentForm === 2 ? "font-semibold" : ""}`}>Event Details</button>

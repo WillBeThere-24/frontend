@@ -10,7 +10,7 @@ const DashNavBar = () => {
     setDashNavOpen(!dashNavOpen)
   }
   return (
-    <nav className='flex justify-between h-[10vh] py-10 md:px-24 px-8 w-full items-center mb-14 sticky top-0 shadow-md'>
+    <nav className='flex justify-between h-[10vh] py-10 md:px-24 px-8 w-full items-center mb-14 sticky top-0 shadow-md bg-wybt-white'>
       <div>
         <div >
           <a href="/" className={` justify-center flex flex-col items-center z- min-w-[6px] relative z-50 `}>
