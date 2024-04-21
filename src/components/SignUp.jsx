@@ -4,6 +4,11 @@ import { ClosedEye, OpenedEye } from './common/svg'
 const SignUp = ({ handleTabChange }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
+        setFormData(prevState => {
+            return {
+                ...prevState, fullName: "", password: "", emailAddress: ""
+            }
+        })
     }
 
     const [formData, setFormData] = useState({
@@ -29,9 +34,9 @@ const SignUp = ({ handleTabChange }) => {
     return (
         <form action="" onSubmit={handleSubmit} className='flex flex-col py-8'>
             <label htmlFor="name" className='uppercase text-wybt-primary font-[500] mb-1'>Full Name</label>
-            <input type="text" name='fullName' id='name' placeholder='Enter Full Name' className='border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 bg-wybt-white' value={formData.fullName} onChange={handleChange} />
+            <input type="name" name='fullName' id='name' placeholder='Enter Full Name' className='border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 bg-wybt-white' value={formData.fullName} onChange={handleChange} />
             <label htmlFor="email" className='uppercase text-wybt-primary font-[500] mb-1'>Email Address</label>
-            <input type="mail" name='emailAddress' id='mail' placeholder='Enter Email Address' className='border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 bg-wybt-white' value={formData.emailAddress} onChange={handleChange} />
+            <input type="email" name='emailAddress' id='mail' placeholder='Enter Email Address' className='border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 bg-wybt-white' value={formData.emailAddress} onChange={handleChange} />
             <div className='relative flex flex-col z0'><label htmlFor="password" className='uppercase text-wybt-primary font-[500] mb-1'>Password</label>
                 <input type={formData.showPassword ? 'text' : "password"} name='password' id='password' placeholder='Enter Password' className='border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 pr-10 bg-wybt-white' value={formData.password} onChange={handleChange} />
                 <button className='absolute right-0 flex items-center px-3 bg-transparent focus:outline-none text-wybt-white-gray' onClick={togglePassword}>{formData.showPassword ? (
