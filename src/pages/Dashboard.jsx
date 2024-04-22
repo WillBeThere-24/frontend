@@ -1,12 +1,11 @@
-import React from 'react'
-import DashNavBar from '../components/dashboard/common/DashNavBar'
+import { DashNavBar } from "../components/dashboard";
 
 const Dashboard = () => {
-    return (
-        <div><DashNavBar />
+  return (
+    <div>
+      <DashNavBar />
+    </div>
+  );
+};
 
-        </div>
-    )
-}
-
-export default Dashboard
+export default Dashboard;
