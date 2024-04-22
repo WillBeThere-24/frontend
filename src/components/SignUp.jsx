@@ -4,6 +4,14 @@ import { ClosedEye, OpenedEye } from "./common/svg";
 const SignUp = ({ handleTabChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormData((prevState) => {
+      return {
+        ...prevState,
+        fullName: "",
+        password: "",
+        emailAddress: "",
+      };
+    });
   };
 
   const [formData, setFormData] = useState({

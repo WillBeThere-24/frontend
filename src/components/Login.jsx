@@ -23,11 +23,7 @@ const Login = ({ handleTabChange }) => {
   };
   console.log(formData);
   return (
-    <form
-      action=''
-      onSubmit={handleSubmit}
-      className='flex flex-col py-8'
-    >
+    <form action='' onSubmit={handleSubmit} className='flex flex-col py-8'>
       <label
         htmlFor='mail'
         className='uppercase text-wybt-primary font-[500] mb-1'
@@ -85,7 +81,7 @@ const Login = ({ handleTabChange }) => {
         Your privacy is important to us. We never sell your data.
       </p>
       <p className='text-wybt-primary'>
-        Doesn&apos;t have an account ?
+        Doesn't have an account ?{" "}
         <span
           onClick={() => handleTabChange("signup")}
           className='cursor-pointer font-semibold'
