@@ -1,20 +1,13 @@
-import Footer from "../components/common/Footer";
-import NavBar from "../components/common/NavBar";
-import Hero from "../components/common/Hero";
-import Features from "../components/FeatureLists";
-import Invitation from "../components/Invitation";
-import Reviews from "../components/Reviews";
-
+import { Hero } from "../components/common";
+import { FeatureLists, Invitation, Reviews } from "../components";
 
 function Home() {
   return (
-    <main className="">
-      <NavBar />
+    <main className=''>
       <Hero />
-      <Features />
+      <FeatureLists />
       <Invitation />
       <Reviews />
-      <Footer />
     </main>
   );
 }
