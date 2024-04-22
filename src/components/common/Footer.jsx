@@ -1,6 +1,5 @@
 import Button from "./Button";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
 
 const footerIconsAndTitles = [
   {
@@ -21,10 +20,7 @@ const Footer = () => {
     <footer className='flex flex-col gap-8 md:gap-4 w-full bg-wybt-primary text-wybt-white px-8 py-16 md:px-24 md:py-36 font-normal text-sm font-montserrat overflow-hidden'>
       <div className='flex flex-col md:flex-row gap-8 lg:gap-16 justify-between'>
         <div className='flex flex-col gap-6 flex-1'>
-          <Button
-            className='text-wybt-primary bg-wybt-white'
-            onClick={() => toast("yay")}
-          >
+          <Button className='text-wybt-primary bg-wybt-white'>
             Contact Us
           </Button>
           {footerIconsAndTitles.map((item, id) => {
