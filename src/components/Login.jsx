@@ -81,7 +81,7 @@ const Login = ({ handleTabChange }) => {
         Your privacy is important to us. We never sell your data.
       </p>
       <p className='text-wybt-primary'>
-        Doesn't have an account ?{" "}
+        Doesn&apos;t have an account ?{" "}
         <span
           onClick={() => handleTabChange("signup")}
           className='cursor-pointer font-semibold'
