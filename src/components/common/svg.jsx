@@ -302,16 +302,34 @@ ArrowRightIcon.propTypes = {
 }
 export const ArrowLeftIcon = ({ className }) => {
   return (
-    <svg
+    <svg svg
       viewBox="0 0 24 24"
       width="25px"
 
       className={cn(className)}
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 9L8 12M8 12L11 15M8 12H16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+      xmlns="http://www.w3.org/2000/svg" ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 9L8 12M8 12L11 15M8 12H16M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg >
   )
 }
 
 ArrowLeftIcon.propTypes = {
+  className: PropTypes.string
+}
+
+export const MenuAlt = ({ className }) => {
+
+  return (
+    <svg
+      width="30px"
+      className={cn(className)}
+      // height="30px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H14M4 18H9" stroke="#000000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </g>
+    </svg>)
+}
+
+MenuAlt.propTypes = {
   className: PropTypes.string
 }

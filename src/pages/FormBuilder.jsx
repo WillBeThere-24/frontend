@@ -16,9 +16,9 @@ const FormBuilder = () => {
         setCurrentForm(prev => prev - 1)
     }
     return (
-        <main>
+        <main className='font-montserrat bg-wybt-white'>
             <DashNavBar />
-            <div className="flex gap-12 h-screen">
+            <div className="flex gap-12 h-[120vh]">
                 <SidebarContainer />
                 <div className='w-full md:pr-24 gap-5 flex flex-col items-center h-screen'>
                     <div className='flex gap-4 justify-center mb-8'>
