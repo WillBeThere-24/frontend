@@ -6,9 +6,10 @@ import {
   FormBuilder,
   Profile,
   DashboardSharedLayout,
+  Rsvp,
 } from "./pages";
-import { SidebarContainer } from "./components/dashboard";
 import { Authentication } from "./components/common";
+// import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -39,14 +40,26 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/rsvp",
+    element: <HomeSharedLayout />,
+    children: [
+      {
+        path: "/rsvp",
+        // path: "/rsvp/:rsvpId",
+        element: <Rsvp />,
+        // loader: async ({ params }) => {
+        //   console.log(params);
+        // const { data } = await axios("");
+        // return { data };
+        //   },
+      },
+    ],
+  },
 ]);
 
 const App = () => {
-  return (
-    <RouterProvider router={router}>
-      <SidebarContainer />
-    </RouterProvider>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
