@@ -1,11 +1,11 @@
 import { useState } from "react";
-import FormBuilderIcon from "/public/icons/Form-Builder-icon.svg";
-import InviteListIcon from "/public/icons/Invite-list-icon.svg";
-import ShareIcon from "/public/icons/Share-Icon.svg";
-import PreviewIcon from "/public/icons/Preview-Icon.svg";
-import ProfileIcon from "/public/icons/Profile-Icon.svg";
-import SettingsIcon from "/public/icons/Settings-Icon.svg";
-import OverviewIcon from "/public/icons/material-symbols_overview-key-outline-Overview Iconrounded.svg";
+import FormBuilderIcon from "/public/icons/dashboard/Form-Builder-icon.svg";
+import InviteListIcon from "/public/icons/dashboard/Invite-list-icon.svg";
+import ShareIcon from "/public/icons/dashboard/Share-Icon.svg";
+import PreviewIcon from "/public/icons/dashboard/Preview-Icon.svg";
+import ProfileIcon from "/public/icons/dashboard/Profile-Icon.svg";
+import SettingsIcon from "/public/icons/dashboard/Settings-Icon.svg";
+import OverviewIcon from "/public/icons/dashboard/material-symbols_overview-key-outline-Overview Iconrounded.svg";
 import { SideBar, Subpage, SidebarItem } from "./";
 const SidebarContainer = () => {
   const [showText, setShowText] = useState(false);

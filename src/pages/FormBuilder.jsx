@@ -1,54 +1,34 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DashNavBar, SidebarContainer } from "../components/dashboard";
 import { Footer } from "../components/common";
+import EventName from "../components/event-form/EventName";
+import EventTime from "../components/event-form/EventTime";
+import EventLocation from "../components/event-form/EventLocation";
+import Upload from "../components/event-form/Upload";
+import Url from "../components/event-form/Url";
 const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
+  const [eventFormData, setEventFormData] = useState({
+    eventName: "",
+    eventStartTime: "",
+    eventStartDate: "",
+    eventEndTime: "",
+    eventEndDate: "",
+    eventLocation: "",
+    eventImage: "",
+  });
+  console.log(eventFormData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
-<<<<<<< HEAD
-    const handleNext = (e) => {
-
-        // e.preventDefault()
-        setCurrentForm(prev => prev + 1)
-    }
-    const handlePrevious = (e) => {
-
-        // e.preventDefault()
-        setCurrentForm(prev => prev - 1)
-    }
-    return (
-        <main className='font-montserrat bg-wybt-white'>
-            <DashNavBar />
-            <div className="flex gap-12 h-[120vh]">
-                <SidebarContainer />
-                <div className='w-full md:pr-24 gap-5 flex flex-col items-center h-screen'>
-                    <div className='flex gap-4 justify-center mb-8'>
-                        <button className={`${currentForm === 1 ? "font-semibold" : ""}`}>Event Name</button>
-                        <button className={`${currentForm === 2 ? "font-semibold" : ""}`}>Event Details</button>
-                        <button>Preview</button>
-                        <button>URL</button>
-                    </div>
-                    {currentForm === 1 && (<div className='flex flex-col items-center gap-4 '>
-                        <div><button>Event Name</button></div>
-                        <h1 className='font-bold text-2xl text-wybt-primary'>What's the name of your event?</h1>
-                        <form action="" className='flex gap-4 w-ful flex-col md:flex-row' onSubmit={handleNext}>
-                            <input type="text" className='border-wybt-primary border rounded-md p-4 w-[20rem]' />
-                            <button className='bg-wybt-primary py-4 px-8 rounded-md text-white'>Enter</button>
-                        </form>
-                        <button onClick={handleNext}>Next</button>
-                    </div>)}
-                    {currentForm === 2 && (<div className='flex flex-col items-center gap-4 '>
-                        <h1 className='font-bold text-2xl text-wybt-primary'>What's the name of your event?</h1>
-                        <form action="" className='flex gap-4 w-ful' onSubmit={handleNext}>
-                            <input type="text" className='border-wybt-primary border rounded-md p-4 w-[20rem]' />
-                            <button className='bg-wybt-primary py-1 px-8 rounded-md text-white'>Next</button>
-                        </form>
-                        <div>
-                            <button onClick={handlePrevious}>Previous</button>
-                            <button onClick={handleNext}>Next</button>
-                        </div>
-                    </div>)}
-                </div>
-=======
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   // eslint-disable-next-line no-unused-vars
   const handleNext = (e) => {
     // e.preventDefault()
@@ -59,70 +39,139 @@ const FormBuilder = () => {
     // e.preventDefault()
     setCurrentForm((prev) => prev - 1);
   };
+
+  // const formButtonsRef = useRef([]);
+  // const currentFormButtonRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (currentFormButtonRef.current) {
+  //     currentFormButtonRef.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       inline: "center",
+  //     });
+  //   }
+  // }, [currentForm]);
   return (
     <main>
-      <DashNavBar />
-      <div className='flex gap-12'>
+      <div className="flex gap-12 z-0">
         <SidebarContainer />
-        <div className='w-full md:pr-24 gap-5 flex flex-col items-center'>
-          <div className='flex gap-4 justify-center mb-8'>
-            <button className={`${currentForm === 1 ? "font-semibold" : ""}`}>
+        <div className="w-full md:pr-24 pr-6 gap-5 flex flex-col items-center ">
+          <div className="flex gap-4 md:justify-center mb-8 overflow-x-scroll md:overflow-x-auto whitespace-nowrap w-[75vw]  md:w-full p-4 mr-4 md:mr-0">
+            <button
+              className={`${
+                currentForm === 1
+                  ? "font-semibold border-b border-wybt-primary   text-wybt-primary p-1"
+                  : "text-wybt-light-gray"
+              } `}
+              // ref={(el) => (formButtonsRef.current[1] = el)}
+              onClick={() => setCurrentForm(1)}
+            >
               Event Name
             </button>
-            <button className={`${currentForm === 2 ? "font-semibold" : ""}`}>
-              Event Details
+            <button
+              className={`${
+                currentForm === 2
+                  ? "font-semibold border-b border-wybt-primary  text-wybt-primary p-1"
+                  : "text-wybt-light-gray"
+              }`}
+              onClick={() => setCurrentForm(2)}
+            >
+              Event Date
+            </button>
+            <button
+              className={`${
+                currentForm === 3
+                  ? "font-semibold border-b border-wybt-primary  text-wybt-primary p-1"
+                  : " text-wybt-light-gray"
+              }`}
+              onClick={() => setCurrentForm(3)}
+            >
+              Event Location
+            </button>
+            <button
+              className={`${
+                currentForm === 4
+                  ? "font-semibold border-b border-wybt-primary text-wybt-primary p-1"
+                  : " text-wybt-light-gray"
+              }`}
+              onClick={() => setCurrentForm(4)}
+            >
+              Upload Image
             </button>
             <button>Preview</button>
-            <button>URL</button>
+            <button
+              className={`${
+                currentForm === 6
+                  ? "font-semibold border-b border-wybt-primary text-wybt-primary p-1"
+                  : "text-wybt-light-gray"
+              }`}
+              onClick={() => setCurrentForm(6)}
+              // ref={(el) => (formButtonsRef.current[6] = el)}
+            >
+              URL
+            </button>
           </div>
-          {currentForm === 1 && (
-            <div className='flex flex-col items-center gap-4 '>
-              <div>
-                <button>Event Name</button>
-              </div>
-              <h1 className='font-bold text-2xl text-wybt-primary'>
-                What&apos;s the name of your event?
-              </h1>
-              <form
-                action=''
-                className='flex gap-4 w-ful flex-col md:flex-row'
-                onSubmit={handleNext}
-              >
-                <input
-                  type='text'
-                  className='border-wybt-primary border rounded-md p-4 w-[20rem]'
+          <form className="w-full">
+            {currentForm === 1 && (
+              <>
+                <h2 className="text-wybt-primary text-2xl font-bold mb-4">
+                  What's the name of your event?
+                </h2>
+                <EventName
+                  handleNext={handleNext}
+                  eventFormData={eventFormData}
+                  handleChange={handleChange}
                 />
-                <button className='bg-wybt-primary py-4 px-8 rounded-md text-white'>
-                  Enter
-                </button>
-              </form>
-              <button onClick={handleNext}>Next</button>
->>>>>>> 20fb1a6947d45855be0dd7c36ff30d38513ebcbf
-            </div>
-          )}
-          {currentForm === 2 && (
-            <div className='flex flex-col items-center gap-4 '>
-              <h1 className='font-bold text-2xl text-wybt-primary'>
-                What&apos;s the name of your event?
-              </h1>
-              <form
-                action=''
-                className='flex gap-4 w-ful'
-                onSubmit={handleNext}
-              >
-                <input
-                  type='text'
-                  className='border-wybt-primary border rounded-md p-4 w-[20rem]'
+              </>
+            )}
+            {currentForm === 2 && (
+              <>
+                <h2 className="text-wybt-primary text-2xl font-bold mb-4">
+                  When is your event?
+                </h2>
+                <EventTime
+                  handleNext={handleNext}
+                  eventFormData={eventFormData}
+                  handleChange={handleChange}
                 />
-                <button className='bg-wybt-primary py-1 px-8 rounded-md text-white'>
-                  Next
-                </button>
-              </form>
-              <div>
-                <button onClick={handlePrevious}>Previous</button>
-                <button onClick={handleNext}>Next</button>
-              </div>
-            </div>
+              </>
+            )}
+            {currentForm === 3 && (
+              <>
+                <h2 className="text-wybt-primary text-2xl font-bold mb-4">
+                  Where is your event taking place?
+                </h2>
+                <EventLocation
+                  handleNext={handleNext}
+                  eventFormData={eventFormData}
+                  handleChange={handleChange}
+                />
+              </>
+            )}
+            {currentForm === 4 && (
+              <>
+                <h2 className="text-wybt-primary text-2xl font-bold mb-4">
+                  Upload PNG/JPG
+                </h2>
+                <Upload
+                  handleNext={handleNext}
+                  eventFormData={eventFormData}
+                  handleChange={handleChange}
+                />
+              </>
+            )}
+          </form>
+          {currentForm === 6 && (
+            <>
+              <h2 className="text-wybt-primary text-2xl font-bold mb-4">
+                URL{" "}
+              </h2>
+              <Url
+                handleNext={handleNext}
+                eventFormData={eventFormData}
+                handleChange={handleChange}
+              />
+            </>
           )}
         </div>
       </div>

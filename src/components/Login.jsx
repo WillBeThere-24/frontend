@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ClosedEye, OpenedEye } from "./common/svg";
-
+import  ClosedEye  from "/public/icons/form/Closed-Eye.svg";
+import  OpenedEye  from "/public/icons/form/Open-Eye.svg";
 const Login = ({ handleTabChange }) => {
   const [formData, setFormData] = useState({
     emailAddress: "",
@@ -59,7 +59,7 @@ const Login = ({ handleTabChange }) => {
           className='absolute right-0 flex items-center px-3 bg-transparent focus:outline-none'
           onClick={togglePassword}
         >
-          {formData.showPassword ? <ClosedEye /> : <OpenedEye />}
+          {formData.showPassword ? (<img src={ClosedEye} alt="" />) : (<img src={OpenedEye} alt=""/>)}
         </button>
       </div>
       <button className='bg-wybt-primary text-wybt-white p-2 rounded-lg '>
