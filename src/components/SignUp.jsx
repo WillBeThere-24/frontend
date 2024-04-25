@@ -29,7 +29,10 @@ const SignUp = ({ handleTabChange }) => {
       password: formData.password,
     };
     try {
-      const result = await postData(`${BASEURL}/auth/register`, userDetails);
+      const result = await postData(
+        `${import.meta.env.VITE_BASE_URL}/auth/register`,
+        userDetails
+      );
       setCurrentUser(result.data);
       navigate("/dashboard");
       showToast.success("Registration Successful");

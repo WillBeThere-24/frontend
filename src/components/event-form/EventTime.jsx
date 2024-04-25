@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 const EventTime = ({ handleNext, handleChange, eventFormData }) => {
-  const setRef = useRef(null);
+
   return (
     <section className="fl gap-3 mb-6 w-full">
       <label htmlFor="" className="text-wybt-primary font-semibold">
@@ -9,6 +9,7 @@ const EventTime = ({ handleNext, handleChange, eventFormData }) => {
       </label>
       <div className="flex gap-2 flex-col md:flex-row w-full ">
         <input
+          ref={setRef}
           type="date"
           placeholder="Date"
           name="eventStartDate"
