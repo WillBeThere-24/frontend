@@ -15,7 +15,7 @@ const EventName = ({
         name="eventName"
         value={eventFormData.eventName}
         onChange={handleChange}
-        ref={setRef}
+        // ref={setRef}
       />
       <button
         className="bg-wybt-primary py-4  px-8 rounded-md text-white"

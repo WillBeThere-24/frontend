@@ -9,7 +9,7 @@ const EventTime = ({ handleNext, handleChange, eventFormData }) => {
       </label>
       <div className="flex gap-2 flex-col md:flex-row w-full ">
         <input
-          ref={setRef}
+          // ref={setRef}
           type="date"
           placeholder="Date"
           name="eventStartDate"

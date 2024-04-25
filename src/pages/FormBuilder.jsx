@@ -21,7 +21,7 @@ const FormBuilder = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  const setRef = useRef();
+  // const setRef = useRef("");
 
   const focusInput = () => {
     setRef.current.focus();
@@ -38,7 +38,7 @@ const FormBuilder = () => {
   const handleNext = (e) => {
     // e.preventDefault()
     setCurrentForm((prev) => prev + 1);
-    focusInput();
+    // focusInput();
   };
   // eslint-disable-next-line no-unused-vars
   const handlePrevious = (e) => {
@@ -128,7 +128,7 @@ const FormBuilder = () => {
                   eventFormData={eventFormData}
                   handleChange={handleChange}
                   focusInput={focusInput}
-                  setRef={setRef}
+                  // setRef={setRef}
                 />
               </>
             )}
