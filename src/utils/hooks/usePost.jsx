@@ -2,9 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const usePost = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const postData = async (url, body) => {
     setLoading(true);
     try {
@@ -13,15 +11,15 @@ const usePost = () => {
           "Content-Type": "application/json",
         },
       });
-      setData(data);
+      return data;
     } catch (error) {
-      setError(error);
+      throw new Error(error.response.data.message);
     } finally {
-      setLoading(false);
+      setLoading(false);  
     }
   };
 
-  return { postData, data, loading, error };
+  return { postData, loading };
 };
 
 export default usePost;
