@@ -4,7 +4,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "../../common/svg";
 const SideBar = ({ children, handleShowText, showText }) => {
   return (
     <aside
-      className={` gap-7 flex flex-col md:pl-20 h-screen fixed md:static left-0 top-12  pl-3   rounded-md  sm:w-[20rem] mt-10 md:mt-0 `}
+      className={` gap-7 flex flex-col md:pl-20 fixed md:static left-0 top-12  pl-3   rounded-md  sm:w-[20rem] mt-10 md:mt-0 `}
     >
       <div>
         <button
@@ -15,7 +15,7 @@ const SideBar = ({ children, handleShowText, showText }) => {
         </button>
       </div>
       <div
-        className={`hidden md:flex flex-col gap-7 h-screen bg-wybt-white p-4 ${
+        className={`hidden md:flex flex-col gap-7 bg-wybt-white p-4 ${
           showText ? "w-64" : "md:w-fit items-center"
         }`}
       >
