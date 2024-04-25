@@ -31,7 +31,7 @@ const Card = () => {
     e.preventDefault();
     if (option === "no") {
       // post attending to false
-      //   postData(process.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest", {
+      //   postData(import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest", {
       // attending:false
       // })
       //  toast.success('Your response has been saved successfully');
@@ -50,7 +50,7 @@ const Card = () => {
 
     if (isValid) {
       // post attending to true and list of friends if any in an array
-      //   postData(process.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest", {
+      //   postData(import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest", {
       // attending:true, plus_ones: friends
       // })
       //   toast.success('Your response has been saved successfully');
