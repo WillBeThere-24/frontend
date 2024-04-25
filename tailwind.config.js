@@ -5,9 +5,10 @@ export default {
     extend: {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
+        caveat: ["Caveat", "cursive", "sans-serif"],
       },
       backgroundImage: {
-        'hero-img': "url('/images/hero-img.png')",
+        "hero-img": "url('/images/hero-img.png')",
       },
       colors: {
         wybt: {
