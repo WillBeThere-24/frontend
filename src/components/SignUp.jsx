@@ -4,7 +4,6 @@ import useStore from '../utils/store/useStore';
 import { useNavigate } from 'react-router-dom';
 import showToast from '../utils/showToast';
 import usePost from '../utils/hooks/usePost';
-import { BASEURL } from '../utils/constants';
 
 const SignUp = ({ handleTabChange }) => {
 	const setCurrentUser = useStore((state) => state.setUser);
@@ -28,7 +27,7 @@ const SignUp = ({ handleTabChange }) => {
 			password: formData.password,
 		};
 		try {
-			const result = await postData(`${BASEURL}/auth/register`, userDetails);
+			const result = await postData(`${import.meta.env.VITE_BASE_URL}/auth/register`, userDetails);
 			setCurrentUser(result.data);
 			navigate('/dashboard');
 			showToast.success('Registration Successful');
