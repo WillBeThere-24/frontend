@@ -9,7 +9,8 @@ import {
   Rsvp,
 } from "./pages";
 import { Authentication } from "./components/common";
-// import axios from "axios";
+import { Toaster } from "react-hot-toast";
+import { Fragment } from "react";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <Fragment>
+      <Toaster />
+      <RouterProvider router={router} />
+    </Fragment>
+  );
 };
 
 export default App;

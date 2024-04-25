@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import useStore from "../../utils/store/useStore";
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Loader from "../liner-loader/loader";
 
 const Authentication = () => {
   const user = useStore((state) => state.user);
@@ -21,9 +22,7 @@ const Authentication = () => {
 
   if (loading) {
     return (
-      <div className='w-full h-screen flex justify-center items-center text-2xl font-bold text-wybt-light-gray'>
-        Checking if user is logged in...
-      </div>
+      <Loader />
     );
   }
 
