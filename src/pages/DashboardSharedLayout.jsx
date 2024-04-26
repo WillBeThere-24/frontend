@@ -6,9 +6,9 @@ const DashboardSharedLayout = () => {
 	return (
 		<>
 			<DashNavBar />
-			<div className="flex gap-12 px-12">
+			<div className="flex gap-12 px-12   pt-7">
 				<SideBar />
-					<Outlet />
+				<Outlet />
 			</div>
 			<Footer />
 		</>
