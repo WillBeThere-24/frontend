@@ -7,7 +7,7 @@ import usePost from '../utils/hooks/usePost';
 
 const Login = ({ handleTabChange }) => {
 	const setCurrentUser = useStore((state) => state.setUser);
-	const { postData, loading  } = usePost();
+	const { postData, loading } = usePost();
 	const navigate = useNavigate();
 
 	const [formData, setFormData] = useState({
@@ -23,9 +23,12 @@ const Login = ({ handleTabChange }) => {
 			password: formData.password,
 		};
 		try {
-			const result = await postData(`${import.meta.env.VITE_BASE_URL}/auth/login`, userDetails);
+			const result = await postData(
+				`${import.meta.env.VITE_BASE_URL}/auth/login`,
+				userDetails
+			);
 			setCurrentUser(result.data);
-			navigate('/dashboard');
+			navigate('/dashboard/overview');
 			showToast.success('Welcome Back');
 		} catch (error) {
 			showToast.error(error.message);
@@ -80,17 +83,23 @@ const Login = ({ handleTabChange }) => {
 				<button
 					className="absolute right-0 flex items-center px-3 bg-transparent focus:outline-none"
 					onClick={togglePassword}
-					type='button'
+					type="button"
 				>
 					{formData.showPassword ? <ClosedEye /> : <OpenedEye />}
 				</button>
 			</div>
-			<button disabled={loading} className="bg-wybt-primary text-wybt-white p-2 rounded-lg disabled:bg-wybt-accent ">
+			<button
+				disabled={loading}
+				className="bg-wybt-primary text-wybt-white p-2 rounded-lg disabled:bg-wybt-accent "
+			>
 				Log In
 			</button>
 			<span className="text-center py-2  text-wybt-light-gray">Or</span>
 			<div className="flex flex-col gap-5">
-				<button disabled={loading} className="bg-wybt-neutral-white text-wybt-primary p-2 rounded-lg border-wybt-primary border disabled:bg-wybt-accent">
+				<button
+					disabled={loading}
+					className="bg-wybt-neutral-white text-wybt-primary p-2 rounded-lg border-wybt-primary border disabled:bg-wybt-accent"
+				>
 					Log in with Google
 				</button>
 			</div>

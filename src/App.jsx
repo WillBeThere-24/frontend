@@ -4,13 +4,15 @@ import {
   Home,
   AccountSetup,
   FormBuilder,
-  Profile,
+  DashboardOverview,
   DashboardSharedLayout,
-  Rsvp,
+  EventsPage,
 } from "./pages";
 import { Authentication } from "./components/common";
 import { Toaster } from "react-hot-toast";
 import { Fragment } from "react";
+import EventOverview from "./pages/EventOverview";
+import RsvpSection from "./pages/RsvpSection";
 
 const router = createBrowserRouter([
   {
@@ -30,30 +32,26 @@ const router = createBrowserRouter([
         element: <DashboardSharedLayout />,
         children: [
           {
-            path: "/dashboard/profile",
-            element: <Profile />,
+            path: "/dashboard/overview",
+            element: <DashboardOverview />,
           },
           {
-            path: "/dashboard/form-builder",
+            path: "/dashboard/events",
+            element: <EventsPage />,
+          },
+          {
+            path: "/dashboard/events/:eventID",
+            element: <EventOverview />,
+          },
+          {
+            path: "/dashboard/new-event",
             element: <FormBuilder />,
           },
+          {
+            path: "/dashboard/rsvp",
+            element: <RsvpSection />,
+          },
         ],
-      },
-    ],
-  },
-  {
-    path: "/rsvp",
-    element: <HomeSharedLayout />,
-    children: [
-      {
-        path: "/rsvp",
-        // path: "/rsvp/:rsvpId",
-        element: <Rsvp />,
-        // loader: async ({ params }) => {
-        //   console.log(params);
-        // const { data } = await axios("");
-        // return { data };
-        //   },
       },
     ],
   },

@@ -1,54 +1,51 @@
 import Avatar2 from "/public/images/Avatar (2).png";
 import NotificationIcon from "/public/icons/Notification-icon.svg";
 import { ArrowLeftIcon, ArrowRightIcon } from "../../common/svg";
-const SideBar = ({ children, handleShowText, showText }) => {
+import { NavLink } from "react-router-dom";
+import SidebarItem from "./SidebarItem";
+
+const SideBar = () => {
   return (
     <aside
-      className={` gap-7 flex flex-col md:pl-20 fixed md:static left-0 top-12  pl-3   rounded-md  sm:w-[20rem] mt-10 md:mt-0 `}
+      className={`sticky pt-7    md:static left-0 top-12 mb-6     rounded-md  w-[28%] border border-wybt-primary bg-slate-50`}
     >
-      <div>
-        <button
-          onClick={handleShowText}
-          className='absolute sm:static top-0 h-0 '
-        >
-          {showText ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-        </button>
-      </div>
-      <div
-        className={`hidden md:flex flex-col gap-7 bg-wybt-white p-4 ${
-          showText ? "w-64" : "md:w-fit items-center"
-        }`}
-      >
-        <div className='md:flex items-center border-wybt-primary border p-3      rounded-md gap-3 hidden'>
-          <img src={Avatar2} alt='' className='p-0' />
-          <span className={`flex gap-2 ${showText ? "" : "hidden"}`}>
-            <p className='font-semibold'>Tamya Jess</p>
-            <img src={NotificationIcon} alt='Notification Icon' width='20fpx' />
-          </span>
-        </div>
-        <div className='border-wybt-primary border p-6 rounded-md'>
-          {children}
-        </div>
-      </div>{" "}
-      {showText && (
-        <div className='md:hidden flex flex-col gap-7 p-4 bg-wybt-white rounded-md'>
-          <div className='flex items-center border-wybt-primary border p-4 rounded-md gap-3 '>
-            <img src={Avatar2} alt='' />
-            <span className='items-center flex flex-col'>
-              <p className='font-semibold'>Tamya Jess</p>
-              <img
-                src={NotificationIcon}
-                alt='Notification Icon'
-                width='20fpx'
-              />
-            </span>{" "}
-          </div>
-          <div className='border-wybt-primary border p-4 rounded-md overflow-scroll md:overflow-hidden'>
-            {children}
-          </div>
-        </div>
-      )}
-      <div></div>
+      <p className='text-gray-400 text-sm mb-4 pl-6'>Dashboard</p>
+
+      <SidebarItem
+        link='/dashboard/overview'
+        icon='/icons/overview.svg'
+        title='Overview'
+      />
+      <SidebarItem
+        link='/dashboard/events'
+        icon='/icons/form-builder.svg'
+        title='Events'
+      />
+      <SidebarItem link='/dashboard/rsvp' icon='/icons/rsvp.svg' title='RSVP' />
+      <SidebarItem
+        link='/dashboard/new-event'
+        icon='/icons/new-event.svg'
+        title='Create Event'
+      />
+      <SidebarItem link='/register' icon='/icons/logout.svg' title='Sign Out' />
+
+      <p className='text-gray-400 text-sm my-4 pl-6'>Recents</p>
+
+      <SidebarItem
+        link='/dashboard/events/1'
+        icon='/icons/event.svg'
+        title='Birthday'
+      />
+      <SidebarItem
+        link='/dashboard/events/2'
+        icon='/icons/event.svg'
+        title='Marriage'
+      />
+      <SidebarItem
+        link='/dashboard/events/3'
+        icon='/icons/event.svg'
+        title='Burial'
+      />
     </aside>
   );
 };
