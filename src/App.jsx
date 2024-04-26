@@ -6,11 +6,13 @@ import {
 	FormBuilder,
 	DashboardOverview,
 	DashboardSharedLayout,
-	EventsOverview
+	EventsPage,
 } from './pages';
 import { Authentication } from './components/common';
 import { Toaster } from 'react-hot-toast';
 import { Fragment } from 'react';
+import EventOverview from './pages/EventOverview';
+import RsvpSection from './pages/RsvpSection';
 
 const router = createBrowserRouter([
 	{
@@ -35,7 +37,19 @@ const router = createBrowserRouter([
 					},
 					{
 						path: '/dashboard/events',
-						element: <EventsOverview />,
+						element: <EventsPage />,
+					},
+					{
+						path: '/dashboard/events/:eventID',
+						element: <EventOverview />,
+					},
+					{
+						path: '/dashboard/new-event',
+						element: <FormBuilder />,
+					},
+					{
+						path: '/dashboard/rsvp',
+						element: <RsvpSection />,
 					},
 				],
 			},
@@ -46,8 +60,7 @@ const router = createBrowserRouter([
 const App = () => {
 	return (
 		<Fragment>
-			<Toaster
-			/>
+			<Toaster />
 			<RouterProvider router={router} />
 		</Fragment>
 	);

@@ -5,4 +5,4 @@ export { default as FormBuilder } from "./FormBuilder";
 export { default as DashboardOverview } from "./DashboardOverview";
 export { default as HomeSharedLayout } from "./HomeSharedLayout";
 export { default as DashboardSharedLayout } from "./DashboardSharedLayout";
-export { default as EventsOverview } from "./EventsOverview";
+export { default as EventsPage } from "./EventsPage";
