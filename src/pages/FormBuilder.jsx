@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { DashNavBar, SidebarContainer } from "../components/dashboard";
+import { useState } from "react";
+import { DashNavBar } from "../components/dashboard";
 import { Footer } from "../components/common";
 import EventName from "../components/event-form/EventName";
 import EventTime from "../components/event-form/EventTime";
@@ -59,19 +59,10 @@ const FormBuilder = () => {
   // }, [currentForm]);
   return (
     <main>
-      <div className="flex gap-12 z-0">
-        <SidebarContainer />
-        <div className="w-full md:pr-24 pr-6 gap-5 flex flex-col items-center ">
-          <div className="flex gap-4 md:justify-center mb-8 overflow-x-scroll md:overflow-x-auto whitespace-nowrap w-[75vw]  md:w-full p-4 mr-4 md:mr-0">
-            <button
-              className={`${
-                currentForm === 1
-                  ? "font-semibold border-b border-wybt-primary   text-wybt-primary p-1"
-                  : "text-wybt-light-gray"
-              } `}
-              // ref={(el) => (formButtonsRef.current[1] = el)}
-              onClick={() => setCurrentForm(1)}
-            >
+      <div className="flex gap-12">
+        <div className="w-full md:pr-24 gap-5 flex flex-col items-center">
+          <div className="flex gap-4 justify-center mb-8">
+            <button className={`${currentForm === 1 ? "font-semibold" : ""}`}>
               Event Name
             </button>
             <button

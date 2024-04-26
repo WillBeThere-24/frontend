@@ -5,7 +5,6 @@ import useStore from "../utils/store/useStore";
 import { useNavigate } from "react-router-dom";
 import showToast from "../utils/showToast";
 import usePost from "../utils/hooks/usePost";
-import { BASEURL } from "../utils/constants";
 
 const Login = ({ handleTabChange }) => {
   const setCurrentUser = useStore((state) => state.setUser);
@@ -25,9 +24,12 @@ const Login = ({ handleTabChange }) => {
       password: formData.password,
     };
     try {
-      const result = await postData(`${BASEURL}/auth/login`, userDetails);
+      const result = await postData(
+        `${import.meta.env.VITE_BASE_URL}/auth/login`,
+        userDetails
+      );
       setCurrentUser(result.data);
-      navigate("/dashboard");
+      navigate("/dashboard/overview");
       showToast.success("Welcome Back");
     } catch (error) {
       showToast.error(error.message);

@@ -21,7 +21,7 @@ const EventLocation = ({ handleNext, eventFormData, handleChange }) => {
         Next
       </button>
     </section>
-  );
+  ); 
 };
 
 export default EventLocation;

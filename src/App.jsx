@@ -4,10 +4,10 @@ import {
 	Home,
 	AccountSetup,
 	FormBuilder,
-	Profile,
+	DashboardOverview,
 	DashboardSharedLayout,
+	EventsOverview
 } from './pages';
-import { SidebarContainer } from './components/dashboard';
 import { Authentication } from './components/common';
 import { Toaster } from 'react-hot-toast';
 import { Fragment } from 'react';
@@ -30,12 +30,12 @@ const router = createBrowserRouter([
 				element: <DashboardSharedLayout />,
 				children: [
 					{
-						path: '/dashboard/profile',
-						element: <Profile />,
+						path: '/dashboard/overview',
+						element: <DashboardOverview />,
 					},
 					{
-						path: '/dashboard/form-builder',
-						element: <FormBuilder />,
+						path: '/dashboard/events',
+						element: <EventsOverview />,
 					},
 				],
 			},
@@ -48,9 +48,7 @@ const App = () => {
 		<Fragment>
 			<Toaster
 			/>
-			<RouterProvider router={router}>
-				<SidebarContainer />
-			</RouterProvider>
+			<RouterProvider router={router} />
 		</Fragment>
 	);
 };
