@@ -1,22 +1,63 @@
 import { useState } from "react";
 import FriendInputs from "./FriendInputs";
 import { Button } from "../common";
-// import { usePost } from "../../utils/hooks";
-
+import Modal from "./Modal";
+import toast from "react-hot-toast";
+import { usePost } from "../../utils/hooks";
+const noData = [
+  {
+    children: (
+      <p className='text-3xl  font-extrabold  font-caveat md:text-6xl text-center'>
+        Next Time Hopefully!
+      </p>
+    ),
+    parentClassName: "bg-wybt-white",
+  },
+];
+const yesData = [
+  {
+    children: (
+      <div className=' flex flex-col gap-4 md:gap-6 justify-center items-center'>
+        <p className='text-3xl font-extrabold  font-caveat md:text-6xl text-center'>
+          Woo-hoo!
+        </p>
+        <p>Thanks for confirming your spot</p>
+      </div>
+    ),
+    parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
+  },
+  {
+    children: (
+      <div className='absolute bottom-0 bg-wybt-primary w-full h-[50%] flex flex-col gap-4 justify-center items-center text-3xl  font-extrabold  font-caveat md:text-6xl text-center text-white'>
+        <p>1234 Elm Street,</p>
+        <p>Springfield, Anytown,</p>
+      </div>
+    ),
+    parentClassName: "bg-yes-modal bg-no-repeat bg-cover ",
+  },
+  {
+    children: (
+      <p className='text-3xl  font-extrabold font-caveat md:text-6xl text-center'>
+        See you there
+      </p>
+    ),
+    parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
+  },
+];
 const Card = () => {
-  //   const { postData, data, loading, error } = usePost();
-  //   if(error){
-  //     toast.error('There was an error posting your response. Please try again!')
-  //   }
   const [friends, setFriends] = useState([]);
   const [option, setOption] = useState("yes");
+  const [modalData, setModalData] = useState([]);
+  const [isOpened, setIsOpened] = useState(false);
 
+  const { postData, data } = usePost();
   const handleAddFriend = () => {
     setFriends((previousFriends) => [
       ...previousFriends,
       { firstName: "", lastName: "", email: "" },
     ]);
   };
+
   const handleRemoveFriend = () => {
     setFriends((previousFriends) => previousFriends.slice(0, -1));
   };
@@ -29,37 +70,56 @@ const Card = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (option === "no") {
-      // post attending to false
-      //   postData(import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest", {
-      // attending:false
-      // })
-      //  toast.success('Your response has been saved successfully');
+    try {
+      if (option === "no") {
+        // post attending to false
+        postData(
+          import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest",
+          {
+            attending: false,
+          }
+        );
+        if (data) {
+          setModalData(noData);
+          setIsOpened(true);
+          toast.success("Your response has been saved successfully");
+        }
 
-      return;
-    }
-    let isValid = true;
-    friends.map((_, index) => {
-      const form = document.getElementById(`form-${index}`);
-      if (!form.checkValidity()) {
-        isValid = false;
-        form.reportValidity();
         return;
       }
-    });
+      let isValid = true;
+      friends.map((_, index) => {
+        const form = document.getElementById(`form-${index}`);
+        if (!form.checkValidity()) {
+          isValid = false;
+          form.reportValidity();
+          return;
+        }
+      });
 
-    if (isValid) {
-      // post attending to true and list of friends if any in an array
-      //   postData(import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest", {
-      // attending:true, plus_ones: friends
-      // })
-      //   toast.success('Your response has been saved successfully');
-      console.log(friends);
+      if (isValid) {
+        // post attending to true and list of friends if any in an array
+        postData(
+          import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest",
+          {
+            attending: true,
+            plus_ones: friends,
+          }
+        );
+        if (!data) {
+          setModalData(yesData);
+          setIsOpened(true);
+          toast.success("Your response has been saved successfully");
+        }
+      }
+    } catch (error) {
+      toast.error(
+        "There was an error posting your response. Please try again!"
+      );
     }
   };
-
   return (
-    <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat'>
+    <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
       <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
         <h4 className='text-center font-bold text-2xl md:text-4xl '>RSVP</h4>
         <p className='text-center font-light text-base md:text-xl'>
@@ -149,10 +209,13 @@ const Card = () => {
         type='submit'
         className='bg-wybt-primary self-center text-wybt-white w-full md:w-[75%] lg:w-[50%]'
         onClick={handleSubmit}
-        // disabled={isLoading}
+        // disabled={loading}
       >
         Next
       </Button>
+      {isOpened && (
+        <Modal isOpen={isOpened} setIsOpen={setIsOpened} data={modalData} />
+      )}
     </main>
   );
 };
