@@ -9,6 +9,7 @@ export default {
       },
       backgroundImage: {
         "hero-img": "url('/images/hero-img.png')",
+        "yes-modal": "url('/images/congratulations.jpeg')",
       },
       colors: {
         wybt: {
