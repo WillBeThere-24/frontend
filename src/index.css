@@ -3,3 +3,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.events__container {
+   display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+	/* width: 95%; */
+	margin: 2rem 0 6rem;
+	column-gap: 2rem;
+	grid-row: auto;
+	grid-auto-rows: auto;
+	row-gap: 5rem;
+}

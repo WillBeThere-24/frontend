@@ -16,7 +16,6 @@ const FormBuilder = () => {
   };
   return (
     <main>
-      <DashNavBar />
       <div className='flex gap-12'>
         <SidebarContainer />
         <div className='w-full md:pr-24 gap-5 flex flex-col items-center'>

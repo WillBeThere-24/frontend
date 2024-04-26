@@ -1,18 +1,12 @@
-const SidebarItem = ({ title, children, showText }) => {
-  return (
-    <div className='gap-4 flex flex-col'>
-      {showText && (
-        <h2
-          className={`text-3xl font-bold text-wybt-primary  ${
-            showText ? "" : ""
-          } mb-1 mt-7 first:mt-0`}
-        >
-          {title}
-        </h2>
-      )}
-      <ul className='md:gap-7 gap-4 flex flex-col'>{children}</ul>
-    </div>
-  );
+import { NavLink } from 'react-router-dom';
+
+const SidebarItem = ({ icon, title, link }) => {
+	return (
+		<NavLink className="pl-6 gap-3 flex items-center py-3 hover:bg-slate-100" to={link}>
+			<img className='w-7 block' src={icon} alt="" />
+			<h2 className="text-md font-bold text-wybt-primary ">{title}</h2>
+		</NavLink>
+	);
 };
 
 export default SidebarItem;
