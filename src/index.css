@@ -15,7 +15,7 @@
 	row-gap: 5rem;
 }
 
-.dash__nav {
+.dashboard {
 	a.active {
 		background-color: #e1e1e1;
 	}
