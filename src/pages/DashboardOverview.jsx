@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const DashboardOverview = () => {
 	return (
-		<main className="w-full  gap-5">
+		<main className="w-full">
 			<div>
 				<h1 className="font-bold text-2xl">Hi, Tamya Jess</h1>
 				<p>
@@ -18,9 +20,9 @@ const DashboardOverview = () => {
 					<p>Events</p>
 				</div>
 			</div>
-			<button className="bg-wybt-primary text-white py-2 px-20 my-20 ">
-				Start Creating
-			</button>
+			<Link to="/dashboard/new-event" className="bg-wybt-primary text-white py-4 px-10 my-20  rounded-md mt-10 block w-fit font-bold">
+				Create New Event
+			</Link>
 		</main>
 	);
 };

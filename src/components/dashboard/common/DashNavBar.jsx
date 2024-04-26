@@ -4,7 +4,7 @@ import useStore from '../../../utils/store/useStore';
 const DashNavBar = () => {
   const currentUser = useStore(state => state.user)
 	return (
-		<nav className="flex justify-between h-[10vh] py-10 md:px-14 px-8 w-full items-center mb-14 sticky top-0 shadow-md bg-white z-50">
+		<nav className="flex justify-between h-[10vh] py-10 md:px-14 px-8 w-full items-center sticky top-0 shadow-md bg-white z-50 dash__nav">
 			<div>
 				<div>
 					<a
