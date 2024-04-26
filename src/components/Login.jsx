@@ -70,26 +70,28 @@ const Login = ({ handleTabChange }) => {
         >
           Password
         </label>
-        <input
-          type={formData.showPassword ? "text" : "password"}
-          name="password"
-          id="password"
-          placeholder="Enter Password"
-          className="bg-wybt-white border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 pr-10"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button
-          className="absolute right-0 flex items-center px-3 bg-transparent focus:outline-none"
-          onClick={togglePassword}
-          type="button"
-        >
-          {formData.showPassword ? (
-            <img src={ClosedEye} alt="" />
-          ) : (
-            <img src={OpenedEye} alt="" />
-          )}
-        </button>
+        <div>
+          <input
+            type={formData.showPassword ? "text" : "password"}
+            name="password"
+            id="password"
+            placeholder="Enter Password"
+            className="relatisve bg-wybt-white border w-full py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 pr-10"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <span
+            className="absolute right-3 h-1/2 inline ml-[-1.5%] cursor-pointer align-middle items-center px-3 bg-transparent focus:outline-none text-wybt-white-gray"
+            onClick={togglePassword}
+            type="button"
+          >
+            {formData.showPassword ? (
+              <img src={ClosedEye} alt="" className="p-0 m-0 h-full " />
+            ) : (
+              <img src={OpenedEye} alt="" className="p-0 m-0 h-full " />
+            )}
+          </span>
+        </div>
       </div>
       <button
         disabled={loading}

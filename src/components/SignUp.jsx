@@ -86,32 +86,34 @@ const SignUp = ({ handleTabChange }) => {
         value={formData.emailAddress}
         onChange={handleChange}
       />
-      <div className="relative flex flex-col z0">
+      <div className="relative flex flex-col z-0">
         <label
           htmlFor="password"
           className="uppercase text-wybt-primary font-[500] mb-1"
         >
           Password
         </label>
-        <input
-          type={formData.showPassword ? "text" : "password"}
-          name="password"
-          id="password"
-          placeholder="Enter Password"
-          className="border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 pr-10 bg-wybt-white"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button
-          className="absolute right-0 flex items-center px-3 bg-transparent focus:outline-none text-wybt-white-gray"
-          onClick={togglePassword}
-        >
-          {formData.showPassword ? (
-            <img src={ClosedEye} alt="" />
-          ) : (
-            <img src={OpenedEye} alt="" />
-          )}
-        </button>
+        <div className="relatsive">
+          <input
+            type={formData.showPassword ? "text" : "password"}
+            name="password"
+            id="password"
+            placeholder="Enter Password"
+            className="border w-full py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 pr-10 bg-wybt-white"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <span
+            className="absolute right-3 h-1/2 inline ml-[-1.5%] align-middle items-center px-3 bg-transparent cursor-pointer focus:outline-none text-wybt-white-gray"
+            onClick={togglePassword}
+          >
+            {formData.showPassword ? (
+              <img src={ClosedEye} alt="" className="p-0 m-0 h-full w-full " />
+            ) : (
+              <img src={OpenedEye} alt="" className="p-0 m-0 h-full w-30 " />
+            )}
+          </span>
+        </div>
       </div>
       <p className="my-2 text-wybt-light-gray text-sm">
         By completing Sign Up,you agree to{" "}
