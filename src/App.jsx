@@ -8,7 +8,6 @@ import {
 	DashboardSharedLayout,
 	EventsOverview
 } from './pages';
-import { SidebarContainer } from './components/dashboard';
 import { Authentication } from './components/common';
 import { Toaster } from 'react-hot-toast';
 import { Fragment } from 'react';
@@ -49,9 +48,7 @@ const App = () => {
 		<Fragment>
 			<Toaster
 			/>
-			<RouterProvider router={router}>
-				<SidebarContainer />
-			</RouterProvider>
+			<RouterProvider router={router} />
 		</Fragment>
 	);
 };

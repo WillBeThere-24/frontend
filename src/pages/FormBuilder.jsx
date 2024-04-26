@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DashNavBar, SidebarContainer } from "../components/dashboard";
+import { DashNavBar } from "../components/dashboard";
 import { Footer } from "../components/common";
 const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
@@ -17,7 +17,6 @@ const FormBuilder = () => {
   return (
     <main>
       <div className='flex gap-12'>
-        <SidebarContainer />
         <div className='w-full md:pr-24 gap-5 flex flex-col items-center'>
           <div className='flex gap-4 justify-center mb-8'>
             <button className={`${currentForm === 1 ? "font-semibold" : ""}`}>
