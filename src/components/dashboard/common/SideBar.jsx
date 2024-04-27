@@ -1,3 +1,4 @@
+
 import useStore from '../../../utils/store/useStore';
 import SidebarItem from './SidebarItem';
 
@@ -10,6 +11,7 @@ const SideBar = () => {
 			} md:block  md:w-[28%] border border-wybt-primary bg-slate-50`}
 		>
 			<p className="text-gray-400 text-sm mb-4 pl-6">Dashboard</p>
+
 
 			<SidebarItem
 				link="/dashboard/overview"
@@ -42,25 +44,26 @@ const SideBar = () => {
 				title="Sign Out"
 			/>
 
-			<p className="text-gray-400 text-sm my-4 pl-6">Recents</p>
 
-			<SidebarItem
-				link="/dashboard/events/1"
-				icon="/icons/event.svg"
-				title="Birthday"
-			/>
-			<SidebarItem
-				link="/dashboard/events/2"
-				icon="/icons/event.svg"
-				title="Marriage"
-			/>
-			<SidebarItem
-				link="/dashboard/events/3"
-				icon="/icons/event.svg"
-				title="Burial"
-			/>
-		</aside>
-	);
+      <p className='text-gray-400 text-sm my-4 pl-6'>Recents</p>
+
+      <SidebarItem
+        link='/dashboard/events/1'
+        icon='/icons/event.svg'
+        title='Birthday'
+      />
+      <SidebarItem
+        link='/dashboard/events/2'
+        icon='/icons/event.svg'
+        title='Marriage'
+      />
+      <SidebarItem
+        link='/dashboard/events/3'
+        icon='/icons/event.svg'
+        title='Burial'
+      />
+    </aside>
+  );
 };
 
 export default SideBar;
