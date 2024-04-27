@@ -325,7 +325,7 @@ const FormBuilder = () => {
 					Event Image
 				</p>
 			</div>
-			<form onSubmit={handleFormSubmit} className="mx-auto w-[65%]">
+			<form onSubmit={handleFormSubmit} className="mx-auto w-full md:w-[65%]">
 				{handleFormRendering()}
 			</form>
 		</main>

@@ -7,7 +7,7 @@ const DashboardSharedLayout = () => {
 	return (
 		<>
 			<DashNavBar />
-			<div className="dashboard flex gap-12 px-12   pt-7">
+			<div className="dashboard flex gap-12 px-6 md:px-12   pt-7">
 				<SideBar />
 				<Outlet />
 			</div>
