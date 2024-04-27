@@ -1,7 +1,4 @@
-import Avatar2 from '/public/images/Avatar (2).png';
-import NotificationIcon from '/public/icons/Notification-icon.svg';
-import { ArrowLeftIcon, ArrowRightIcon } from '../../common/svg';
-import { NavLink } from 'react-router-dom';
+
 import SidebarItem from './SidebarItem';
 
 const SideBar = () => {
@@ -30,6 +27,11 @@ const SideBar = () => {
 				link="/dashboard/new-event"
 				icon="/icons/new-event.svg"
 				title="Create Event"
+			/>
+			<SidebarItem
+				link="/dashboard/invite-guest"
+				icon="/icons/add-guest.svg"
+				title="Add Guest"
 			/>
 			<SidebarItem link="/register" icon="/icons/logout.svg" title="Sign Out" />
 

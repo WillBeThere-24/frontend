@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import { addZero } from "../utils/addZero";
+import useStore from "../utils/store/useStore";
 
 const DashboardOverview = () => {
+	const currentUser = useStore(state => state.user)
 	return (
 		<main className="w-full">
 			<div>
-				<h1 className="font-bold text-2xl">Hi, Tamya Jess</h1>
+				<h1 className="font-bold text-3xl font-montserrat">Hi, {currentUser.name}</h1>
 				<p>
 					Welcome to <span>Will Be There</span>, You have:
 				</p>
