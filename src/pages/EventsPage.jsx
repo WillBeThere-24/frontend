@@ -64,10 +64,10 @@ const items = [
 ];
 
 function EventsPage() {
-   console.log(items)
 	return (
 		<div className="w-full">
-			<h1 className="text-3xl font-bold font-montserrat">Events</h1>
+			<h1 className="text-3xl font-bold font-montserrat text-wybt-primary">Events</h1>
+			<p className='text-gray-700 mt-3 text-sm'>Explore and manage all the events you have created right here in one convenient location.</p>
 			<div className="events__container" >
 				{items.map((item, index) => (
 					<EventCard

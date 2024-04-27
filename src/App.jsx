@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
 	HomeSharedLayout,
 	Home,
@@ -13,6 +13,7 @@ import { Toaster } from 'react-hot-toast';
 import { Fragment } from 'react';
 import EventOverview from './pages/EventOverview';
 import RsvpSection from './pages/RsvpSection';
+import InviteGuest from './pages/InviteGuest';
 
 const router = createBrowserRouter([
 	{
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
 						path: '/dashboard/rsvp',
 						element: <RsvpSection />,
 					},
+					{
+						path: "/dashboard/invite-guest",
+						element: <InviteGuest />
+					}
 				],
 			},
 		],
@@ -58,12 +63,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-	return (
-		<Fragment>
-			<Toaster />
-			<RouterProvider router={router} />
-		</Fragment>
-	);
+  return (
+    <Fragment>
+      <Toaster />
+      <RouterProvider router={router} />
+    </Fragment>
+  );
 };
 
 export default App;
