@@ -1,8 +1,9 @@
-import { Outlet } from 'react-router-dom';
-import { DashNavBar, SideBar } from '../components/dashboard';
-import { Footer } from '../components/common';
+import { Outlet } from "react-router-dom";
+import { DashNavBar, SideBar } from "../components/dashboard";
+import { Footer } from "../components/common";
 
 const DashboardSharedLayout = () => {
+
 	return (
 		<>
 			<DashNavBar />

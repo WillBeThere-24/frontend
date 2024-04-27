@@ -12,7 +12,9 @@ const Authentication = () => {
     setTimeout(() => setLoading(false), 2000);
 
     if (!user && !loading) {
-      toast.error("User is not logged in \n Please login to access this page");
+      toast.error("Page access denied \n Please login to access this page", {
+        className: "text-wybt-primary text-sm",
+      });
     }
 
     return () => clearTimeout(setTimeout(() => setLoading(false), 2000));

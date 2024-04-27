@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
 	HomeSharedLayout,
 	Home,
@@ -63,12 +63,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-	return (
-		<Fragment>
-			<Toaster />
-			<RouterProvider router={router} />
-		</Fragment>
-	);
+  return (
+    <Fragment>
+      <Toaster />
+      <RouterProvider router={router} />
+    </Fragment>
+  );
 };
 
 export default App;
