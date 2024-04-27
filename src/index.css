@@ -24,18 +24,17 @@
 }
 
 
-.table__head {
-	display: grid;
-	grid-template-columns: 7rem 12rem auto 9rem ;
 
-	align-items: center;
-	column-gap: 1rem;
-	width: 100%;
-}
 
 .table__body {
 	display: grid;
 	grid-template-columns: 7rem 12rem auto 9rem ;
 	column-gap: 1rem;
 	width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+	.table__body {
+		grid-template-columns: 10rem auto;
+	}
 }
