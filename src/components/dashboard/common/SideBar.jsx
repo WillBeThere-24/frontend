@@ -1,3 +1,4 @@
+
 import Avatar2 from "/public/images/Avatar (2).png";
 import NotificationIcon from "/public/icons/Notification-icon.svg";
 import { ArrowLeftIcon, ArrowRightIcon } from "../../common/svg";
@@ -11,23 +12,33 @@ const SideBar = () => {
     >
       <p className='text-gray-400 text-sm mb-4 pl-6'>Dashboard</p>
 
-      <SidebarItem
-        link='/dashboard/overview'
-        icon='/icons/overview.svg'
-        title='Overview'
-      />
-      <SidebarItem
-        link='/dashboard/events'
-        icon='/icons/form-builder.svg'
-        title='Events'
-      />
-      <SidebarItem link='/dashboard/rsvp' icon='/icons/rsvp.svg' title='RSVP' />
-      <SidebarItem
-        link='/dashboard/new-event'
-        icon='/icons/new-event.svg'
-        title='Create Event'
-      />
-      <SidebarItem link='/register' icon='/icons/logout.svg' title='Sign Out' />
+			<SidebarItem
+				link="/dashboard/overview"
+				icon="/icons/overview.svg"
+				title="Overview"
+			/>
+			<SidebarItem
+				link="/dashboard/events"
+				icon="/icons/form-builder.svg"
+				title="Events"
+			/>
+			<SidebarItem
+				link="/dashboard/rsvp"
+				icon="/icons/rsvp.svg"
+				title="RSVP"
+			/>
+			<SidebarItem
+				link="/dashboard/new-event"
+				icon="/icons/new-event.svg"
+				title="Create Event"
+			/>
+			<SidebarItem
+				link="/dashboard/invite-guest"
+				icon="/icons/add-guest.svg"
+				title="Add Guest"
+			/>
+			<SidebarItem link="/register" icon="/icons/logout.svg" title="Sign Out" />
+
 
       <p className='text-gray-400 text-sm my-4 pl-6'>Recents</p>
 

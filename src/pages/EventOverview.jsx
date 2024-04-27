@@ -14,6 +14,7 @@ function InvitedGuest({isAttending}) {
 
 function EventOverview() {
 	const invitedGuests = [1, 2, 3, 4, 5, 6, 6, 7, 7];
+	
 	return (
 		<div className="w-full">
 			<h1 className="text-3xl font-bold font-montserrat">Marriage Events</h1>
