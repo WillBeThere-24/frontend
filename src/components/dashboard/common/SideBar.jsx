@@ -1,10 +1,13 @@
-
+import useStore from '../../../utils/store/useStore';
 import SidebarItem from './SidebarItem';
 
 const SideBar = () => {
+	const sideBarState = useStore((state) => state.sideBarState);
 	return (
 		<aside
-			className={`sticky pt-7    md:static left-0 top-12 mb-6     rounded-md  w-[28%] border border-wybt-primary bg-slate-50`}
+			className={`fixed top-[10vh] z-50 md:z-0 left-0 pt-7 h-screen rounded-none   md:static  mb-6     md:rounded-md w-full ${
+				sideBarState ? 'block' : 'hidden'
+			} md:block  md:w-[28%] border border-wybt-primary bg-slate-50`}
 		>
 			<p className="text-gray-400 text-sm mb-4 pl-6">Dashboard</p>
 
@@ -33,7 +36,11 @@ const SideBar = () => {
 				icon="/icons/add-guest.svg"
 				title="Add Guest"
 			/>
-			<SidebarItem link="/register" icon="/icons/logout.svg" title="Sign Out" />
+			<SidebarItem
+				link="/register"
+				icon="/icons/logout.svg"
+				title="Sign Out"
+			/>
 
 			<p className="text-gray-400 text-sm my-4 pl-6">Recents</p>
 

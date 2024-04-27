@@ -44,7 +44,7 @@ export const CloseMenuBtn = ({ className, handleClick }) => {
         height='74px'
         xmlns='http://www.w3.org/2000/svg'
         stroke='#000000'
-        strokeWidth='1.2'
+        strokeWidth='0'
       >
         <g
           id='SVGRepo_bgCarrier'
@@ -57,7 +57,7 @@ export const CloseMenuBtn = ({ className, handleClick }) => {
             width='28.80'
             height='28.80'
             rx='14.4'
-            fill='#E5A4CB'
+            fill='#E7E6E9'
             strokeWidth='0'
           ></rect>
         </g>
@@ -73,7 +73,7 @@ export const CloseMenuBtn = ({ className, handleClick }) => {
             fillRule='evenodd'
             clipRule='evenodd'
             d='M19.207 6.207a1 1 0 0 0-1.414-1.414L12 10.586 6.207 4.793a1 1 0 0 0-1.414 1.414L10.586 12l-5.793 5.793a1 1 0 1 0 1.414 1.414L12 13.414l5.793 5.793a1 1 0 0 0 1.414-1.414L13.414 12l5.793-5.793z'
-            fill='#000000'
+            fill='#ffffff'
           ></path>
         </g>
       </svg>
