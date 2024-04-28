@@ -7,16 +7,16 @@ const usePost = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(url, body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        withCredentials: true,
       });
       return data;
     } catch (error) {
       throw new Error(error.response.data.message);
     } finally {
-      setLoading(false);  
+      setLoading(false);
     }
   };
 
