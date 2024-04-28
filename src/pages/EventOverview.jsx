@@ -37,9 +37,15 @@ function EventOverview() {
 					<p>Not Attending</p>
 				</div>
 			</div>
-			<button onClick={handleToggleList} className="bg-wybt-primary text-white py-4 w-full md:w-fit md:px-20 my-20  rounded-md">
-				{showGuests? "Hide Guest List": "View Guests List"}
-			</button>
+			<div className="flex justify-between items-center">
+				<button onClick={handleToggleList} className="bg-wybt-primary text-white py-4 w-full md:w-fit md:px-20 my-20  rounded-md">
+					{showGuests? "Hide Guest List": "View Guests List"}
+				</button>
+				<button  className="bg-wybt-primary text-white py-4 w-full md:w-fit md:px-20 my-20  rounded-md">
+					Invite Guests
+				</button>
+
+			</div>
          {showGuests && <table className="w-full mb-10">
             <div className="table__body border items-center border-wybt-accent rounded-md py-4 px-2 [&>p]:text-sm [&>p]:font-bold text-wybt-primary">
                <p>Name</p>

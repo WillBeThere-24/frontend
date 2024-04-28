@@ -10,6 +10,7 @@ const usePost = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true
       });
       return data;
     } catch (error) {
