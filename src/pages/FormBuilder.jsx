@@ -3,7 +3,6 @@ import timezone from "../utils/timezone.json";
 import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
 import useEvents from "../utils/store/useEvents";
-import Loader from "../components/circle-loader/Loader";
 import { useNavigate } from "react-router-dom";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
@@ -180,7 +179,6 @@ const FourthForm = ({
   setFormDetails,
   setFileImage,
   formDetails,
-  loading,
 }) => {
   const fileInputRef = useRef(null);
 
@@ -243,7 +241,7 @@ const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [fileImage, setFileImage] = useState(null);
   const addNewEvent = useEvents((state) => state.addEvent);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",

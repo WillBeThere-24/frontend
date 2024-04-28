@@ -28,12 +28,12 @@ function InvitedGuest({ isAttending }) {
 function EventOverview() {
   const invitedGuests = [1, 2, 3, 4, 5, 6, 6, 7, 7];
   const [showGuests, setShowGuests] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const currentEvent = useEvents((state) => state.currentEvent);
-
+  console.log("currevente", currentEvent);
   const handleToggleList = () => {
     setShowGuests(!showGuests);
   };
-
   return (
     <div className='w-full'>
       <h1 className='text-3xl font-bold font-montserrat'>
@@ -51,15 +51,18 @@ function EventOverview() {
         </div>
       </div>
       <div className='flex justify-between items-center'>
-        <button
+        <Button
           onClick={handleToggleList}
-          className='bg-wybt-primary text-white py-4 w-full md:w-fit md:px-20 my-20  rounded-md'
+          className='bg-wybt-primary text-white py-4 max-w-fit w-full md:w-fit md:px-20 my-20  rounded-md whitespace-nowrap border border-red-500'
         >
           {showGuests ? "Hide Guest List" : "View Guests List"}
-        </button>
-        <button className='bg-wybt-primary text-white py-4 w-full md:w-fit md:px-20 my-20  rounded-md'>
+        </Button>
+        <Button
+          className='bg-wybt-primary text-white py-4 w-full md:w-fit md:px-20 my-20  rounded-md whitespace-nowrap'
+          onClick={() => setIsModalOpen(true)}
+        >
           Invite Guests
-        </button>
+        </Button>
       </div>
       {showGuests && (
         <table className='w-full mb-10'>
@@ -74,6 +77,13 @@ function EventOverview() {
             <InvitedGuest key={index} isAttending={index % 2} />
           ))}
         </table>
+      )}
+      {isModalOpen && (
+        <InviteModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          id={currentEvent?._id}
+        />
       )}
     </div>
   );
