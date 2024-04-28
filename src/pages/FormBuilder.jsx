@@ -3,6 +3,7 @@ import timezone from "../utils/timezone.json";
 import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
 import useEvents from "../utils/store/useEvents";
+import { useNavigate } from "react-router-dom";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -238,7 +239,7 @@ const FourthForm = ({
 const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [fileImage, setFileImage] = useState(null);
-  const addNewEvent = useEvents(state => state.addEvent);
+  const addNewEvent = useEvents((state) => state.addEvent);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -252,6 +253,7 @@ const FormBuilder = () => {
     isPrivate: false,
   });
   const { postData } = usePost();
+  const navigate = useNavigate();
 
   const handleNext = () => {
     if (currentForm == 4) return;
@@ -285,11 +287,11 @@ const FormBuilder = () => {
         `${import.meta.env.VITE_BASE_URL}/events`,
         formData
       );
-		console.log(data)
-		addNewEvent(data)
-
+      console.log(data);
+      addNewEvent(data);
 
       showToast.success("Form Submitted");
+      navigate("/dashboard/overview");
     } catch (error) {
       console.error(error);
       showToast.error(error.message);

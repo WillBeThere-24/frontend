@@ -14,16 +14,6 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
   const onClose = () => {
     setIsOpen(false);
   };
-  const handleAddFriend = () => {
-    setFriends((previousFriends) => [
-      ...previousFriends,
-      { firstName: "", lastName: "", email: "" },
-    ]);
-  };
-
-  const handleRemoveFriend = () => {
-    setFriends((previousFriends) => previousFriends.slice(0, -1));
-  };
 
   const handleInputsChange = (index, key, value) => {
     const newFriends = [...friends];
@@ -31,7 +21,7 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
     setFriends(newFriends);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let isValid = true;
@@ -45,21 +35,24 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
       });
 
       if (isValid) {
-        const friendPost = friends.map((friend) => {
-          return {
-            name: `${friend.firstName} ${friend.lastName}`,
-            email: friend.email,
-          };
-        });
-        postData(
+        const friendPost = {
+          name: `${friends[0].firstName} ${friends[0].lastName}`,
+          email: friends[0].email.toLowerCase(),
+        };
+
+        const data = await postData(
           import.meta.env.VITE_BASE_URL + `/events/${id}/invite`,
           friendPost
         );
+
+        if (data) {
+          toast.success("Invite sent successfully!");
+          onClose();
+        }
       }
     } catch (error) {
-      toast.error(
-        "There was an error posting your response. Please try again!"
-      );
+      console.error(error);
+      toast.error(error.message);
     }
   };
 
@@ -73,35 +66,15 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
         <div className='scrollbar-hide max-h-[90vh] md:max-h-[70vh] overflow-y-auto z-20 flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
           <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
             <h4 className='text-center font-bold text-2xl md:text-4xl '>
-              Send Invites
+              Send Invite
             </h4>
-            <div className='flex gap-4 justify-center items-center'>
-              <div className='flex gap-8 items-center'>
-                <Button
-                  className='p-0 text-4xl disabled:cursor-not-allowed disabled:text-wybt-light-gray'
-                  onClick={handleRemoveFriend}
-                >
-                  -
-                </Button>
-                <div
-                  className={`text-wybt-primary bg-wybt-white text-4xl px-4 py-2 font-bold `}
-                >
-                  {friends.length}
-                </div>
-                <Button
-                  className='p-0 text-4xl disabled:cursor-not-allowed disabled:text-wybt-light-gray'
-                  onClick={handleAddFriend}
-                >
-                  +
-                </Button>
-              </div>
-            </div>
+
             <div className='flex flex-col gap-6'>
               {friends.map((friend, id) => (
                 <FriendInputs
                   key={id}
-                  friend={friend}
                   id={id}
+                  friend={friend}
                   text='Guest'
                   handleInputsChange={handleInputsChange}
                 />

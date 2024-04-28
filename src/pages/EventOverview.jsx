@@ -30,7 +30,7 @@ function EventOverview() {
   const [showGuests, setShowGuests] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentEvent = useEvents((state) => state.currentEvent);
-
+  console.log("currevente", currentEvent);
   const handleToggleList = () => {
     setShowGuests(!showGuests);
   };
@@ -38,9 +38,9 @@ function EventOverview() {
   return (
     <div className='w-full'>
       <h1 className='text-3xl font-bold font-montserrat'>
-        {currentEvent.name}
+        {currentEvent?.name}
       </h1>
-      <p className='text-gray-700 mt-3 text-sm'>{currentEvent.description}</p>
+      <p className='text-gray-700 mt-3 text-sm'>{currentEvent?.description}</p>
       <div className='block md:flex gap-12 justify-center mt-8 text-center text-wybt-primary flex-col sm:flex-row w-full items-centher'>
         <div className='text-2xl font-bold border border-wybt-primary py-12  md:px-20 px-12  rounded-md w-full md:w-full bg-white'>
           <h3 className=''>{addZero(10)}</h3>
@@ -80,7 +80,11 @@ function EventOverview() {
         </table>
       )}
       {isModalOpen && (
-        <InviteModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+        <InviteModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          id={currentEvent?._id}
+        />
       )}
     </div>
   );
