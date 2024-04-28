@@ -3,6 +3,7 @@ import timezone from "../utils/timezone.json";
 import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
 import useEvents from "../utils/store/useEvents";
+import Loader from "../components/circle-loader/Loader";
 import { useNavigate } from "react-router-dom";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
@@ -43,8 +44,9 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
           value={!formDetails.isPrivate}
           type='checkbox'
           name='isPrivate'
+          checked={formDetails.isPrivate}
           id='private'
-          className='w-4 h-4'
+          className='w-4 h-4 accent-wybt-secondary'
         />
         <label className='block text-sm mb-2 ml-3' htmlFor='private'>
           Do you want to make this event private?
@@ -178,6 +180,7 @@ const FourthForm = ({
   setFormDetails,
   setFileImage,
   formDetails,
+  loading,
 }) => {
   const fileInputRef = useRef(null);
 
@@ -240,6 +243,7 @@ const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [fileImage, setFileImage] = useState(null);
   const addNewEvent = useEvents((state) => state.addEvent);
+  const [loading, setLoading] = useState(true);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -262,6 +266,8 @@ const FormBuilder = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    e.currentTarget.checkValidity();
     // run api stuff here
     try {
       const formData = new FormData();
@@ -339,6 +345,7 @@ const FormBuilder = () => {
           formDetails={formDetails}
           setFormDetails={setFormDetails}
           setFileImage={setFileImage}
+          loading={loading}
         />
       );
     } else {

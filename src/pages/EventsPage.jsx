@@ -10,8 +10,6 @@ function EventsPage() {
 	const eventDataStatus = useEvents((state) => state.status);
 	const setEvents = useEvents((state) => state.setEvents);
 	const { fetchData, loading } = useFetch();
-	showToast.message('render');
-	console.log(userEvents);
 
 	const fetchUserEvents = async () => {
 		try {
@@ -40,20 +38,28 @@ function EventsPage() {
 				Explore and manage all the events you have created right here in one
 				convenient location.
 			</p>
-			<div className="events__container">
-				{userEvents !== null &&
-					userEvents?.map((item, index) => (
-						<EventCard key={index} event={item} />
-					))}
-			</div>
 			{!loading && userEvents?.length == 0 && (
-				<div>
-					<img src="/icons/empty-event.svg" alt="event" />
-					<p>You haven`&lsquo;t created any event yet.</p>
+				<div className="w-[20rem] mx-auto mt-[3rem]">
+					<img
+						className="object-cover w-full"
+						src="/icons/empty-event.svg"
+						alt="event"
+					/>
+					<p className="text-sm text-center">
+						You haven&lsquo;t created any event yet.
+					</p>
 				</div>
 			)}
+			{!loading && (
+				<div className="events__container">
+					{userEvents?.map((item, index) => (
+						<EventCard key={index} event={item} />
+					))}
+				</div>
+			)}
+	
 			{loading && (
-				<div className="w-[50%]">
+				<div className="flex justify-center items-center w-[5rem] mx-auto mt-[5rem]">
 					<Loader />
 				</div>
 			)}

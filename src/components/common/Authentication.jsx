@@ -15,7 +15,7 @@ const Authentication = () => {
     try {
       const { data } = await fetchData(`${import.meta.env.VITE_BASE_URL}/user`);
       setCurrentUser(data);
-      showToast.success("User gotten");
+      showToast.success("Welcome back");
       if (!user && !loading) {
         toast.error("Page access denied \n Please login to access this page", {
           className: "text-wybt-primary text-sm",

@@ -17,12 +17,12 @@ function EventCard({event}) {
          <h2 className="text-center font-bold text-md mb-2">{event.name}</h2>
          <div className="flex justify-between items-center">
             <div>
-               <p className="font-bold text-center text-gray-500">{0}</p>
+               <p className="font-bold text-center text-gray-500">{event.attendingGuestCount}</p>
                <span className="text-green-600 text-sm">Attending</span>
             </div>
             <span className="h-5 w-[1px] bg-gray-400 block"></span>
             <div>
-               <p className="font-bold text-center text-gray-500">{0}</p>
+               <p className="font-bold text-center text-gray-500">{event.notAttendingGuestCount}</p>
                <span className="text-red-600 text-sm">Absent</span>
             </div>
          </div>
