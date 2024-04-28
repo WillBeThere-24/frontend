@@ -11,23 +11,22 @@ function EventsPage() {
 	const eventDataStatus = useEvents(state => state.status);
 	const setEvents = useEvents((state) => state.setEvents);
 	const {fetchData, loading} = useFetch();
+	showToast.message("render")
 
 	const fetchUserEvents =async() => {
 		try {
 			const {data} = await fetchData(`${import.meta.env.VITE_BASE_URL}/events`);
-			console.log("eventdata", data)
 			setEvents(data)
-			showToast.error("")
 		}catch(error){
 			showToast.error(error.message)
 		}
 	}
 
-	useEffect(()=>{
-		if(eventDataStatus == "idle") {
-			fetchUserEvents()
-		}
-	}, [])
+	// useEffect(()=>{
+	// 	if(eventDataStatus == "idle") {
+	// 		fetchUserEvents()
+	// 	}
+	// }, [])
 
 	return (
 		<div className="w-full">
@@ -53,7 +52,7 @@ function EventsPage() {
 				<img src="/icons/empty-event.svg" alt="event" />
 				<p>You haven`&lsquo;t created any event yet.</p>
 			</div>}
-			{loading && <div>
+			{loading && <div className='w-[50%]'>
 				<Loader />
 			</div>}
 		</div>

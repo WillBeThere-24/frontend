@@ -11,6 +11,7 @@ const useEvents = create(
 	immer((set) => ({
 		...initialState,
 		setEvents: (events) => set({ events, status: 'success' }),
+      addEvents: (event)=> set((state)=>({events: state.events.push(event)})),
 		setCurrentEvent: (currentEvent) => set({ currentEvent }),
 	}))
 );

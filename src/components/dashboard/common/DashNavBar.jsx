@@ -13,7 +13,7 @@ const DashNavBar = () => {
 	const sideBarState = useStore((state) => state.sideBarState);
 	const handleCloseBar = () => setSideBar(false);
 	const handleOpenBar = () => setSideBar(true);
-	const { fetchData, loading } = useFetch();
+	const { fetchData } = useFetch();
 	const setCurretUser = useStore(state => state.setUser);
 
 	const fetchCurrentUser = async () => {
@@ -21,7 +21,7 @@ const DashNavBar = () => {
 			const {data} = await fetchData(`${import.meta.env.VITE_BASE_URL}/user`);
 			console.log(data.user)
 			setCurretUser(data.user)
-			showToast.success('User gotten');
+			showToast.success('Welcome Back');
 		} catch (error) {
 			console.log(error);
 			showToast.error(error.message);
@@ -29,6 +29,7 @@ const DashNavBar = () => {
 	};
 
 	useEffect(() => {
+		
 		fetchCurrentUser();
 	}, []);
 

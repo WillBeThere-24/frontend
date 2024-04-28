@@ -198,7 +198,7 @@ const FourthForm = ({handleClick}) => {
 				Upload the Event Image{' '}
 			</h1>
 			<img
-				className="cursor-pointer w-full h-[22rem] object-contain block mx-auto"
+				className="cursor-pointer w-full h-[22rem] object-cover block mx-auto"
 				onClick={handleEditIconClick}
 				src={eventImage || '/icons/add-image.svg'}
 				alt=""

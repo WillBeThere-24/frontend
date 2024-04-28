@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 const showToast = {
    message: (message)=> {
       toast.remove()
-      toast.message(message);
+      toast(message);
    },
    success: (message)=> {
       toast.remove()
