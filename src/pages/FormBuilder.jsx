@@ -3,6 +3,7 @@ import timezone from '../utils/timezone.json';
 import showToast from '../utils/showToast';
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
+	console.log(formDetails)
 	return (
 		<div className="mt-8">
 			<h1 className="text-center font-bold text-3xl font-montserrat text-wybt-primary mb-4">
@@ -35,7 +36,7 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
 				/>
 			</div>
 			<div className="flex">
-				<input type="checkbox" name="isPrivate" id="private" className="w-4 h-4" />
+				<input onChange={handleFormChange} value={!formDetails.isPrivate} type="checkbox" name="isPrivate" id="private" className="w-4 h-4" />
 				<label className="block text-sm mb-2 ml-3" htmlFor="private">
 					Do you want to make this event private?
 				</label>
@@ -230,6 +231,7 @@ const FormBuilder = () => {
 		endDate: '',
 		endTime: '',
 		timezone: '',
+		isPrivate: false
 	});
 
 	const handleNext = () => {
@@ -247,7 +249,7 @@ const FormBuilder = () => {
 		const { name, value } = e.currentTarget;
 		setFormDetails((prev) => ({
 			...prev,
-			[name]: value,
+			[name]: name=="isPrivate"? !formDetails.isPrivate: value,
 		}));
 	};
 
@@ -280,7 +282,7 @@ const FormBuilder = () => {
 			return (
 				<FourthForm
 					handleClick={handleFormSubmit}
-					handleFormChange={handleFormChange}
+					setFormDetails={setFormDetails}
 					formDetails={formDetails}
 				/>
 			);

@@ -4,6 +4,8 @@ import WBT from "../../assets/WBT.png";
 import  CloseMenuBtn  from "/public/icons/navigation menu/Close-Menu.svg";
 import  Harmburger from "/public/icons/navigation menu/Harmburger-Menu-Icon.svg";
 
+
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,6 +16,8 @@ const NavBar = () => {
   const handleMenuToggle = () => {
     setIsOpen(!isOpen);
   };
+
+
 
   return (
     <>
@@ -33,7 +37,7 @@ const NavBar = () => {
 
         <div className={`text-wybt-primary justify-between gap-5 md:gap-10 sm:flex hidden text-nowrap whitespace-nowrap px-3`}>
           <NavLink to="">Event Details</NavLink>
-          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/dashboard/overview">Dashboard</NavLink>
           <NavLink to="">Contact Us</NavLink>
         </div>
 
