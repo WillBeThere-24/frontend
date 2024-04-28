@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 const initialState = {
-  user: null,
+  user: true,
   sideBarState: false
 };
 const useStore = create(
