@@ -73,7 +73,7 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
               {friends.map((friend, id) => (
                 <FriendInputs
                   key={id}
-                  id={id}
+                  id={`${id}`}
                   friend={friend}
                   text='Guest'
                   handleInputsChange={handleInputsChange}

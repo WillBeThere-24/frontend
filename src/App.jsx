@@ -68,14 +68,12 @@ const router = createBrowserRouter([
     loader: async ({ params }) => {
       const searchParams = new URLSearchParams(window.location.search);
       const guestId = searchParams.get("guest");
-      console.log("guest", guestId);
-      console.log("id", params.id);
+
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/events/rsvp/${
-          params.id
-        }?guest=${guestId}`
+        `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
+          guestId ? `?guest=${guestId}` : ""
+        }`
       );
-      console.log("data", data);
       return data;
     },
   },
