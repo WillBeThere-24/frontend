@@ -7,6 +7,7 @@ import {
 	DashboardOverview,
 	DashboardSharedLayout,
 	EventsPage,
+	Rsvp,
 } from './pages';
 import { Authentication } from './components/common';
 import { Toaster } from 'react-hot-toast';
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
 			},
 		],
 	},
+	{
+		path: "/rsvp/:id",
+		element:<Rsvp />
+		
+	}
 ]);
 
 const App = () => {

@@ -1,5 +1,5 @@
 .linear-progress {
-	background: #bbdefb;
+	background: #f6e6ef;
 	height: 1.3rem;
 	position: relative;
 	width: 30%;
@@ -20,7 +20,7 @@
 }
 .linear-progress .bar {
 	position: absolute;
-	background: #1565c0;
+	background: #E5A4CB;
 	transition: transform 0.2s linear;
 	position: absolute;
 	left: 0;

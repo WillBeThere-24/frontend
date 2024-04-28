@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import timezone from "../utils/timezone.json";
 import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
+import useEvents from "../utils/store/useEvents";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -237,6 +238,7 @@ const FourthForm = ({
 const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [fileImage, setFileImage] = useState(null);
+  const addNewEvent = useEvents(state => state.addEvent);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -283,6 +285,9 @@ const FormBuilder = () => {
         `${import.meta.env.VITE_BASE_URL}/events`,
         formData
       );
+		console.log(data)
+		addNewEvent(data)
+
 
       showToast.success("Form Submitted");
     } catch (error) {
