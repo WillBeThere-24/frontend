@@ -1,7 +1,9 @@
-const FriendInputs = ({ friend, id, handleInputsChange }) => {
+const FriendInputs = ({ friend, id, handleInputsChange, text = "Plus" }) => {
   return (
     <form id={`form-${id}`} className='flex flex-col gap-3 text-wybt-primary'>
-      <p className='text-white text-xl md:text-2xl'>Plus {id + 1} </p>
+      <p className='text-white text-lg md:text-xl '>
+        {text} {id + 1}
+      </p>
       <div className='flex flex-col md:flex-row gap-3 w-full text-wybt-primary'>
         <input
           type='text'
