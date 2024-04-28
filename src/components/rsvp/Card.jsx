@@ -14,41 +14,53 @@ const noData = [
     parentClassName: "bg-wybt-white",
   },
 ];
-const yesData = [
-  {
-    children: (
-      <div className=' flex flex-col gap-4 md:gap-6 justify-center items-center'>
-        <p className='text-3xl font-extrabold  font-caveat md:text-6xl text-center'>
-          Woo-hoo!
-        </p>
-        <p>Thanks for confirming your spot</p>
-      </div>
-    ),
-    parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
-  },
-  {
-    children: (
-      <div className='absolute bottom-0 bg-wybt-primary w-full h-[50%] flex flex-col gap-4 justify-center items-center text-3xl  font-extrabold  font-caveat md:text-6xl text-center text-white'>
-        <p>1234 Elm Street,</p>
-        <p>Springfield, Anytown,</p>
-      </div>
-    ),
-    parentClassName: "bg-yes-modal bg-no-repeat bg-cover ",
-  },
-  {
-    children: (
-      <p className='text-3xl  font-extrabold font-caveat md:text-6xl text-center'>
-        See you there
-      </p>
-    ),
-    parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
-  },
-];
-const Card = () => {
+
+const Card = ({ guest, event }) => {
   const [friends, setFriends] = useState([]);
   const [option, setOption] = useState("yes");
   const [modalData, setModalData] = useState([]);
   const [isOpened, setIsOpened] = useState(false);
+  const [myself, setMyself] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    congratulatoryMessage: "",
+  });
+  const yesData = [
+    {
+      children: (
+        <div className=' flex flex-col gap-4 md:gap-6 justify-center items-center'>
+          <p className='text-3xl font-extrabold  font-caveat md:text-6xl text-center'>
+            Woo-hoo!
+          </p>
+          <p>Thanks for confirming your spot</p>
+        </div>
+      ),
+      parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
+    },
+    {
+      children: (
+        <div className='absolute bottom-0 bg-wybt-primary w-full h-[50%] flex flex-col gap-4 justify-center items-center text-3xl  font-extrabold  font-caveat md:text-6xl text-center text-white'>
+          <p>{event.location}</p>
+        </div>
+      ),
+      parentClassName: "bg-yes-modal bg-no-repeat bg-cover ",
+    },
+    {
+      children: (
+        <p className='text-3xl  font-extrabold font-caveat md:text-6xl text-center'>
+          See you there
+        </p>
+      ),
+      parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
+    },
+  ];
+  const handleMyselfChange = (e) => {
+    const { name, value } = e.target;
+    setMyself((prevData) => {
+      return { ...prevData, [name]: value };
+    });
+  };
 
   const { postData, data } = usePost();
   const handleAddFriend = () => {
@@ -118,17 +130,48 @@ const Card = () => {
       );
     }
   };
+
+  const time = new Date(event.end);
+  const year = time.getFullYear();
+  const month = time.getMonth() + 1;
+  const day = time.getDate();
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
       <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
         <h4 className='text-center font-bold text-2xl md:text-4xl '>RSVP</h4>
         <p className='text-center font-light text-base md:text-xl'>
-          Kindly respond before XXXX 2024. We look forward to celebrating with
-          you.
+          Kindly respond before{" "}
+          {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
+          forward to celebrating with you.
         </p>
         <p className='text-center text-3xl md:text-5xl font-caveat'>
           Will You Be There?
         </p>
+        {guest && (
+          <p className='text-center font-bold text-3xl   '>{guest.name}</p>
+        )}{" "}
+        {guest && (
+          <div className='flex flex-col gap-3'>
+            <label
+              htmlFor='congratulatoryMessage'
+              className='text-lg md:text-xl '
+            >
+              Congratulatory message
+            </label>
+            <input
+              type='text'
+              name='congratulatoryMessage'
+              id='congratulatoryMessage'
+              placeholder='Congratulatory messages'
+              className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
+              value={myself.congratulatoryMessage}
+              onChange={(e) => handleMyselfChange(e)}
+            />
+          </div>
+        )}
         <div className='flex gap-4 justify-between items-center'>
           <div className='flex gap-2 items-center'>
             <input
@@ -171,6 +214,14 @@ const Card = () => {
             </Button>
           </div>
         </div>
+        {!guest && (
+          <FriendInputs
+            friend={myself}
+            handleMyselfChange={handleMyselfChange}
+            text='Invited'
+            id={0}
+          />
+        )}
         <div className='flex flex-col gap-6'>
           {friends.map((friend, id) => (
             <FriendInputs

@@ -1,5 +1,10 @@
-const FriendInputs = ({ friend, id, handleInputsChange, text = "Plus" }) => {
-  console.log(friend);
+const FriendInputs = ({
+  friend,
+  id,
+  handleInputsChange,
+  text = "Plus",
+  handleMyselfChange,
+}) => {
   return (
     <form
       id={`form-${id && id}`}
@@ -16,7 +21,11 @@ const FriendInputs = ({ friend, id, handleInputsChange, text = "Plus" }) => {
           placeholder='First name'
           className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none'
           value={friend.firstName}
-          onChange={(e) => handleInputsChange(0, "firstName", e.target.value)}
+          onChange={(e) => {
+            handleInputsChange
+              ? handleInputsChange(0, "firstName", e.target.value)
+              : handleMyselfChange(e);
+          }}
           required
         />
         <input
@@ -26,7 +35,11 @@ const FriendInputs = ({ friend, id, handleInputsChange, text = "Plus" }) => {
           placeholder='Last Name'
           className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none'
           value={friend.lastName}
-          onChange={(e) => handleInputsChange(0, "lastName", e.target.value)}
+          onChange={(e) => {
+            handleInputsChange
+              ? handleInputsChange(0, "firstName", e.target.value)
+              : handleMyselfChange(e);
+          }}
           required
         />
       </div>
@@ -37,7 +50,11 @@ const FriendInputs = ({ friend, id, handleInputsChange, text = "Plus" }) => {
         placeholder='E-mail'
         className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none'
         value={friend.email}
-        onChange={(e) => handleInputsChange(0, "email", e.target.value)}
+        onChange={(e) => {
+          handleInputsChange
+            ? handleInputsChange(0, "firstName", e.target.value)
+            : handleMyselfChange(e);
+        }}
         required
       />
     </form>
