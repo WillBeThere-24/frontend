@@ -5,7 +5,7 @@ import useStore from "../utils/store/useStore";
 import { useNavigate } from "react-router-dom";
 import showToast from "../utils/showToast";
 import usePost from "../utils/hooks/usePost";
-import { BASEURL } from "../utils/constants";
+import handleGoogleAuth from "../utils/firebase/firebase.google";
 
 const SignUp = ({ handleTabChange }) => {
   const setCurrentUser = useStore((state) => state.setUser);
@@ -34,7 +34,7 @@ const SignUp = ({ handleTabChange }) => {
         userDetails
       );
       setCurrentUser(result.data);
-      navigate("/dashboard");
+      navigate("/dashboard/overview");
       showToast.success("Registration Successful");
     } catch (error) {
       showToast.error(error.message);
@@ -54,6 +54,18 @@ const SignUp = ({ handleTabChange }) => {
       return { ...prevState, showPassword: !prevState.showPassword };
     });
   };
+
+  const signUpWithGoogle= async()=> {
+    try {
+      const userDetails = await handleGoogleAuth();
+      const result = await postData(`${import.meta.env.VITE_BASE_URL}/auth/register`, {...userDetails, auth: "google", name: userDetails.displayName})
+      setCurrentUser(result.data);
+      navigate("/dashboard/overview");
+      showToast.success("Registration Successful")
+    }catch(error){
+      showToast.error(error.message)
+    }
+  }
   return (
     <form action="" onSubmit={handleSubmit} className="flex flex-col py-8">
       <label
@@ -70,6 +82,7 @@ const SignUp = ({ handleTabChange }) => {
         className="border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 bg-wybt-white"
         value={formData.fullName}
         onChange={handleChange}
+        required
       />
       <label
         htmlFor="email"
@@ -85,6 +98,7 @@ const SignUp = ({ handleTabChange }) => {
         className="border py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 bg-wybt-white"
         value={formData.emailAddress}
         onChange={handleChange}
+        required
       />
       <div className="relative flex flex-col z-0">
         <label
@@ -102,6 +116,7 @@ const SignUp = ({ handleTabChange }) => {
             className="border w-full py-2 px-4 rounded-lg focus:outline-0 border-wybt-primary mb-3 pr-10 bg-wybt-white"
             value={formData.password}
             onChange={handleChange}
+            required
           />
           <span
             className="absolute right-3 h-1/2 inline ml-[-1.5%] align-middle items-center px-3 bg-transparent cursor-pointer focus:outline-none text-wybt-white-gray"
@@ -123,14 +138,16 @@ const SignUp = ({ handleTabChange }) => {
       </p>
       <button
         disabled={loading}
-        className="bg-wybt-primary text-wybt-white p-2 rounded-lg  "
+        className="bg-wybt-primary text-wybt-white p-2 rounded-lg disabled:opacity-50 "
       >
         Sign Up
       </button>
       <span className="text-center py-2  text-wybt-light-gray">Or</span>
       <button
         disabled={loading}
-        className="bg-wybt-neutral-white text-wybt-primary p-2 rounded-lg border-wybt-primary border"
+        onClick={signUpWithGoogle}
+        type="button"
+        className="bg-wybt-neutral-white text-wybt-primary p-2 rounded-lg border-wybt-primary border disabled:opacity-50"
       >
         Sign Up with Google
       </button>

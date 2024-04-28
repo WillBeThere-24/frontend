@@ -3,6 +3,7 @@ import timezone from '../utils/timezone.json';
 import showToast from '../utils/showToast';
 import { usePost } from '../utils/hooks';
 import useEvents from '../utils/store/useEvents';
+import Loader from '../components/circle-loader/Loader';
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
 	return (
@@ -44,7 +45,7 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
 					name="isPrivate"
 					checked={formDetails.isPrivate}
 					id="private"
-					className="w-4 h-4"
+					className="w-4 h-4 accent-wybt-secondary"
 				/>
 				<label className="block text-sm mb-2 ml-3" htmlFor="private">
 					Do you want to make this event private?
@@ -178,6 +179,7 @@ const FourthForm = ({
 	setFormDetails,
 	setFileImage,
 	formDetails,
+	loading,
 }) => {
 	const fileInputRef = useRef(null);
 
@@ -227,10 +229,17 @@ const FourthForm = ({
 				type="file"
 			/>
 			<button
-				className="bg-wybt-primary text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold"
+				className="bg-wybt-primary text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold justify-center items-center disabled:opacity-50"
 				onClick={handleClick}
+				disabled={loading}
 			>
-				Submit
+				{loading ? (
+					<span className="block w-full h-[2rem] ">
+						<Loader />
+					</span>
+				) : (
+					'Submit form'
+				)}
 			</button>
 		</div>
 	);
@@ -240,6 +249,7 @@ const FormBuilder = () => {
 	const [currentForm, setCurrentForm] = useState(1);
 	const [fileImage, setFileImage] = useState(null);
 	const addNewEvent = useEvents((state) => state.addEvent);
+	const [loading, setLoading] = useState(true);
 	const [formDetails, setFormDetails] = useState({
 		name: '',
 		description: '',
@@ -249,7 +259,7 @@ const FormBuilder = () => {
 		startTime: '',
 		endDate: '',
 		endTime: '',
-		timezone: '',
+		timezone: timezone[0],
 		isPrivate: false,
 	});
 	const { postData } = usePost();
@@ -261,6 +271,8 @@ const FormBuilder = () => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
+		e.currentTarget.checkValidity();
 		// run api stuff here
 		try {
 			const formData = new FormData();
@@ -288,13 +300,14 @@ const FormBuilder = () => {
 				`${import.meta.env.VITE_BASE_URL}/events`,
 				formData
 			);
-			console.log(data);
 			addNewEvent(data);
 
 			showToast.success('Form Submitted');
 		} catch (error) {
 			console.error(error);
 			showToast.error(error.message);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -339,6 +352,7 @@ const FormBuilder = () => {
 					formDetails={formDetails}
 					setFormDetails={setFormDetails}
 					setFileImage={setFileImage}
+					loading={loading}
 				/>
 			);
 		} else {
