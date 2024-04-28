@@ -1,6 +1,6 @@
 .container {
 	--uib-size: 100%;
-	--uib-color: white;
+	--uib-color: #d985ba;
 	--uib-speed: 0.8s;
 	--uib-bg-opacity: 0.1;
 	height: var(--uib-size);

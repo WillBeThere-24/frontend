@@ -49,7 +49,7 @@ function EventOverview() {
 				</button>
 
 			</div>
-         {showGuests && <table className="w-full mb-10">
+         {showGuests && <div className="w-full mb-10">
             <div className="table__body border items-center border-wybt-accent rounded-md py-4 px-2 [&>p]:text-sm [&>p]:font-bold text-wybt-primary">
                <p>Name</p>
                <p className="hidden md:block">Email</p>
@@ -61,7 +61,7 @@ function EventOverview() {
                <InvitedGuest key={index} isAttending={index%2} />
             ))}
 
-         </table>}
+         </div>}
 		</div>
 	);
 }
