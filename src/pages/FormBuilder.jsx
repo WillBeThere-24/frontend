@@ -21,7 +21,7 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
 					value={formDetails.name}
 				/>
 			</div>
-			<div>
+			<div className="mb-5">
 				<label className="block text-sm mb-2" htmlFor="name">
 					Description
 				</label>
@@ -33,6 +33,12 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
 					value={formDetails.description}
 					name="description"
 				/>
+			</div>
+			<div className="flex">
+				<input type="checkbox" name="isPrivate" id="private" className="w-4 h-4" />
+				<label className="block text-sm mb-2 ml-3" htmlFor="private">
+					Do you want to make this event private?
+				</label>
 			</div>
 			<button
 				onClick={handleClick}
