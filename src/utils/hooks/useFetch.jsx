@@ -8,10 +8,9 @@ const useFetch = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(url, {
-        withCredentials: true
+        withCredentials: true,
       });
-      console.log("data", data)
-      return data
+      return data;
     } catch (error) {
       throw new Error(error.response.data.message);
     } finally {

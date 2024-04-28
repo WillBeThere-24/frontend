@@ -7,9 +7,9 @@ const usePost = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(url, body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
         withCredentials: true,
       });
       return data;

@@ -4,7 +4,6 @@ import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
-  console.log(formDetails);
   return (
     <div className='mt-8'>
       <h1 className='text-center font-bold text-3xl font-montserrat text-wybt-primary mb-4'>
@@ -172,21 +171,29 @@ const ThirdForm = ({ formDetails, handleFormChange, handleClick }) => {
   );
 };
 
-const FourthForm = ({ handleClick }) => {
-  const [eventImage, setEventImage] = useState(null);
+const FourthForm = ({
+  handleClick,
+  setFormDetails,
+  setFileImage,
+  formDetails,
+}) => {
   const fileInputRef = useRef(null);
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
+      setFileImage(file);
+      // setEventImage(formDetails.image);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setEventImage(reader.result);
+        setFormDetails((prev) => ({
+          ...prev,
+          image: reader.result,
+        }));
       };
       reader.readAsDataURL(file);
       showToast.loading("Uploading Picture");
-      const formData = new FormData();
-      formData.append("image", file);
+
       // const value = await dispatch(setCurrentDoctorProfileImage(formData))
 
       // if (value.error) {
@@ -208,7 +215,7 @@ const FourthForm = ({ handleClick }) => {
       <img
         className='cursor-pointer w-full h-[22rem] object-contain block mx-auto'
         onClick={handleEditIconClick}
-        src={eventImage || "/icons/add-image.svg"}
+        src={formDetails.image || "/icons/add-image.svg"}
         alt=''
       />
       <input
@@ -229,6 +236,7 @@ const FourthForm = ({ handleClick }) => {
 
 const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
+  const [fileImage, setFileImage] = useState(null);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -241,6 +249,7 @@ const FormBuilder = () => {
     timezone: "",
     isPrivate: false,
   });
+  const { postData } = usePost();
 
   const handleNext = () => {
     if (currentForm == 4) return;
@@ -251,10 +260,30 @@ const FormBuilder = () => {
     e.preventDefault();
     // run api stuff here
     try {
+      const formData = new FormData();
+      formData.append("image", fileImage);
+      formData.append("name", formDetails.name);
+      formData.append("description", formDetails.description);
+      formData.append("location", formDetails.location);
+      formData.append(
+        "start",
+        new Date(
+          `${formDetails.startDate} ${formDetails.startTime}`
+        ).toISOString()
+      );
+      formData.append(
+        "end",
+        new Date(`${formDetails.endDate} ${formDetails.endTime}`).toISOString()
+      );
+      const image = formData.get("image");
+      console.log("image form data", image);
+      formData.append("timezone", formDetails.timezone);
+      formData.append("isPrivate", formDetails.isPrivate);
       const { data } = await postData(
         `${import.meta.env.VITE_BASE_URL}/events`,
-        formDetails
+        formData
       );
+
       showToast.success("Form Submitted");
     } catch (error) {
       console.error(error);
@@ -301,6 +330,8 @@ const FormBuilder = () => {
           handleClick={handleFormSubmit}
           handleFormChange={handleFormChange}
           formDetails={formDetails}
+          setFormDetails={setFormDetails}
+          setFileImage={setFileImage}
         />
       );
     } else {
