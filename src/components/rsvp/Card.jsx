@@ -2,8 +2,8 @@ import { useState } from "react";
 import FriendInputs from "./FriendInputs";
 import { Button } from "../common";
 import Modal from "./Modal";
-import toast from "react-hot-toast";
 import { usePost } from "../../utils/hooks";
+import showToast from "../../utils/showToast";
 const noData = [
   {
     children: (
@@ -26,6 +26,8 @@ const Card = ({ guest, event }) => {
     email: "",
     congratulatoryMessage: "",
   });
+  const { postData } = usePost();
+
   const yesData = [
     {
       children: (
@@ -62,7 +64,6 @@ const Card = ({ guest, event }) => {
     });
   };
 
-  const { postData, data } = usePost();
   const handleAddFriend = () => {
     setFriends((previousFriends) => [
       ...previousFriends,
@@ -80,21 +81,39 @@ const Card = ({ guest, event }) => {
     setFriends(newFriends);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(
+      import.meta.env.VITE_BASE_URL +
+        `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`
+    );
     try {
       if (option === "no") {
         // post attending to false
-        postData(
-          import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest",
-          {
-            attending: false,
-          }
+        const { data } = await postData(
+          import.meta.env.VITE_BASE_URL +
+            `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`,
+          guest
+            ? {
+                attending: false,
+                message: myself.congratulatoryMessage,
+                plus_ones: [],
+              }
+            : {
+                name: `${myself.firstName} ${myself.lastName}`,
+                email: myself.email.toLowerCase(),
+                attending: false,
+                message: myself.congratulatoryMessage,
+                plus_ones: [],
+              }
         );
         if (data) {
           setModalData(noData);
           setIsOpened(true);
-          toast.success("Your response has been saved successfully");
+          console.log(data, "data from the post request");
+          showToast.success(
+            "Thanks for letting us know. \n Next time hopefully!"
+          );
         }
 
         return;
@@ -109,25 +128,38 @@ const Card = ({ guest, event }) => {
         }
       });
 
+      //
       if (isValid) {
         // post attending to true and list of friends if any in an array
-        postData(
-          import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest",
-          {
-            attending: true,
-            plus_ones: friends,
-          }
+        const friendListToPost = friends.map((friend) => ({
+          name: `${friend.firstName} ${friend.lastName}`,
+          // email: friend.email.toLowerCase(),
+        }));
+        const { data } = await postData(
+          import.meta.env.VITE_BASE_URL +
+            `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`,
+          guest
+            ? {
+                attending: true,
+                plus_ones: friendListToPost,
+                message: myself.congratulatoryMessage,
+              }
+            : {
+                name: !guest && `${myself.firstName} ${myself.lastName}`,
+                email: !guest && myself.email.toLowerCase(),
+                attending: true,
+                plus_ones: friendListToPost,
+                message: myself.congratulatoryMessage,
+              }
         );
-        if (!data) {
+        if (data) {
           setModalData(yesData);
           setIsOpened(true);
-          toast.success("Your response has been saved successfully");
+          showToast.success("Wishing to see you there for in a while!");
         }
       }
     } catch (error) {
-      toast.error(
-        "There was an error posting your response. Please try again!"
-      );
+      showToast.error(error.message);
     }
   };
 
@@ -141,7 +173,9 @@ const Card = ({ guest, event }) => {
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
       <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
-        <h4 className='text-center font-bold text-2xl md:text-4xl '>RSVP</h4>
+        <h4 className='text-center font-bold text-2xl md:text-4xl '>
+          RSVP for {event.name}
+        </h4>
         <p className='text-center font-light text-base md:text-xl'>
           Kindly respond before{" "}
           {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
@@ -153,24 +187,30 @@ const Card = ({ guest, event }) => {
         {guest && (
           <p className='text-center font-bold text-3xl   '>{guest.name}</p>
         )}{" "}
-        {guest && (
-          <div className='flex flex-col gap-3'>
-            <label
-              htmlFor='congratulatoryMessage'
-              className='text-lg md:text-xl '
-            >
-              Congratulatory message
-            </label>
-            <input
-              type='text'
-              name='congratulatoryMessage'
-              id='congratulatoryMessage'
-              placeholder='Congratulatory messages'
-              className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
-              value={myself.congratulatoryMessage}
-              onChange={(e) => handleMyselfChange(e)}
-            />
-          </div>
+        <div className='flex flex-col gap-3'>
+          <label
+            htmlFor='congratulatoryMessage'
+            className='text-lg md:text-xl '
+          >
+            Congratulatory message
+          </label>
+          <input
+            type='text'
+            name='congratulatoryMessage'
+            id='congratulatoryMessage'
+            placeholder='Congratulatory messages'
+            className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
+            value={myself.congratulatoryMessage}
+            onChange={(e) => handleMyselfChange(e)}
+          />
+        </div>
+        {!guest && (
+          <FriendInputs
+            friend={myself}
+            handleMyselfChange={handleMyselfChange}
+            text='Invited'
+            id={"0"}
+          />
         )}
         <div className='flex gap-4 justify-between items-center'>
           <div className='flex gap-2 items-center'>
@@ -214,14 +254,6 @@ const Card = ({ guest, event }) => {
             </Button>
           </div>
         </div>
-        {!guest && (
-          <FriendInputs
-            friend={myself}
-            handleMyselfChange={handleMyselfChange}
-            text='Invited'
-            id={0}
-          />
-        )}
         <div className='flex flex-col gap-6'>
           {friends.map((friend, id) => (
             <FriendInputs

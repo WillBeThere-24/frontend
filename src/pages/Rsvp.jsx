@@ -1,6 +1,6 @@
 import { Card } from "../components/rsvp";
-// import { useSearchParams } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+
 const Rsvp = () => {
   const receivedData = useLoaderData();
   const { data } = receivedData;

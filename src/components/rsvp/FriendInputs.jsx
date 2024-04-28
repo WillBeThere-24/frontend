@@ -11,7 +11,7 @@ const FriendInputs = ({
       className='flex flex-col gap-3 text-wybt-primary'
     >
       <p className='text-white text-lg md:text-xl '>
-        {text} {id !== 0 && id + 1}
+        {text} {id !== "0" && id + 1}
       </p>
       <div className='flex flex-col md:flex-row gap-3 w-full text-wybt-primary'>
         <input

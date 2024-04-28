@@ -53,7 +53,7 @@ function EventOverview() {
       <div className='flex justify-between items-center'>
         <Button
           onClick={handleToggleList}
-          className='bg-wybt-primary text-white py-4 max-w-fit w-full md:w-fit md:px-20 my-20  rounded-md whitespace-nowrap border border-red-500'
+          className='bg-wybt-primary text-white py-4 max-w-fit w-full md:w-fit md:px-20 my-20  rounded-md whitespace-nowrap'
         >
           {showGuests ? "Hide Guest List" : "View Guests List"}
         </Button>
