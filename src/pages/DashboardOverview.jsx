@@ -4,6 +4,7 @@ import useStore from "../utils/store/useStore";
 
 const DashboardOverview = () => {
 	const currentUser = useStore(state => state.user)
+	
 	console.log("currentUser", currentUser)
 	return (
 		<main className="w-full">
