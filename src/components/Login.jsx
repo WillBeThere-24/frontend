@@ -53,6 +53,7 @@ const Login = ({ handleTabChange }) => {
 		showToast.loading('Logging in');
 		try {
 			const userDetails = await handleGoogleAuth();
+      console.log(userDetails)
 			const result = await postData(
 				`${import.meta.env.VITE_BASE_URL}/auth/login`,
 				{ ...userDetails, auth: 'google', name: userDetails.displayName }
@@ -124,6 +125,7 @@ const Login = ({ handleTabChange }) => {
 				<button
 					disabled={loading}
 					onClick={loginWithGoogle}
+          type='button'
 					className="bg-wybt-neutral-white text-wybt-primary p-2 rounded-lg border-wybt-primary border disabled:opacity-50"
 				>
 					Log in with Google

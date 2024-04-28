@@ -42,11 +42,11 @@ function EventOverview() {
       <p className='text-gray-700 mt-3 text-sm'>{currentEvent.description}</p>
       <div className='block md:flex gap-12 justify-center mt-8 text-center text-wybt-primary flex-col sm:flex-row w-full items-centher'>
         <div className='text-2xl font-bold border border-wybt-primary py-12  md:px-20 px-12  rounded-md w-full md:w-full bg-white'>
-          <h3 className=''>{addZero(10)}</h3>
+          <h3 className=''>{addZero(currentEvent.attendingGuestCount)}</h3>
           <p className=''>Attending</p>
         </div>
         <div className='w-full mt-12 md:mt-0 md:w-full text-2xl font-bold border-wybt-primary border py-12 md:px-20  rounded-md'>
-          <h3 className=''>{addZero(3)}</h3>
+          <h3 className=''>{addZero(currentEvent.notAttendingGuestCount)}</h3>
           <p>Not Attending</p>
         </div>
       </div>

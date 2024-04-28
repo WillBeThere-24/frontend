@@ -20,7 +20,7 @@ const DashNavBar = () => {
             href='/'
             className={` justify-center flex flex-col items-center z- min-w-[6px] relative z-50 `}
           >
-            <img src={WBT} alt='WBT Logo' width='62px' />
+            <img src={currentUser.profileUrl || WBT} alt='WBT Logo' width='62px' />
             <p className='font-[Cinzel] font-[800] text-wybt-primary md:text-[10px] text-center text-nowrap text-[9px] mt-[-4px]'>
               WILL BE THERE
             </p>

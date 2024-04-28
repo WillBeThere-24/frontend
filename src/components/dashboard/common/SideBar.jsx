@@ -21,6 +21,10 @@ const SideBar = () => {
 		setSideBar(false)
 		navigate(`/dashboard/events/${event._id}`)
 	}
+
+	const handleLogOut =()=> {
+		
+	}
 	return (
 		<aside
 			className={` top-[10vh] z-50 md:z-0 left-0 pt-7 h-screen rounded-none fixed md:top-0   md:static  mb-6     md:rounded-md w-full ${
