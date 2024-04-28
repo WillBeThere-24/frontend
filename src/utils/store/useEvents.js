@@ -4,14 +4,14 @@ import { immer } from 'zustand/middleware/immer';
 const initialState = {
 	events: null,
 	status: 'idle',
-	currentEvents: null,
+	currentEvent: null,
 };
 
 const useEvents = create(
 	immer((set) => ({
 		...initialState,
 		setEvents: (events) => set({ events, status: 'success' }),
-      addEvents: (event)=> set((state)=>({events: state.events.push(event)})),
+      addEvent: (event)=> set((state)=>({events: [...state.events, event]})),
 		setCurrentEvent: (currentEvent) => set({ currentEvent }),
 	}))
 );

@@ -5,28 +5,31 @@ import useEvents from '../utils/store/useEvents';
 import useFetch from '../utils/hooks/useFetch';
 import showToast from '../utils/showToast';
 
-
 function EventsPage() {
 	const userEvents = useEvents((state) => state.events);
-	const eventDataStatus = useEvents(state => state.status);
+	const eventDataStatus = useEvents((state) => state.status);
 	const setEvents = useEvents((state) => state.setEvents);
-	const {fetchData, loading} = useFetch();
-	showToast.message("render")
+	const { fetchData, loading } = useFetch();
+	showToast.message('render');
+	console.log(userEvents);
 
-	const fetchUserEvents =async() => {
+	const fetchUserEvents = async () => {
 		try {
-			const {data} = await fetchData(`${import.meta.env.VITE_BASE_URL}/events`);
-			setEvents(data)
-		}catch(error){
-			showToast.error(error.message)
+			const { data } = await fetchData(
+				`${import.meta.env.VITE_BASE_URL}/events`
+			);
+			console.log(data);
+			setEvents(data);
+		} catch (error) {
+			showToast.error(error.message);
 		}
-	}
+	};
 
-	// useEffect(()=>{
-	// 	if(eventDataStatus == "idle") {
-	// 		fetchUserEvents()
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if (eventDataStatus == 'idle') {
+			fetchUserEvents();
+		}
+	}, []);
 
 	return (
 		<div className="w-full">
@@ -38,23 +41,22 @@ function EventsPage() {
 				convenient location.
 			</p>
 			<div className="events__container">
-				{useEvents !== null && userEvents?.map((item, index) => (
-					<EventCard
-						title={item.title}
-						key={index}
-						attending={item.attending}
-						missing={item.missing}
-						eventID={item.eventID}
-					/>
-				))}
+				{userEvents !== null &&
+					userEvents?.map((item, index) => (
+						<EventCard key={index} event={item} />
+					))}
 			</div>
-			{!loading && userEvents?.length == 0 && <div>
-				<img src="/icons/empty-event.svg" alt="event" />
-				<p>You haven`&lsquo;t created any event yet.</p>
-			</div>}
-			{loading && <div className='w-[50%]'>
-				<Loader />
-			</div>}
+			{!loading && userEvents?.length == 0 && (
+				<div>
+					<img src="/icons/empty-event.svg" alt="event" />
+					<p>You haven`&lsquo;t created any event yet.</p>
+				</div>
+			)}
+			{loading && (
+				<div className="w-[50%]">
+					<Loader />
+				</div>
+			)}
 		</div>
 	);
 }

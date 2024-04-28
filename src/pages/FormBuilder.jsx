@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import timezone from "../utils/timezone.json";
 import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
+import useEvents from "../utils/store/useEvents";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -203,33 +204,6 @@ const FourthForm = ({
     }
   };
 
-<<<<<<< HEAD
-	return (
-		<div className="mt-8">
-			<h1 className="text-center font-bold text-3xl font-montserrat text-wybt-primary mb-12">
-				Upload the Event Image{' '}
-			</h1>
-			<img
-				className="cursor-pointer w-full h-[22rem] object-cover block mx-auto"
-				onClick={handleEditIconClick}
-				src={eventImage || '/icons/add-image.svg'}
-				alt=""
-			/>
-			<input
-				onChange={handleFileInputChange}
-				className="hidden"
-				ref={fileInputRef}
-				type="file"
-			/>
-			<button
-				className="bg-wybt-primary text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold"
-				onClick={handleClick}
-			>
-				Preview
-			</button>
-		</div>
-	);
-=======
   const handleEditIconClick = () => {
     fileInputRef.current.click();
   };
@@ -259,12 +233,12 @@ const FourthForm = ({
       </button>
     </div>
   );
->>>>>>> bd2266a3c20d9961acd0aad316d51e1758d1af09
 };
 
 const FormBuilder = () => {
   const [currentForm, setCurrentForm] = useState(1);
   const [fileImage, setFileImage] = useState(null);
+  const addNewEvent = useEvents(state => state.addEvent);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -311,6 +285,9 @@ const FormBuilder = () => {
         `${import.meta.env.VITE_BASE_URL}/events`,
         formData
       );
+		console.log(data)
+		addNewEvent(data)
+
 
       showToast.success("Form Submitted");
     } catch (error) {

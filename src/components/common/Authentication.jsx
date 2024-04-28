@@ -1,24 +1,35 @@
 import toast from "react-hot-toast";
 import useStore from "../../utils/store/useStore";
 import { Navigate, Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loader from "../liner-loader/loader";
+import showToast from "../../utils/showToast";
+import { useFetch } from "../../utils/hooks";
 
 const Authentication = () => {
   const user = useStore((state) => state.user);
-  const [loading, setLoading] = useState(true);
+  const setCurrentUser = useStore(state => state.setUser);
+  const {fetchData,loading} = useFetch();
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
-
-    if (!user && !loading) {
-      toast.error("Page access denied \n Please login to access this page", {
-        className: "text-wybt-primary text-sm",
-      });
+  const fetchCurrentUser = async () => {
+    try {
+      const { data } = await fetchData(`${import.meta.env.VITE_BASE_URL}/user`);
+      setCurrentUser(data.user);
+      showToast.success("User gotten");
+      if (!user && !loading) {
+        toast.error("Page access denied \n Please login to access this page", {
+          className: "text-wybt-primary text-sm",
+        });
+      }
+    } catch (error) {
+      showToast.error(error.message);
     }
+  };
 
-    return () => clearTimeout(setTimeout(() => setLoading(false), 2000));
-  }, [user, loading]);
+  
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
 
   if (loading) {
     return (
@@ -26,7 +37,7 @@ const Authentication = () => {
     );
   }
 
-  if (!user) {
+  if (!user && !loading) {
     return <Navigate to='/register' />;
   }
 
