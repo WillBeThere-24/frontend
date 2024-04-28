@@ -1,84 +1,61 @@
+import { useEffect } from 'react';
+import Loader from '../components/circle-loader/Loader';
 import EventCard from '../components/dashboard/common/EventCard';
+import useEvents from '../utils/store/useEvents';
+import useFetch from '../utils/hooks/useFetch';
+import showToast from '../utils/showToast';
 
-const items = [
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 1
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 2
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 3
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 4
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 5
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 6
-	},
-   {
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 7
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 8
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 9
-	},
-	{
-		title: 'Burial Event',
-		attending: 20,
-		missing: 10,
-		eventID: 10
-	},
-];
 
 function EventsPage() {
+	const userEvents = useEvents((state) => state.events);
+	const eventDataStatus = useEvents(state => state.status);
+	const setEvents = useEvents((state) => state.setEvents);
+	const {fetchData, loading} = useFetch();
+
+	const fetchUserEvents =async() => {
+		try {
+			const {data} = await fetchData(`${import.meta.env.VITE_BASE_URL}/events`);
+			console.log("eventdata", data)
+			setEvents(data)
+			showToast.error("")
+		}catch(error){
+			showToast.error(error.message)
+		}
+	}
+
+	useEffect(()=>{
+		if(eventDataStatus == "idle") {
+			fetchUserEvents()
+		}
+	}, [])
+
 	return (
 		<div className="w-full">
-			<h1 className="text-3xl font-bold font-montserrat text-wybt-primary">Events</h1>
-			<p className='text-gray-700 mt-3 text-sm'>Explore and manage all the events you have created right here in one convenient location.</p>
-			<div className="events__container" >
-				{items.map((item, index) => (
+			<h1 className="text-3xl font-bold font-montserrat text-wybt-primary">
+				Events
+			</h1>
+			<p className="text-gray-700 mt-3 text-sm">
+				Explore and manage all the events you have created right here in one
+				convenient location.
+			</p>
+			<div className="events__container">
+				{useEvents !== null && userEvents?.map((item, index) => (
 					<EventCard
 						title={item.title}
 						key={index}
 						attending={item.attending}
 						missing={item.missing}
-                  eventID={item.eventID}
+						eventID={item.eventID}
 					/>
 				))}
 			</div>
+			{!loading && userEvents?.length == 0 && <div>
+				<img src="/icons/empty-event.svg" alt="event" />
+				<p>You haven`&lsquo;t created any event yet.</p>
+			</div>}
+			{loading && <div>
+				<Loader />
+			</div>}
 		</div>
 	);
 }

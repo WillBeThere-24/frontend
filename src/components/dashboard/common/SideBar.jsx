@@ -34,11 +34,6 @@ const SideBar = () => {
 				title="Create Event"
 			/>
 			<SidebarItem
-				link="/dashboard/invite-guest"
-				icon="/icons/add-guest.svg"
-				title="Add Guest"
-			/>
-			<SidebarItem
 				link="/register"
 				icon="/icons/logout.svg"
 				title="Sign Out"

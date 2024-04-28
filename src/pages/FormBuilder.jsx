@@ -4,10 +4,11 @@ import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
+  console.log(formDetails);
   return (
     <div className='mt-8'>
       <h1 className='text-center font-bold text-3xl font-montserrat text-wybt-primary mb-4'>
-        Describe your event
+        Describe your event{" "}
       </h1>
       <div className='mb-5'>
         <label className='block text-sm mb-2' htmlFor='name'>
@@ -37,12 +38,12 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
       </div>
       <div className='flex'>
         <input
+          onChange={handleFormChange}
+          value={!formDetails.isPrivate}
           type='checkbox'
           name='isPrivate'
           id='private'
           className='w-4 h-4'
-          onChange={handleFormChange}
-          value={formDetails.isPrivate}
         />
         <label className='block text-sm mb-2 ml-3' htmlFor='private'>
           Do you want to make this event private?
@@ -227,7 +228,6 @@ const FourthForm = ({ handleClick }) => {
 };
 
 const FormBuilder = () => {
-  const { postData } = usePost();
   const [currentForm, setCurrentForm] = useState(1);
   const [formDetails, setFormDetails] = useState({
     name: "",
@@ -263,18 +263,11 @@ const FormBuilder = () => {
   };
 
   const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.currentTarget;
-    if (type === "checkbox") {
-      setFormDetails((prev) => ({
-        ...prev,
-        [name]: checked,
-      }));
-    } else {
-      setFormDetails((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    const { name, value } = e.currentTarget;
+    setFormDetails((prev) => ({
+      ...prev,
+      [name]: name == "isPrivate" ? !formDetails.isPrivate : value,
+    }));
   };
 
   const handleFormRendering = () => {

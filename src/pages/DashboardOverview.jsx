@@ -4,13 +4,14 @@ import useStore from "../utils/store/useStore";
 
 const DashboardOverview = () => {
 	const currentUser = useStore(state => state.user)
+	console.log("currentUser", currentUser)
 	return (
 		<main className="w-full">
 			<div>
-				<h1 className="font-bold text-3xl font-montserrat">Hi, {currentUser.user.name}</h1>
+				<h1 className="font-bold text-3xl font-montserrat">Hi, {currentUser.name}</h1>
 				<p className="mt-3">
 					Welcome to <span>Will Be There</span>, You have:
-				</p>
+				</p> 
 			</div>
 
 			<div className="block md:flex gap-12 justify-center mt-8 text-center text-wybt-primary flex-col sm:flex-row w-full items-centher">
