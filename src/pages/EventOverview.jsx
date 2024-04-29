@@ -188,7 +188,7 @@ function EventOverview() {
 				<div className="w-full mt-12 md:mt-0 md:w-full text-xl font-bold border-wybt-primary border h-[12rem] flex flex-col justify-center px-6  rounded-md">
 					<h3 className="">
 						{showGuestCount
-							? addZero(currentEvent.notAttendingGuestCount)
+							? addZero(currentEvent.noResponseCount)
 							: hiddenCount}
 					</h3>
 					<p>Not Responded</p>

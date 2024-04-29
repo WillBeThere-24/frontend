@@ -3,6 +3,7 @@ import useEvents from '../../../utils/store/useEvents';
 import useStore from '../../../utils/store/useStore';
 import SidebarItem from './SidebarItem';
 import showToast from '../../../utils/showToast';
+import useRsvp from '../../../utils/store/useRvsp';
 
 const SideBar = () => {
 	const sideBarState = useStore((state) => state.sideBarState);
@@ -11,8 +12,10 @@ const SideBar = () => {
 	const setSideBar = useStore((state) => state.setSideBar);
 	const navigate = useNavigate();
 	const setCurrentUser = useStore((state) => state.setUser);
-	const setUserEvents = useEvents((state) => state.setEvents);
 	const currentUser = useStore(state =>state.user)
+	const resetEvents = useEvents(state => state.resetEvents);
+	const resetUser = useEvents(state => state.resetUser);
+	const resetRsvps = useRsvp(state => state.resetRsvps)
 
 	const handleNavLinkClick = () => {
 		setSideBar(false);
@@ -28,8 +31,9 @@ const SideBar = () => {
 	const handleLogOut = (e) => {
 		e.preventDefault();
 		setCurrentUser(null);
-		setCurrentEvent(null);
-		setUserEvents(null);
+		resetEvents();
+		resetUser();
+		resetRsvps();
 		showToast.success('Signed Out');
 		navigate('/login');
 	};

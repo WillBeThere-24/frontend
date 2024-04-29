@@ -12,6 +12,7 @@ const useRsvp = create(
 		...initialState,
 		setRsvps: (rsvps) => set({ rsvps, status: "success" }),
 		setCurrentRsvp: (currentRsvp) => set({ currentRsvp }),
+		resetRsvps: ()=> set({ ...initialState })
 	}))
 );
 
