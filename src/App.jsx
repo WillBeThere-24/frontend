@@ -17,6 +17,7 @@ import RsvpSection from './pages/RsvpSection';
 import InviteGuest from './pages/InviteGuest';
 import axios from 'axios';
 import { Login, SignUp } from './components';
+import RsvpOverview from './pages/RsvpOverview';
 
 const router = createBrowserRouter([
 	{
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
 					{
 						path: '/dashboard/rsvp',
 						element: <RsvpSection />,
+					},
+					{
+						path: "/dashboard/rsvp/:id",
+						element: <RsvpOverview />
 					},
 					{
 						path: '/dashboard/invite-guest',

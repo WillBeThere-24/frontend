@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ClosedEye from '/public/icons/form/Closed-Eye.svg';
-import OpenedEye from '/public/icons/form/Open-Eye.svg';
+import ClosedEye from '/icons/form/Closed-Eye.svg';
+import OpenedEye from '/icons/form/Open-Eye.svg';
 import useStore from '../utils/store/useStore';
 import { useNavigate } from 'react-router-dom';
 import showToast from '../utils/showToast';

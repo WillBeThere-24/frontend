@@ -5,11 +5,12 @@ import InviteModal from '../components/invite-guest/InvitModal';
 import { useFetch } from '../utils/hooks';
 import showToast from '../utils/showToast';
 import formatDateTime from '../utils/formatDataTime';
-import ClosedEye from '/public/icons/form/Closed-Eye.svg';
-import OpenedEye from '/public/icons/form/Open-Eye.svg';
+import ClosedEye from '/icons/form/Closed-Eye.svg';
+import OpenedEye from '/icons/form/Open-Eye.svg';
 import Loader from '../components/circle-loader/Loader';
 
 const hiddenCount = '***';
+
 const myGuest = [
 	{
 		firstName: 'Sebastian',
@@ -101,6 +102,7 @@ function EventOverview() {
 			const { data } = await fetchData(
 				`${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/guests`
 			);
+			console.log(data)
 			setEventGuest(data);
 		} catch (error) {
 			showToast.error(error);
