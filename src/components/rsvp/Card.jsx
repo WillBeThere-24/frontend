@@ -85,10 +85,7 @@ const Card = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(
-      import.meta.env.VITE_BASE_URL +
-        `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`
-    );
+
     try {
       if (option === "no") {
         // post attending to false
@@ -114,7 +111,6 @@ const Card = ({ data }) => {
         if (data) {
           setModalData(noData);
           setIsOpened(true);
-          console.log(data, "data from the post request");
           showToast.success(
             "Thanks for letting us know. \n Next time hopefully!"
           );
@@ -183,7 +179,6 @@ const Card = ({ data }) => {
   const day = time.getDate();
   const hours = time.getHours();
   const minutes = time.getMinutes();
-  console.log(event);
 
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
@@ -210,10 +205,9 @@ const Card = ({ data }) => {
               <p className='text-center'>
                 Please pick any item you can bring to the event
               </p>
-              <div className='flex flex-wrap gap-4'>
+              <div className='flex justify-center items-center flex-wrap gap-4'>
                 {event.items &&
                   event.items.map((item, id) => {
-                    console.log("item", item);
                     return (
                       <div key={id} className='flex gap-2'>
                         <input
