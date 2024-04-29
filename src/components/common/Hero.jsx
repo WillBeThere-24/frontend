@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <div className='h-[90vh] reletive' id='home'>
@@ -16,12 +18,16 @@ function Hero() {
           exciting themes - we make it all happen smoothly.{" "}
         </p>
         <div className='flex  gap-8 items-center'>
-          <button className='rounded-lg w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
-            Create An Event
-          </button>
-          <button className='rounded-lg w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
-            RSVP
-          </button>
+          <Link to='/dashboard/new-event'>
+            <button className='rounded-lg w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
+              Create An Event
+            </button>
+          </Link>
+          <Link to='/dashboard/rsvp'>
+            <button className='rounded-lg w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
+              RSVP
+            </button>
+          </Link>
         </div>
       </div>
     </div>
