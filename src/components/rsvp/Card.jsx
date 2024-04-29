@@ -100,6 +100,7 @@ const Card = ({ data }) => {
                 attending: false,
                 message: myself.congratulatoryMessage,
                 plus_ones: [],
+                items: [],
               }
             : {
                 name: `${myself.firstName} ${myself.lastName}`,
@@ -107,6 +108,7 @@ const Card = ({ data }) => {
                 attending: false,
                 message: myself.congratulatoryMessage,
                 plus_ones: [],
+                items: [],
               }
         );
         if (data) {
@@ -145,7 +147,7 @@ const Card = ({ data }) => {
                 attending: true,
                 plus_ones: friendListToPost,
                 message: myself.congratulatoryMessage,
-                // items: itemsToBring,
+                items: itemsToBring,
               }
             : {
                 name: `${myself.firstName} ${myself.lastName}`,
@@ -153,7 +155,7 @@ const Card = ({ data }) => {
                 attending: true,
                 plus_ones: friendListToPost,
                 message: myself.congratulatoryMessage,
-                // items: itemsToBring,
+                items: itemsToBring,
               }
         );
         if (data) {
@@ -242,7 +244,7 @@ const Card = ({ data }) => {
             value={myself.congratulatoryMessage}
             onChange={(e) => handleMyselfChange(e)}
           />
-          {guest && (
+          {!guest && (
             <FriendInputs
               friend={myself}
               handleMyselfChange={handleMyselfChange}
