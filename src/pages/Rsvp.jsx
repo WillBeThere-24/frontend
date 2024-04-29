@@ -4,7 +4,6 @@ import { useLoaderData } from "react-router-dom";
 const Rsvp = () => {
   const receivedData = useLoaderData();
   const { data } = receivedData;
-  console.log("data from rsvp page", data);
   const { guest, event } = data;
 
   return (
