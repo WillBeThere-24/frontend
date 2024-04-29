@@ -93,6 +93,7 @@ function EventOverview() {
 	const [eventGuests, setEventGuest] = useState([]);
 	const [showGuestCount, setShowGuestCount] = useState(false);
 
+
 	const { fetchData, loading } = useFetch();
 
 	const fetchEventGuest = async () => {

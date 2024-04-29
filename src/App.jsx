@@ -1,7 +1,4 @@
-import {
-	createBrowserRouter,
-	RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
 	HomeSharedLayout,
 	Home,
@@ -19,15 +16,13 @@ import EventOverview from './pages/EventOverview';
 import RsvpSection from './pages/RsvpSection';
 import InviteGuest from './pages/InviteGuest';
 import axios from 'axios';
-import { Login, SignUp} from './components';
+import { Login, SignUp } from './components';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <HomeSharedLayout />,
-		children: [
-			{ path: '/', element: <Home /> },
-		],
+		children: [{ path: '/', element: <Home /> }],
 	},
 	{
 		path: '/dashboard',
@@ -84,10 +79,11 @@ const router = createBrowserRouter([
 		loader: async ({ params }) => {
 			const searchParams = new URLSearchParams(window.location.search);
 			const guestId = searchParams.get('guest');
+
 			const { data } = await axios.get(
-				`${import.meta.env.VITE_BASE_URL}/events/rsvp/${
-					params.id
-				}?guest=${guestId}`
+				`${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
+					guestId ? `?guest=${guestId}` : ''
+				}`
 			);
 			return data;
 		},

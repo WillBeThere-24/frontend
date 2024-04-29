@@ -2,8 +2,8 @@ import { useState } from "react";
 import FriendInputs from "./FriendInputs";
 import { Button } from "../common";
 import Modal from "./Modal";
-import toast from "react-hot-toast";
 import { usePost } from "../../utils/hooks";
+import showToast from "../../utils/showToast";
 const noData = [
   {
     children: (
@@ -14,43 +14,56 @@ const noData = [
     parentClassName: "bg-wybt-white",
   },
 ];
-const yesData = [
-  {
-    children: (
-      <div className=' flex flex-col gap-4 md:gap-6 justify-center items-center'>
-        <p className='text-3xl font-extrabold  font-caveat md:text-6xl text-center'>
-          Woo-hoo!
-        </p>
-        <p>Thanks for confirming your spot</p>
-      </div>
-    ),
-    parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
-  },
-  {
-    children: (
-      <div className='absolute bottom-0 bg-wybt-primary w-full h-[50%] flex flex-col gap-4 justify-center items-center text-3xl  font-extrabold  font-caveat md:text-6xl text-center text-white'>
-        <p>1234 Elm Street,</p>
-        <p>Springfield, Anytown,</p>
-      </div>
-    ),
-    parentClassName: "bg-yes-modal bg-no-repeat bg-cover ",
-  },
-  {
-    children: (
-      <p className='text-3xl  font-extrabold font-caveat md:text-6xl text-center'>
-        See you there
-      </p>
-    ),
-    parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
-  },
-];
-const Card = () => {
+
+const Card = ({ guest, event }) => {
   const [friends, setFriends] = useState([]);
   const [option, setOption] = useState("yes");
   const [modalData, setModalData] = useState([]);
   const [isOpened, setIsOpened] = useState(false);
+  const [myself, setMyself] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    congratulatoryMessage: "",
+  });
+  const { postData } = usePost();
 
-  const { postData, data } = usePost();
+  const yesData = [
+    {
+      children: (
+        <div className=' flex flex-col gap-4 md:gap-6 justify-center items-center'>
+          <p className='text-3xl font-extrabold  font-caveat md:text-6xl text-center'>
+            Woo-hoo!
+          </p>
+          <p>Thanks for confirming your spot</p>
+        </div>
+      ),
+      parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
+    },
+    {
+      children: (
+        <div className='absolute bottom-0 bg-wybt-primary w-full h-[50%] flex flex-col gap-4 justify-center items-center text-3xl  font-extrabold  font-caveat md:text-6xl text-center text-white'>
+          <p>{event.location}</p>
+        </div>
+      ),
+      parentClassName: "bg-yes-modal bg-no-repeat bg-cover ",
+    },
+    {
+      children: (
+        <p className='text-3xl  font-extrabold font-caveat md:text-6xl text-center'>
+          See you there
+        </p>
+      ),
+      parentClassName: "bg-yes-modal bg-no-repeat bg-cover bg-center",
+    },
+  ];
+  const handleMyselfChange = (e) => {
+    const { name, value } = e.target;
+    setMyself((prevData) => {
+      return { ...prevData, [name]: value };
+    });
+  };
+
   const handleAddFriend = () => {
     setFriends((previousFriends) => [
       ...previousFriends,
@@ -68,21 +81,39 @@ const Card = () => {
     setFriends(newFriends);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(
+      import.meta.env.VITE_BASE_URL +
+        `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`
+    );
     try {
       if (option === "no") {
         // post attending to false
-        postData(
-          import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest",
-          {
-            attending: false,
-          }
+        const { data } = await postData(
+          import.meta.env.VITE_BASE_URL +
+            `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`,
+          guest
+            ? {
+                attending: false,
+                message: myself.congratulatoryMessage,
+                plus_ones: [],
+              }
+            : {
+                name: `${myself.firstName} ${myself.lastName}`,
+                email: myself.email.toLowerCase(),
+                attending: false,
+                message: myself.congratulatoryMessage,
+                plus_ones: [],
+              }
         );
         if (data) {
           setModalData(noData);
           setIsOpened(true);
-          toast.success("Your response has been saved successfully");
+          console.log(data, "data from the post request");
+          showToast.success(
+            "Thanks for letting us know. \n Next time hopefully!"
+          );
         }
 
         return;
@@ -97,38 +128,90 @@ const Card = () => {
         }
       });
 
+      //
       if (isValid) {
         // post attending to true and list of friends if any in an array
-        postData(
-          import.meta.env.VITE_BASE_URL + "/events/rsvp/:id?guest=guest",
-          {
-            attending: true,
-            plus_ones: friends,
-          }
+        const friendListToPost = friends.map((friend) => ({
+          name: `${friend.firstName} ${friend.lastName}`,
+          // email: friend.email.toLowerCase(),
+        }));
+        const { data } = await postData(
+          import.meta.env.VITE_BASE_URL +
+            `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`,
+          guest
+            ? {
+                attending: true,
+                plus_ones: friendListToPost,
+                message: myself.congratulatoryMessage,
+              }
+            : {
+                name: !guest && `${myself.firstName} ${myself.lastName}`,
+                email: !guest && myself.email.toLowerCase(),
+                attending: true,
+                plus_ones: friendListToPost,
+                message: myself.congratulatoryMessage,
+              }
         );
-        if (!data) {
+        if (data) {
           setModalData(yesData);
           setIsOpened(true);
-          toast.success("Your response has been saved successfully");
+          showToast.success("Wishing to see you there for in a while!");
         }
       }
     } catch (error) {
-      toast.error(
-        "There was an error posting your response. Please try again!"
-      );
+      showToast.error(error.message);
     }
   };
+
+  const time = new Date(event.end);
+  const year = time.getFullYear();
+  const month = time.getMonth() + 1;
+  const day = time.getDate();
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
       <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
-        <h4 className='text-center font-bold text-2xl md:text-4xl '>RSVP</h4>
+        <h4 className='text-center font-bold text-2xl md:text-4xl '>
+          RSVP for {event.name}
+        </h4>
         <p className='text-center font-light text-base md:text-xl'>
-          Kindly respond before XXXX 2024. We look forward to celebrating with
-          you.
+          Kindly respond before{" "}
+          {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
+          forward to celebrating with you.
         </p>
         <p className='text-center text-3xl md:text-5xl font-caveat'>
           Will You Be There?
         </p>
+        {guest && (
+          <p className='text-center font-bold text-3xl   '>{guest.name}</p>
+        )}{" "}
+        <div className='flex flex-col gap-3'>
+          <label
+            htmlFor='congratulatoryMessage'
+            className='text-lg md:text-xl '
+          >
+            Congratulatory message
+          </label>
+          <input
+            type='text'
+            name='congratulatoryMessage'
+            id='congratulatoryMessage'
+            placeholder='Congratulatory messages'
+            className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
+            value={myself.congratulatoryMessage}
+            onChange={(e) => handleMyselfChange(e)}
+          />
+        </div>
+        {!guest && (
+          <FriendInputs
+            friend={myself}
+            handleMyselfChange={handleMyselfChange}
+            text='Invited'
+            id={"0"}
+          />
+        )}
         <div className='flex gap-4 justify-between items-center'>
           <div className='flex gap-2 items-center'>
             <input

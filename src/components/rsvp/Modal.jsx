@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Button } from "../common";
 import { cn } from "../../utils/cn";
-
+import { useNavigate } from "react-router-dom";
+useNavigate;
 const Modal = ({ data, isOpen, setIsOpen }) => {
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   const addIndex = () => {
     if (index > data.length) {
@@ -25,7 +27,8 @@ const Modal = ({ data, isOpen, setIsOpen }) => {
   };
 
   const exitModal = () => {
-    setIsOpen(false); // navigate("/register");
+    setIsOpen(false);
+    navigate("/");
   };
   return (
     <div className='fixed inset-0 z-50 overflow-y-auto transition-opacity duration-1000'>
