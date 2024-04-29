@@ -48,7 +48,7 @@ const Card = ({ data }) => {
           <p>{event.location}</p>
         </div>
       ),
-      parentClassName: "bg-yes-modal bg-no-repeat bg-cover ",
+      parentClassName: "bg-location-bg-modal bg-no-repeat bg-cover ",
     },
     {
       children: (
@@ -205,19 +205,22 @@ const Card = ({ data }) => {
               {guest.name}
             </p>
           )}
-          {option === "yes" && event?.item?.length > 0 && (
+          {option === "yes" && event?.items?.length > 0 && (
             <div className='flex flex-col gap-4 justify-center items-center'>
-              <p>Please pick any item you can bring to the event</p>
+              <p className='text-center'>
+                Please pick any item you can bring to the event
+              </p>
               <div className='flex flex-wrap gap-4'>
-                {event.item &&
-                  event.item.map((item, id) => {
+                {event.items &&
+                  event.items.map((item, id) => {
+                    console.log("item", item);
                     return (
                       <div key={id} className='flex gap-2'>
                         <input
                           type='checkbox'
                           name={`itemsToBring-${item}`}
                           id={`itemsToBring-${item}`}
-                          className='cursor-pointer px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
+                          className='cursor-pointer px-4 py-3 rounded-lg bg-wybt-white focus:outline-none  text-wybt-primary'
                           value={item}
                           onChange={() => handleToggleItemsToBring(item)}
                           checked={itemsToBring.includes(item)}
