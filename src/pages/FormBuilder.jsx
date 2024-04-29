@@ -4,6 +4,7 @@ import showToast from "../utils/showToast";
 import { usePost } from "../utils/hooks";
 import useEvents from "../utils/store/useEvents";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/circle-loader/Loader";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -179,6 +180,7 @@ const FourthForm = ({
   setFormDetails,
   setFileImage,
   formDetails,
+  loading
 }) => {
   const fileInputRef = useRef(null);
 
@@ -228,10 +230,13 @@ const FourthForm = ({
         type='file'
       />
       <button
-        className='bg-wybt-primary text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold'
+        className='bg-wybt-primary text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold disabled:opacity-50'
         onClick={handleClick}
+        disabled={loading}
       >
-        Submit
+      {loading? <span className="flex justify-center items-center w-full h-6">
+        <Loader />
+      </span> : "Submit"}
       </button>
     </div>
   );
@@ -242,6 +247,7 @@ const FormBuilder = () => {
   const [fileImage, setFileImage] = useState(null);
   const addNewEvent = useEvents((state) => state.addEvent);
   const [loading, setLoading] = useState(false);
+  const setCurrentEvent = useEvents(state => state.setCurrentEvent);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -283,22 +289,22 @@ const FormBuilder = () => {
         "end",
         new Date(`${formDetails.endDate} ${formDetails.endTime}`).toISOString()
       );
-      const image = formData.get("image");
-      console.log("image form data", image);
       formData.append("timezone", formDetails.timezone);
       formData.append("isPrivate", formDetails.isPrivate);
       const { data } = await postData(
         `${import.meta.env.VITE_BASE_URL}/events`,
         formData
       );
-      console.log(data);
+      setCurrentEvent(data)
       addNewEvent(data);
 
       showToast.success("Form Submitted");
-      navigate("/dashboard/overview");
+      navigate(`/dashboard/events/${data._id}`);
     } catch (error) {
       console.error(error);
       showToast.error(error.message);
+    }finally {
+      setLoading(false)
     }
   };
 

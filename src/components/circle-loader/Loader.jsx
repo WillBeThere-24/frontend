@@ -1,6 +1,6 @@
 import "./style.css";
 
-function Loader({color}) {
+function Loader() {
   return (
    <svg
    className="container"
