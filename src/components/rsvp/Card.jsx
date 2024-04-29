@@ -20,6 +20,7 @@ const Card = ({ guest, event }) => {
   const [option, setOption] = useState("yes");
   const [modalData, setModalData] = useState([]);
   const [isOpened, setIsOpened] = useState(false);
+  const [itemsToBring, setItemsToBring] = useState([]);
   const [myself, setMyself] = useState({
     firstName: "",
     lastName: "",
@@ -163,6 +164,15 @@ const Card = ({ guest, event }) => {
     }
   };
 
+  const handleToggleItemsToBring = (item) => {
+    if (itemsToBring.includes(item)) {
+      setItemsToBring(itemsToBring.filter((i) => i !== item));
+      return;
+    } else {
+      setItemsToBring((previousItems) => [...previousItems, item]);
+    }
+  };
+  const mockItems = ["Rice", "Beans", "Carrot", "Peas", "Oil"];
   const time = new Date(event.end);
   const year = time.getFullYear();
   const month = time.getMonth() + 1;
@@ -172,28 +182,49 @@ const Card = ({ guest, event }) => {
 
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
-      <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
-        <h4 className='text-center font-bold text-2xl md:text-4xl '>
-          RSVP for {event.name}
-        </h4>
-        <p className='text-center font-light text-base md:text-xl'>
-          Kindly respond before{" "}
-          {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
-          forward to celebrating with you.
-        </p>
-        <p className='text-center text-3xl md:text-5xl font-caveat'>
-          Will You Be There?
-        </p>
-        {guest && (
-          <p className='text-center font-bold text-3xl   '>{guest.name}</p>
-        )}{" "}
-        <div className='flex flex-col gap-3'>
-          <label
-            htmlFor='congratulatoryMessage'
-            className='text-lg md:text-xl '
-          >
-            Congratulatory message
-          </label>
+      <div className='flex flex-col gap-8 max-h-[75vh] overflow-y-auto scrollbar-hide'>
+        <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
+          <h4 className='text-center font-bold text-2xl md:text-4xl '>
+            RSVP for {event.name}
+          </h4>
+          <p className='text-center font-light text-base md:text-xl'>
+            Kindly respond before
+            {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
+            forward to celebrating with you.
+          </p>
+          <p className='text-center text-3xl md:text-5xl font-caveat'>
+            Will You Be There?
+          </p>
+          {guest && (
+            <p className='text-center font-bold text-3xl   '>{guest.name}</p>
+          )}
+          <div className='flex flex-col gap-4 justify-center items-center'>
+            <p>Pick any item you can bring to the event</p>
+            <div className='flex flex-wrap gap-4'>
+              {mockItems.map((item, id) => {
+                return (
+                  <div key={id} className='flex gap-2'>
+                    <input
+                      type='checkbox'
+                      name='itemsToBring'
+                      id='itemsToBring'
+                      className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
+                      value={item}
+                      onChange={() => handleToggleItemsToBring(item)}
+                    />
+                    <label
+                      htmlFor='itemsToBring'
+                      className='cursor-pointer text-base md:text-xl'
+                      onChange={() => handleToggleItemsToBring(item)}
+                    >
+                      {item}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <input
             type='text'
             name='congratulatoryMessage'
@@ -203,89 +234,89 @@ const Card = ({ guest, event }) => {
             value={myself.congratulatoryMessage}
             onChange={(e) => handleMyselfChange(e)}
           />
-        </div>
-        {!guest && (
-          <FriendInputs
-            friend={myself}
-            handleMyselfChange={handleMyselfChange}
-            text='Invited'
-            id={"0"}
-          />
-        )}
-        <div className='flex gap-4 justify-between items-center'>
+          {guest && (
+            <FriendInputs
+              friend={myself}
+              handleMyselfChange={handleMyselfChange}
+              text='Invited'
+              id={"0"}
+            />
+          )}
+          <div className='flex gap-4 justify-between items-center'>
+            <div className='flex gap-2 items-center'>
+              <input
+                type='checkbox'
+                name='yes'
+                id='yes'
+                className='cursor-pointer size-5'
+                checked={option === "yes"}
+                onChange={() => setOption("yes")}
+              />
+              <label
+                htmlFor='yes'
+                className='cursor-pointer text-base md:text-xl'
+                onChange={() => setOption("yes")}
+              >
+                Yes, I&apos;ll be there
+              </label>
+            </div>
+            <div className='flex gap-3 items-center'>
+              <Button
+                className='p-0 text-4xl disabled:cursor-not-allowed disabled:text-wybt-light-gray'
+                onClick={handleRemoveFriend}
+                disabled={option === "no"}
+              >
+                -
+              </Button>
+              <div
+                className={`${
+                  option === "no" ? "text-wybt-light-gray" : "text-wybt-primary"
+                } bg-wybt-white  text-4xl px-4 py-2 font-bold `}
+              >
+                {friends.length}
+              </div>
+              <Button
+                className='p-0 text-4xl disabled:cursor-not-allowed disabled:text-wybt-light-gray'
+                onClick={handleAddFriend}
+                disabled={option === "no"}
+              >
+                +
+              </Button>
+            </div>
+          </div>
+          <div className='flex flex-col gap-6'>
+            {friends.map((friend, id) => (
+              <FriendInputs
+                key={id}
+                friend={friend}
+                id={id}
+                handleInputsChange={handleInputsChange}
+              />
+            ))}
+          </div>
           <div className='flex gap-2 items-center'>
             <input
               type='checkbox'
-              name='yes'
-              id='yes'
+              name='no'
+              id='no'
               className='cursor-pointer size-5'
-              checked={option === "yes"}
-              onChange={() => setOption("yes")}
+              checked={option === "no"}
+              onChange={() => {
+                setOption("no");
+                setFriends([]);
+              }}
             />
             <label
-              htmlFor='yes'
+              htmlFor='no'
               className='cursor-pointer text-base md:text-xl'
-              onChange={() => setOption("yes")}
+              onChange={() => {
+                setOption("no");
+                setFriends([]);
+              }}
             >
-              Yes, I&apos;ll be there
+              No, sorry
             </label>
           </div>
-          <div className='flex gap-3 items-center'>
-            <Button
-              className='p-0 text-4xl disabled:cursor-not-allowed disabled:text-wybt-light-gray'
-              onClick={handleRemoveFriend}
-              disabled={option === "no"}
-            >
-              -
-            </Button>
-            <div
-              className={`${
-                option === "no" ? "text-wybt-light-gray" : "text-wybt-primary"
-              } bg-wybt-white  text-4xl px-4 py-2 font-bold `}
-            >
-              {friends.length}
-            </div>
-            <Button
-              className='p-0 text-4xl disabled:cursor-not-allowed disabled:text-wybt-light-gray'
-              onClick={handleAddFriend}
-              disabled={option === "no"}
-            >
-              +
-            </Button>
-          </div>
-        </div>
-        <div className='flex flex-col gap-6'>
-          {friends.map((friend, id) => (
-            <FriendInputs
-              key={id}
-              friend={friend}
-              id={id}
-              handleInputsChange={handleInputsChange}
-            />
-          ))}
-        </div>
-        <div className='flex gap-2 items-center'>
-          <input
-            type='checkbox'
-            name='no'
-            id='no'
-            className='cursor-pointer size-5'
-            checked={option === "no"}
-            onChange={() => {
-              setOption("no");
-              setFriends([]);
-            }}
-          />
-          <label
-            htmlFor='no'
-            className='cursor-pointer text-base md:text-xl'
-            onChange={() => {
-              setOption("no");
-              setFriends([]);
-            }}
-          >
-            No, sorry
-          </label>
         </div>
       </div>
       <Button
@@ -294,8 +325,9 @@ const Card = ({ guest, event }) => {
         onClick={handleSubmit}
         // disabled={loading}
       >
-        Next
+        Submit
       </Button>
+
       {isOpened && (
         <Modal isOpen={isOpened} setIsOpen={setIsOpened} data={modalData} />
       )}
