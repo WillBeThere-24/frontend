@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import showToast from "../utils/showToast";
 import usePost from "../utils/hooks/usePost";
 import handleGoogleAuth from "../utils/firebase/firebase.google";
+import { Link } from "react-router-dom";
 
-const SignUp = ({ handleTabChange }) => {
+const SignUp = () => {
   const setCurrentUser = useStore((state) => state.setUser);
   const { postData, loading } = usePost();
   const navigate = useNavigate();
@@ -156,13 +157,13 @@ const SignUp = ({ handleTabChange }) => {
       </p>
       <p className="text-wybt-light-primary">
         Already have an account?{" "}
-        <span
-          onClick={() => handleTabChange("login")}
+        <Link
+        to="/login"
           className="cursor-pointer font-semibold"
         >
           {" "}
           Log In
-        </span>
+        </Link>
       </p>
     </form>
   );

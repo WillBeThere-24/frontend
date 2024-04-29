@@ -5,7 +5,6 @@ import useStore from "../utils/store/useStore";
 const DashboardOverview = () => {
 	const currentUser = useStore(state => state.user)
 
-	console.log("currentUser", currentUser)
 	return (
 		<main className="w-full">
 			<div>
@@ -20,7 +19,7 @@ const DashboardOverview = () => {
 					<h3 className="">{addZero(currentUser.eventCount)}</h3>
 					<p>Events</p>
 				</div>
-				<div className="text-2xl font-bold border border-wybt-primary py-12  md:px-20 px-12  rounded-md w-full md:w-full bg-white">
+				<div className="text-2xl font-bold border border-wybt-primary py-12  md:px-20 px-12  rounded-md w-full md:w-full mt-6 md:mt-0 bg-white">
 					<h3 className="">{addZero(currentUser.rsvpCount)}</h3>
 					<p className="">RSVP</p>
 				</div>

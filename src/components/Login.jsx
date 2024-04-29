@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import showToast from '../utils/showToast';
 import usePost from '../utils/hooks/usePost';
 import handleGoogleAuth from '../utils/firebase/firebase.google';
+import { Link } from 'react-router-dom';
 
-const Login = ({ handleTabChange }) => {
+const Login = () => {
 	const setCurrentUser = useStore((state) => state.setUser);
 	const { postData, loading } = usePost();
 	const navigate = useNavigate();
@@ -32,7 +33,6 @@ const Login = ({ handleTabChange }) => {
 			);
 			setCurrentUser(result.data);
 			navigate('/dashboard/overview');
-			showToast.success('Welcome Back');
 		} catch (error) {
 			showToast.error(error.message);
 			console.log(error);
@@ -53,7 +53,7 @@ const Login = ({ handleTabChange }) => {
 		showToast.loading('Logging in');
 		try {
 			const userDetails = await handleGoogleAuth();
-      console.log(userDetails)
+			console.log(userDetails);
 			const result = await postData(
 				`${import.meta.env.VITE_BASE_URL}/auth/login`,
 				{ ...userDetails, auth: 'google', name: userDetails.displayName }
@@ -125,7 +125,7 @@ const Login = ({ handleTabChange }) => {
 				<button
 					disabled={loading}
 					onClick={loginWithGoogle}
-          type='button'
+					type="button"
 					className="bg-wybt-neutral-white text-wybt-primary p-2 rounded-lg border-wybt-primary border disabled:opacity-50"
 				>
 					Log in with Google
@@ -136,13 +136,13 @@ const Login = ({ handleTabChange }) => {
 			</p>
 			<p className="text-wybt-primary">
 				Doesn&apos;t have an account ?{' '}
-				<span
-					onClick={() => handleTabChange('signup')}
+				<Link
+					to="/register"
 					className="cursor-pointer font-semibold"
 				>
 					{' '}
 					Sign Up
-				</span>
+				</Link>
 			</p>
 		</form>
 	);

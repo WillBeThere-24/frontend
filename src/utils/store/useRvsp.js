@@ -2,15 +2,16 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 const initialState = {
-	rsvp: null,
+	rsvps: null,
 	currentRsvp: null,
+	status: "idle"
 };
 
 const useRsvp = create(
 	immer((set) => ({
 		...initialState,
-		setEvents: (events) => set({ events }),
-		setCurrentEvent: (currentEvent) => set({ currentEvent }),
+		setRsvps: (rsvps) => set({ rsvps, status: "success" }),
+		setCurrentRsvp: (currentRsvp) => set({ currentRsvp }),
 	}))
 );
 
