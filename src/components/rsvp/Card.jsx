@@ -183,6 +183,7 @@ const Card = ({ data }) => {
   const day = time.getDate();
   const hours = time.getHours();
   const minutes = time.getMinutes();
+  console.log(event);
 
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
