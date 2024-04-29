@@ -23,7 +23,7 @@ const FriendInputs = ({
           value={friend.firstName}
           onChange={(e) => {
             handleInputsChange
-              ? handleInputsChange(0, "firstName", e.target.value)
+              ? handleInputsChange(id, "firstName", e.target.value)
               : handleMyselfChange(e);
           }}
           required
@@ -37,7 +37,7 @@ const FriendInputs = ({
           value={friend.lastName}
           onChange={(e) => {
             handleInputsChange
-              ? handleInputsChange(0, "firstName", e.target.value)
+              ? handleInputsChange(id, "lastName", e.target.value)
               : handleMyselfChange(e);
           }}
           required
@@ -52,7 +52,7 @@ const FriendInputs = ({
         value={friend.email}
         onChange={(e) => {
           handleInputsChange
-            ? handleInputsChange(0, "firstName", e.target.value)
+            ? handleInputsChange(id, "email", e.target.value)
             : handleMyselfChange(e);
         }}
         required

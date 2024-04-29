@@ -15,7 +15,8 @@ const noData = [
   },
 ];
 
-const Card = ({ guest, event }) => {
+const Card = ({ data }) => {
+  const { guest, event } = data;
   const [friends, setFriends] = useState([]);
   const [option, setOption] = useState("yes");
   const [modalData, setModalData] = useState([]);
@@ -144,13 +145,15 @@ const Card = ({ guest, event }) => {
                 attending: true,
                 plus_ones: friendListToPost,
                 message: myself.congratulatoryMessage,
+                // items: itemsToBring,
               }
             : {
-                name: !guest && `${myself.firstName} ${myself.lastName}`,
-                email: !guest && myself.email.toLowerCase(),
+                name: `${myself.firstName} ${myself.lastName}`,
+                email: myself.email.toLowerCase(),
                 attending: true,
                 plus_ones: friendListToPost,
                 message: myself.congratulatoryMessage,
+                // items: itemsToBring,
               }
         );
         if (data) {
@@ -164,15 +167,14 @@ const Card = ({ guest, event }) => {
     }
   };
 
-  const handleToggleItemsToBring = (item) => {
-    if (itemsToBring.includes(item)) {
-      setItemsToBring(itemsToBring.filter((i) => i !== item));
+  const handleToggleItemsToBring = (value) => {
+    if (itemsToBring.includes(value)) {
+      setItemsToBring(itemsToBring.filter((item) => item !== value));
       return;
     } else {
-      setItemsToBring((previousItems) => [...previousItems, item]);
+      setItemsToBring((previousItems) => [...previousItems, value]);
     }
   };
-  const mockItems = ["Rice", "Beans", "Carrot", "Peas", "Oil"];
   const time = new Date(event.end);
   const year = time.getFullYear();
   const month = time.getMonth() + 1;
@@ -188,7 +190,7 @@ const Card = ({ guest, event }) => {
             RSVP for {event.name}
           </h4>
           <p className='text-center font-light text-base md:text-xl'>
-            Kindly respond before
+            Kindly respond before{" "}
             {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
             forward to celebrating with you.
           </p>
@@ -196,34 +198,40 @@ const Card = ({ guest, event }) => {
             Will You Be There?
           </p>
           {guest && (
-            <p className='text-center font-bold text-3xl   '>{guest.name}</p>
+            <p className='text-center font-bold text-xl md:text-3xl   '>
+              {guest.name}
+            </p>
           )}
-          <div className='flex flex-col gap-4 justify-center items-center'>
-            <p>Pick any item you can bring to the event</p>
-            <div className='flex flex-wrap gap-4'>
-              {mockItems.map((item, id) => {
-                return (
-                  <div key={id} className='flex gap-2'>
-                    <input
-                      type='checkbox'
-                      name='itemsToBring'
-                      id='itemsToBring'
-                      className='px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
-                      value={item}
-                      onChange={() => handleToggleItemsToBring(item)}
-                    />
-                    <label
-                      htmlFor='itemsToBring'
-                      className='cursor-pointer text-base md:text-xl'
-                      onChange={() => handleToggleItemsToBring(item)}
-                    >
-                      {item}
-                    </label>
-                  </div>
-                );
-              })}
+          {option === "yes" && event?.item?.length > 0 && (
+            <div className='flex flex-col gap-4 justify-center items-center'>
+              <p>Please pick any item you can bring to the event</p>
+              <div className='flex flex-wrap gap-4'>
+                {event.item &&
+                  event.item.map((item, id) => {
+                    return (
+                      <div key={id} className='flex gap-2'>
+                        <input
+                          type='checkbox'
+                          name={`itemsToBring-${item}`}
+                          id={`itemsToBring-${item}`}
+                          className='cursor-pointer px-4 py-3 rounded-lg bg-wybt-white w-full focus:outline-none  text-wybt-primary'
+                          value={item}
+                          onChange={() => handleToggleItemsToBring(item)}
+                          checked={itemsToBring.includes(item)}
+                        />
+                        <label
+                          htmlFor={`itemsToBring-${item}`}
+                          className='cursor-pointer text-base md:text-xl'
+                          onChange={() => handleToggleItemsToBring(item)}
+                        >
+                          {item}
+                        </label>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
+          )}
 
           <input
             type='text'
