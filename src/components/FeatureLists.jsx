@@ -23,7 +23,7 @@ const featureData = [
 
 function FeatureList() {
   return (
-    <div className='md:px-24 px-4'>
+    <div className='md:px-24 px-4' id='features'>
       <h1 className='font-montserrat font-bold text-[#1F1F1F] text-center uppercase lg:text-4xl text-3xl mt-8'>
         How it works
       </h1>

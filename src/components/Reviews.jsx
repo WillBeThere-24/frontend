@@ -27,7 +27,7 @@ const userReviews = [
 
 function Reviews() {
   return (
-    <section>
+    <section id='reviews'>
       <h1 className='font-montserrat font-bold text-[#1F1F1F] text-center  lg:text-4xl text-3xl mt-8'>
         User Reviews
       </h1>
