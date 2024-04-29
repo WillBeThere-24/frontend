@@ -19,6 +19,16 @@
 .dashboard {
 	a.active__link {
 		background-color: #e1e1e1;
+		position: relative;
+		&:before {
+			position: absolute;
+			content: "";
+			top: 0;
+			left: 0;
+			width: .2rem;
+			height: 100%;
+			background-color: #8E085D;
+		}
 	}
 
 }
@@ -28,14 +38,33 @@
 
 .table__body {
 	display: grid;
-	grid-template-columns: 7rem 12rem auto 9rem ;
+	grid-template-columns: 9rem 14rem auto 9rem 1.3rem ;
 	column-gap: 1rem;
 	width: 100%;
+
+
+	&.plus__one {
+		position: relative;
+		padding-left: 1.5rem;
+
+		&::before {
+			content: "";
+			position: absolute;
+			
+			width: .5rem;
+			height: .5rem;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: #c468e65a;
+			background-color: #d0d0d0;
+			border-radius: 50%;
+		}
+	}
 }
 
 @media screen and (max-width: 900px) {
 	.table__body {
-		grid-template-columns: 10rem auto;
+		grid-template-columns: 10rem auto 1.3rem;
 	}
 }
 

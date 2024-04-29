@@ -1,53 +1,34 @@
-import { useState } from "react";
-import { SignUp, Login } from "./";
+
+import { Outlet, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Tabs = () => {
-  const [visibleTab, setVisibleTab] = useState("signup");
-  const handleTabChange = (tab) => {
-    if (visibleTab !== tab) {
-      setVisibleTab(tab);
-    }
-  };
+  const location = useLocation();
   return (
     <div>
       <div className='gap-3 flex'>
-        <button
-          onClick={() => {
-            handleTabChange("signup");
-          }}
+        <Link to="/register"
           className={`${
-            visibleTab === "signup"
+            location.pathname === "/register"
               ? "font-bold text-wybt-primary"
               : "text-wybt-light-gray"
-          } text-2xl md:text-3xl`}
+          } text-2xl md:text-3xl block`}
         >
           Sign Up
-        </button>
-        <button
-          onClick={() => {
-            handleTabChange("login");
-          }}
+        </Link>
+        <Link to="/login"
           className={`${
-            visibleTab === "login"
+            location.pathname === "/login"
               ? "font-bold text-wybt-primary"
               : "text-wybt-light-gray"
-          } text-2xl md:text-3xl`}
+          } text-2xl md:text-3xl block`}
         >
           {" "}
           Log In
-        </button>
+        </Link>
       </div>
-      {visibleTab === "signup" ? (
-        <SignUp handleTabChange={handleTabChange} />
-      ) : (
-        <Login handleTabChange={handleTabChange} />
-      )}
+      <Outlet />
       <div>
-        {/* {visibleTab === 'signup' ? <div>
-                    <p>Already have an account?<span onClick={handleTabChange('login')}>Log In</span></p>
-                </div> : <div>
-                    <p>Doesn't have an account <span onClick={handleTabChange('signup')}>Sign Up</span></p>
-                </div>} */}
       </div>
     </div>
   );

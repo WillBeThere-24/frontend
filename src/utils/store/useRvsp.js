@@ -1,19 +1,19 @@
-import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
-
+import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
 
 const initialState = {
-   rsvp: null,
-   currentRsvp: null
- };
-
+	rsvps: null,
+	currentRsvp: null,
+	status: "idle"
+};
 
 const useRsvp = create(
-   immer((set) => ({
-     ...initialState,
-     setEvents: (events) => set({ events }),
-     setCurrentEvent: (currentEvent)=> set({currentEvent})
-   }))
- );
+	immer((set) => ({
+		...initialState,
+		setRsvps: (rsvps) => set({ rsvps, status: "success" }),
+		setCurrentRsvp: (currentRsvp) => set({ currentRsvp }),
+		resetRsvps: ()=> set({ ...initialState })
+	}))
+);
 
-export default useRsvp
+export default useRsvp;
