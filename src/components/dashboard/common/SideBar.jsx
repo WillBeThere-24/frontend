@@ -11,7 +11,6 @@ const SideBar = () => {
   const setCurrentEvent = useEvents((state) => state.setCurrentEvent);
   const setSideBar = useStore((state) => state.setSideBar);
   const navigate = useNavigate();
-  const setCurrentUser = useStore((state) => state.setUser);
   const currentUser = useStore((state) => state.user);
   const resetEvents = useEvents((state) => state.resetEvents);
   const resetUser = useEvents((state) => state.resetUser);
@@ -30,7 +29,6 @@ const SideBar = () => {
 
   const handleLogOut = (e) => {
     e.preventDefault();
-    setCurrentUser(null);
     resetEvents();
     resetUser();
     resetRsvps();
@@ -39,9 +37,9 @@ const SideBar = () => {
   };
   return (
     <aside
-      className={` top-[10vh] z-50 md:z-0 left-0 pt-7 max-h-[80vh] h-screen rounded-none md:top-[13vh] md:sticky  mb-6     md:rounded-md w-full ${
+      className={` top-[10vh] z-50 md:z-0 left-0 pt-7 max-h-[82vh] h-screen rounded-none md:top-[13vh] md:sticky  mb-6     md:rounded-md w-full ${
         sideBarState ? "block" : "hidden"
-      } md:block  md:w-[28%] border border-wybt-primary bg-slate-50`}
+      } md:block  md:w-[28%] border border-wybt-primary bg-slate-50 pb-2`}
     >
       {/* <p className="text-gray-400 text-sm mb-2 pl-6">User Details</p> */}
       <div className=' items-center  gap-3 md:hidden flex pl-6  mb-3 mt-4'>
@@ -96,7 +94,7 @@ const SideBar = () => {
       )}
       {userEvents?.map(
         (event, index) =>
-          index >= userEvents.length - 3 && (
+          index <=2 && (
             <SidebarItem
               key={index}
               link={`/dashboard/events/${event._id}`}
