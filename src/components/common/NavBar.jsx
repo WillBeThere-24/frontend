@@ -6,6 +6,17 @@ import Harmburger from "/public/icons/navigation menu/Harmburger-Menu-Icon.svg";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const scrollToSection = (e, id, offset) => {
+    e.preventDefault();
+    const section = document.getElementById(id);
+    if (section) {
+      const offsetTop = section.offsetTop - offset;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
+    }
+  };
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "visible";
@@ -41,9 +52,21 @@ const NavBar = () => {
         <div
           className={`text-wybt-primary justify-between gap-5 md:gap-10 sm:flex hidden text-nowrap whitespace-nowrap px-3`}
         >
-          <NavLink to=''>Event Details</NavLink>
-          <NavLink to='/dashboard/overview'>Dashboard</NavLink>
-          <NavLink to=''>Contact Us</NavLink>
+          <NavLink to='/#home' onClick={(e) => scrollToSection(e, "home", 0)}>
+            Home
+          </NavLink>
+          <NavLink
+            to='/#features'
+            onClick={(e) => scrollToSection(e, "features", 150)}
+          >
+            Features
+          </NavLink>
+          <NavLink
+            to='/#reviews'
+            onClick={(e) => scrollToSection(e, "reviews", 150)}
+          >
+            Reviews
+          </NavLink>
         </div>
 
         <div>
@@ -86,22 +109,34 @@ const NavBar = () => {
               }`}
             >
               <NavLink
-                to=''
+                to='/#home'
+                onClick={(e) => {
+                  scrollToSection(e, "home", 0);
+                  setIsOpen(false);
+                }}
                 className='before:bg-wybt-primary before:w-3 before:h-3 flex items-center before:rounded-full before:mr-3'
               >
-                Event Details
+                Home
               </NavLink>
               <NavLink
-                to='/dashboard/overview'
+                to='/#features'
+                onClick={(e) => {
+                  scrollToSection(e, "features", 150);
+                  setIsOpen(false);
+                }}
                 className='before:bg-wybt-primary before:w-3 before:h-3 flex items-center before:rounded-full before:mr-3'
               >
-                Dashboard
+                Features
               </NavLink>
               <NavLink
-                to=''
+                to='/#reviews'
+                onClick={(e) => {
+                  scrollToSection(e, "reviews", 150);
+                  setIsOpen(false);
+                }}
                 className='before:bg-wybt-primary before:w-3 before:h-3 flex items-center before:rounded-full before:mr-3'
               >
-                Contact Us
+                Reviews
               </NavLink>
               <NavLink to='/register'>
                 <button
