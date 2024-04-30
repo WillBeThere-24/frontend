@@ -28,6 +28,17 @@ const RsvpError = () => {
       />
     );
   }
+  if (error.response.status === 405) {
+    return (
+      <Error
+        error='405'
+        title='UH OH! You are late.'
+        text="The event you're trying to access has already started. Time flies, doesn't it? Don't worry, you can still catch up next time. Click the button below to return to the main page."
+        path='/'
+        pathText='Return Home'
+      />
+    );
+  }
 
   return (
     <Error
