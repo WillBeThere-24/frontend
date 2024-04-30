@@ -85,28 +85,34 @@ const router = createBrowserRouter([
     element: <Rsvp />,
     errorElement: (
       <RsvpError
-      // error='401'
-      // title='Attendance Already Confirmed'
-      // text='To modify your RSVP response, please register to the application.'
-      // path='/register'
-      // pathText='Register'
+        error='401'
+        title='Attendance Already Confirmed'
+        text='To modify your RSVP response, please register to the application.'
+        path='/register'
+        pathText='Register'
       />
     ),
     loader: async ({ params }) => {
-      try {
-        const searchParams = new URLSearchParams(window.location.search);
-        const guestId = searchParams.get("guest");
+      const searchParams = new URLSearchParams(window.location.search);
+      const guestId = searchParams.get("guest");
 
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
-            guestId ? `?guest=${guestId}` : ""
-          }`
-        );
-        if (data) return data;
-      } catch (error) {
-        console.error(error);
-        return null;
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
+          guestId ? `?guest=${guestId}` : ""
+        }`
+      );
+      if (res.status === 401) {
+        console.log(res.message);
+        throw new Error(res, { status: 401 }); //unauthorized
       }
+      if (res.status === 400) {
+        throw new Error(res, { status: 400 }); //not found
+      }
+      if (res.status === 500) {
+        throw new Error(res, { status: 500 }); //server error
+      }
+      const { data } = res;
+      return data;
     },
   },
 
