@@ -8,6 +8,7 @@ import formatDateTime from '../utils/formatDataTime';
 import ClosedEye from '/icons/form/Closed-Eye.svg';
 import OpenedEye from '/icons/form/Open-Eye.svg';
 import Loader from '../components/circle-loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const hiddenCount = '***';
 
@@ -92,10 +93,15 @@ function EventOverview() {
 	const currentEvent = useEvents((state) => state.currentEvent);
 	const [eventGuests, setEventGuest] = useState([]);
 	const [showGuestCount, setShowGuestCount] = useState(false);
+	const navigate = useNavigate();
 	
 
 	const { fetchData, loading } = useFetch();
-	console.log(eventGuests)
+
+	if(!currentEvent) {
+		navigate("/dashboard/events")
+	}
+
 	
 
 	const fetchEventGuest = async () => {
