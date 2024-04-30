@@ -26,9 +26,10 @@ function Hero() {
               Create An Event
             </button>
           </Link>
-          <Link to='/dashboard/rsvp' className=' max-w-30 md:max-w-40 w-full'>
-            <button className='rounded-lg w-full py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
-              RSVP
+
+          <Link to='/register' className=' max-w-30 md:max-w-40 w-full'>
+            <button className='rounded-lg w-full py-2 text-wybt-neutral-white font-bold border  bg-wybt-primary'>
+              Get started
             </button>
           </Link>
         </div>
