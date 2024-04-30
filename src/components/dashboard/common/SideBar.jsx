@@ -38,8 +38,8 @@ const SideBar = () => {
   return (
     <aside
       className={` top-[10vh] z-50 md:z-0 left-0 pt-7 fixed md:max-h-[82vh] h-screen rounded-none md:top-[13vh] md:sticky  mb-6     md:rounded-md w-full ${
-        sideBarState ? "block" : "hidden"
-      } md:block  md:w-[28%] border border-wybt-primary  pb-2`}
+        sideBarState ? "block bg-slate-50" : "hidden"
+      } md:block  md:w-[28%] border border-wybt-primary   pb-2`}
     >
       {/* <p className="text-gray-400 text-sm mb-2 pl-6">User Details</p> */}
       <div className=' items-center  gap-3 md:hidden flex pl-6  mb-3 mt-4'>
