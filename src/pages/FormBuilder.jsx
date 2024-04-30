@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useRef, useState } from 'react';
 import timezone from '../utils/timezone.json';
 import showToast from '../utils/showToast';
@@ -6,15 +5,6 @@ import { usePost } from '../utils/hooks';
 import useEvents from '../utils/store/useEvents';
 import {  useNavigate } from 'react-router-dom';
 import Loader from '../components/circle-loader/Loader';
-=======
-import { useRef, useState } from "react";
-import timezone from "../utils/timezone.json";
-import showToast from "../utils/showToast";
-import { usePost } from "../utils/hooks";
-import useEvents from "../utils/store/useEvents";
-import { useNavigate } from "react-router-dom";
-import Loader from "../components/circle-loader/Loader";
->>>>>>> c5edaa6410fea5affab52590383a3040399c01cb
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -347,42 +337,6 @@ const FormBuilder = () => {
     setCurrentForm(currentForm + 1);
   };
 
-<<<<<<< HEAD
-	const handleFormSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		e.currentTarget.checkValidity();
-		// run api stuff here
-		try {
-			const formData = new FormData();
-			formData.append('image', fileImage);
-			formData.append('name', formDetails.name);
-			formData.append('description', formDetails.description);
-			formData.append('location', formDetails.location);
-			formData.append('items', formDetails.items);
-			formData.append(
-				'start',
-				new Date(
-					`${formDetails.startDate} ${formDetails.startTime}`
-				).toISOString()
-			);
-			formData.append(
-				'end',
-				new Date(
-					`${formDetails.endDate} ${formDetails.endTime}`
-				).toISOString()
-			);
-			formData.append('timezone', formDetails.timezone);
-			formData.append('isPrivate', formDetails.isPrivate);
-			const items = formData.get("items");
-			console.log(items)
-			const { data } = await postData(
-				`${import.meta.env.VITE_BASE_URL}/events`,
-				formData
-			);
-			setCurrentEvent(data);
-			addNewEvent(data);
-=======
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -413,7 +367,6 @@ const FormBuilder = () => {
       );
       setCurrentEvent(data);
       addNewEvent(data);
->>>>>>> c5edaa6410fea5affab52590383a3040399c01cb
 
       showToast.success("Form Submitted");
       navigate(`/dashboard/events/${data._id}`);
