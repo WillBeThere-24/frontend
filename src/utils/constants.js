@@ -1,1 +1,0 @@
-export const BASEURL = "https://willbethere-api.adaptable.app/api/v1"

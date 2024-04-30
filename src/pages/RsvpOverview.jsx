@@ -55,7 +55,7 @@ function RsvpOverview() {
 					src={currentRsvp.event.image}
 					alt=""
 				/>
-				<h1 className="text-5xl font-bold font-montserrat text-white text-center">
+				<h1 className="capitalize text-3xl md:text-5xl font-bold font-montserrat text-white text-center">
 					{currentRsvp.event.name}
 				</h1>
 				<p className=" mt-3 text-sm text-white font-montserrat text-center">
@@ -65,21 +65,21 @@ function RsvpOverview() {
 					<Fragment>
 						<div className="flex justify-center items-center gap-2 mt-14">
 							<img
-								className="w-6 block invert brightness-200"
+								className="w-4 md:w-6 block invert brightness-200"
 								src="/icons/time.svg"
 								alt=""
 							/>
-							<p className="  text-sm text-white font-bold font-montserrat text-center">
+							<p className=" text-[.7rem]  md:text-sm text-white font-semibold font-montserrat text-center">
 								{formatDateTime(currentRsvp.event.start)}
 							</p>
 						</div>
 						<div className="flex justify-center items-center gap-2 mt-3">
 							<img
-								className="w-5 block  brightness-200"
+								className="w-4 md:w-6 block  brightness-200"
 								src="/icons/location.svg"
 								alt=""
 							/>
-							<p className="capitalize  text-sm text-white font-bold font-montserrat text-center">
+							<p className="capitalize text-[.7rem] md:text-sm text-white font-semibold font-montserrat text-center">
 								{currentRsvp.event.location}
 							</p>
 						</div>
@@ -100,7 +100,7 @@ function RsvpOverview() {
 				handleChange={handleChangeStatus}
 				isAttending={isAttending}
 			/>
-			<div className="mt-10 w-[70%] mb-8">
+			{currentRsvp.message && <div className="mt-10 w-full md:w-[70%] mb-8">
 				<label className="block text-sm mb-2 opacity-50" htmlFor="name">
 					Congratulatory Message
 				</label>
@@ -113,7 +113,7 @@ function RsvpOverview() {
 
 					name="location"
 				/>
-			</div>
+			</div>}
 			<div className="w-full mb-10">
 				{currentRsvp.attending && currentRsvp.plus_ones.length > 0 && (
 					<p className="font-bold my-2">Plus Ones</p>
