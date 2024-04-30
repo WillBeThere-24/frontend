@@ -69,15 +69,25 @@ const NavBar = () => {
           </NavLink>
         </div>
 
-        <div>
+        <div className='flex gap-2'>
           <NavLink
             to='/register'
-            className={`flex-r md:border-l-[1px] border-wybt-neutral-black md:pl-20 block pl-10  py-1 max-h-10`}
+            className={` md:border-l-[1px] border-wybt-neutral-black md:pl-20 block pl-10 py-1 max-h-10`}
           >
             <button
               className={`bg-wybt-primary text-wybt-white /h-[58.9px]  rounded-md py-2 px-11 gap-4 sm:block hidden`}
             >
               Register
+            </button>
+          </NavLink>
+          <NavLink
+            to='/login'
+            className={` border-wybt-neutral-black   py-1 max-h-10`}
+          >
+            <button
+              className={`text-wybt-primary border border-wybt-primary /h-[58.9px]  rounded-md py-2 px-11 gap-4 sm:block hidden`}
+            >
+              Log in
             </button>
           </NavLink>
         </div>
@@ -143,6 +153,13 @@ const NavBar = () => {
                   className={`bg-wybt-primary text-wybt-white /h-[58.9px] rounded-md py-2 px-10 gap-4 text-center flex sm:hidden text-[1.2rem] `}
                 >
                   Register
+                </button>
+              </NavLink>
+              <NavLink to='/login'>
+                <button
+                  className={`text-wybt-primary border border-wybt-primary /h-[58.9px] rounded-md py-2 px-10 gap-4 text-center flex sm:hidden text-[1.2rem] `}
+                >
+                  Log in
                 </button>
               </NavLink>
             </div>
