@@ -31,6 +31,7 @@ const Login = () => {
 				`${import.meta.env.VITE_BASE_URL}/auth/login`,
 				userDetails
 			);
+			console.log(result)
 			setCurrentUser(result.data);
 			navigate('/dashboard/overview');
 		} catch (error) {

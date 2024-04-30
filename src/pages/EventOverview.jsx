@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addZero } from '../utils/addZero';
 import useEvents from '../utils/store/useEvents';
 import InviteModal from '../components/invite-guest/InvitModal';
@@ -11,72 +11,71 @@ import Loader from '../components/circle-loader/Loader';
 
 const hiddenCount = '***';
 
-const myGuest = [
-	{
-		firstName: 'Sebastian',
-		lastName: 'Anioke',
-		email: 'aniokeChukwudi',
-	},
-	{
-		firstName: 'Sebastian',
-		lastName: 'Anioke',
-		email: 'aniokeChukwudi',
-	},
-	{
-		firstName: 'Sebastian',
-		lastName: 'Anioke',
-		email: 'aniokeChukwudi',
-	},
-	{
-		firstName: 'Sebastian',
-		lastName: 'Anioke',
-		email: 'aniokeChukwudi',
-	},
-];
+const getAttenddingClass = (isAttending) => {
+	if (isAttending === undefined || isAttending === null) {
+		return {
+			color: 'bg-gray-500',
+			text: 'Not Responded',
+		};
+	}
+	if (isAttending) {
+		return {
+			color: 'bg-green-500',
+			text: 'Attending',
+		};
+	} else if (!isAttending) {
+		return { color: 'bg-red-500', text: 'Not Attending' };
+	}
+};
 
-function InvitedGuest({ isAttending }) {
+export function InvitedGuest({ isAttending, name, email, plusOnes,message }) {
 	const [showPlusOnes, setShowPlusOnes] = useState(false);
 	const handleShowPlusOnes = () => {
 		setShowPlusOnes(!showPlusOnes);
 	};
+	const classValue = getAttenddingClass(isAttending)
+
+
 	return (
 		<div className="border-wybt-accent border  rounded-md mt-1">
-			<div className="table__body items-start  py-2 md:py-4 px-4 [&>p]:text-sm ">
-				<p>Gideon</p>
-				<p className="break-all hidden md:block">
-					aniokechukwudasfeadfasdfi@gmail.com
-				</p>
+			<div
+				className={`table__body  ${
+					plusOnes.length == 0 && 'without__plusone'
+				} items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
+			>
+				<p>{name}</p>
+				<p className="break-all hidden md:block">{email}</p>
 				<p className="hidden md:block">
-					I am so happy to here that you have finally married chucks.
+					{message || "__"}
 				</p>
 				<p
-					className={`${
-						isAttending ? 'bg-green-500' : 'bg-red-500'
-					} w-full md:w-[80%] py-2 text-center text-white font-bold rounded-lg`}
+					className={`${classValue.color} w-full md:w-[80%] py-2 text-center text-white font-bold rounded-lg`}
 				>
-					{isAttending ? 'Attending' : 'Not Attending'}
+					{classValue.text}
 				</p>
-				<button
-					onClick={handleShowPlusOnes}
-					className="flex items-center justify-center opacity-70 p-1"
-				>
-					<img
-						className={showPlusOnes && 'rotate-180'}
-						src="/icons/arrow-down.svg"
-						alt=""
-					/>
-				</button>
+				{plusOnes.length > 0 && (
+					<button
+						onClick={handleShowPlusOnes}
+						className="flex items-center justify-center opacity-70 p-1"
+					>
+						<img
+							className={showPlusOnes && 'rotate-180'}
+							src="/icons/arrow-down.svg"
+							alt=""
+						/>
+					</button>
+				)}
 			</div>
 			{showPlusOnes && (
 				<div className="pl-3">
 					<p className="font-bold my-2">Plus Ones</p>
-					{myGuest.map((guest, index) => (
+					{plusOnes.map((guest, index) => (
 						<div
 							key={index}
 							className="table__body plus__one [&>p]:text-sm my-2"
 						>
 							<p>
-								{guest.firstName} {guest.lastName}
+								{guest.name}
 							</p>
 							<p>{guest.email}</p>
 						</div>
@@ -93,16 +92,18 @@ function EventOverview() {
 	const currentEvent = useEvents((state) => state.currentEvent);
 	const [eventGuests, setEventGuest] = useState([]);
 	const [showGuestCount, setShowGuestCount] = useState(false);
-
+	
 
 	const { fetchData, loading } = useFetch();
+	console.log(eventGuests)
+	
 
 	const fetchEventGuest = async () => {
 		try {
 			const { data } = await fetchData(
 				`${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/guests`
 			);
-			console.log(data)
+
 			setEventGuest(data);
 		} catch (error) {
 			showToast.error(error);
@@ -211,7 +212,7 @@ function EventOverview() {
 				</button>
 			</div>
 			{showGuests && (
-				<table className="w-full mb-10">
+				<div className="w-full mb-10">
 					<div className="table__body border items-center border-wybt-accent rounded-md py-4 px-2 [&>p]:text-sm [&>p]:font-bold text-wybt-primary">
 						<p>Name</p>
 						<p className="hidden md:block">Email</p>
@@ -225,7 +226,7 @@ function EventOverview() {
 								src="/icons/no-guest.svg"
 								alt=""
 							/>
-							<p className='text-center text-sm'>No attending Guest.</p>
+							<p className="text-center text-sm">No attending Guest.</p>
 						</div>
 					)}
 					{loading && (
@@ -235,9 +236,16 @@ function EventOverview() {
 					)}
 
 					{eventGuests.map((item, index) => (
-						<InvitedGuest key={index} isAttending={index % 2} />
+						<InvitedGuest
+							key={index}
+							plusOnes={item.plus_ones}
+							isAttending={item.attending}
+							email={item.email}
+							name={item.name}
+							message={item.message}
+						/>
 					))}
-				</table>
+				</div>
 			)}
 			{isModalOpen && (
 				<InviteModal

@@ -3,7 +3,7 @@ import timezone from '../utils/timezone.json';
 import showToast from '../utils/showToast';
 import { usePost } from '../utils/hooks';
 import useEvents from '../utils/store/useEvents';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import Loader from '../components/circle-loader/Loader';
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
@@ -343,6 +343,7 @@ const FormBuilder = () => {
 			formData.append('name', formDetails.name);
 			formData.append('description', formDetails.description);
 			formData.append('location', formDetails.location);
+			formData.append('items', formDetails.items);
 			formData.append(
 				'start',
 				new Date(
@@ -357,6 +358,8 @@ const FormBuilder = () => {
 			);
 			formData.append('timezone', formDetails.timezone);
 			formData.append('isPrivate', formDetails.isPrivate);
+			const items = formData.get("items");
+			console.log(items)
 			const { data } = await postData(
 				`${import.meta.env.VITE_BASE_URL}/events`,
 				formData

@@ -13,7 +13,7 @@ const SideBar = () => {
   const navigate = useNavigate();
   const currentUser = useStore((state) => state.user);
   const resetEvents = useEvents((state) => state.resetEvents);
-  const resetUser = useEvents((state) => state.resetUser);
+  const resetUser = useStore((state) => state.resetUser);
   const resetRsvps = useRsvp((state) => state.resetRsvps);
 
   const handleNavLinkClick = () => {
@@ -37,7 +37,7 @@ const SideBar = () => {
   };
   return (
     <aside
-      className={` top-[10vh] z-50 md:z-0 left-0 pt-7 max-h-[82vh] h-screen rounded-none md:top-[13vh] md:sticky  mb-6     md:rounded-md w-full ${
+      className={` top-[10vh] z-50 md:z-0 left-0 pt-7 fixed md:max-h-[82vh] h-screen rounded-none md:top-[13vh] md:sticky  mb-6     md:rounded-md w-full ${
         sideBarState ? "block" : "hidden"
       } md:block  md:w-[28%] border border-wybt-primary bg-slate-50 pb-2`}
     >
