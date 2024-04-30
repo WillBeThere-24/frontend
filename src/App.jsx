@@ -111,6 +111,9 @@ const router = createBrowserRouter([
       if (res.status === 500) {
         throw new Error(res, { status: 500 }); //server error
       }
+      if (res.status === 405) {
+        throw new Error(res, { status: 405 }); //start time elapsed
+      }
       const { data } = res;
       return data;
     },
