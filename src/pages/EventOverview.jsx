@@ -190,7 +190,7 @@ function EventOverview() {
           <p>Not Responded</p>
         </div>
       </div>
-      <div className='flex justify-between items-center'>
+      <div className='flex justify-between gap-2 items-center'>
         <button
           onClick={handleToggleList}
           className='bg-wybt-primary text-white py-4 w-[11rem]  my-20  rounded-md whitespace-nowrap hover:bg-wybt-secondary'
@@ -212,7 +212,7 @@ function EventOverview() {
             <p className='hidden md:block'>Message</p>
             <p>Status</p>
           </div>
-          {!loading && eventGuests.length == 0 && (
+          {!loading && eventGuests.length === 0 && (
             <div className='flex justify-center items-center flex-col'>
               <img
                 className='w-[50%] min-w-[20rem]'
