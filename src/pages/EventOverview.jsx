@@ -35,6 +35,7 @@ export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
     setShowPlusOnes(!showPlusOnes);
   };
   const classValue = getAttenddingClass(isAttending);
+  console.log(plusOnes)
 
   return (
     <div className='border-wybt-accent border  rounded-md mt-1'>
@@ -52,7 +53,7 @@ export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
 
           <button
             onClick={handleShowPlusOnes}
-            className={`${plusOnes.length > 0 && "opacity-70 pointer-events-none"} flex items-center justify-center opacity-0 p-1`}
+            className={`${plusOnes.length > 0 ? "opacity-70 " : "opacity-0 pointer-events-none"} flex items-center justify-center   p-1`}
           >
             <img
               className={showPlusOnes && "rotate-180"}
@@ -85,6 +86,7 @@ function EventOverview() {
   const currentEvent = useEvents((state) => state.currentEvent);
   const [eventGuests, setEventGuest] = useState([]);
   const [showGuestCount, setShowGuestCount] = useState(false);
+  console.log(currentEvent)
 
   const { fetchData, loading } = useFetch();
 
@@ -138,6 +140,7 @@ function EventOverview() {
 						{formatDateTime(currentEvent.start)}
 					</p>
 				</div>
+				
 				<div className="flex justify-center items-center gap-1 mt-3">
 					<img
 						className="w-4 md:w-6 block  brightness-200"
@@ -167,7 +170,7 @@ function EventOverview() {
 				</button>
 			</div>
 			<div className="block md:flex gap-4 justify-center mt-8 text-center text-wybt-primary flex-col sm:flex-row w-full items-center">
-				<div className="text-xl font-bold border border-wybt-primary h-[12rem] flex flex-col justify-center  px-6   rounded-md w-full md:w-full">
+				<div className="text-lg font-semibold border border-wybt-primary h-[9rem] flex flex-col justify-center  px-2  rounded-md w-full md:w-full">
 					<h3 className="">
 						{showGuestCount
 							? addZero(currentEvent.attendingGuestCount)
@@ -175,7 +178,7 @@ function EventOverview() {
 					</h3>
 					<p className="">Attending</p>
 				</div>
-				<div className="w-full mt-12 md:mt-0 md:w-full text-xl font-bold border-wybt-primary border h-[12rem] flex flex-col justify-center px-6  rounded-md">
+				<div className="w-full mt-12 md:mt-0 md:w-full text-lg font-semibold border-wybt-primary border h-[9rem] flex flex-col justify-center px-2  rounded-md">
 					<h3 className="">
 						{showGuestCount
 							? addZero(currentEvent.notAttendingGuestCount)
@@ -183,13 +186,21 @@ function EventOverview() {
 					</h3>
 					<p>Not Attending</p>
 				</div>
-				<div className="w-full mt-12 md:mt-0 md:w-full text-xl font-bold border-wybt-primary border h-[12rem] flex flex-col justify-center px-6  rounded-md">
+				<div className="w-full mt-12 md:mt-0 md:w-full text-lg font-semibold border-wybt-primary border h-[9rem] flex flex-col justify-center px-2  rounded-md">
 					<h3 className="">
 						{showGuestCount
 							? addZero(currentEvent.noResponseCount)
 							: hiddenCount}
 					</h3>
 					<p>Not Responded</p>
+				</div>
+				<div className="w-full mt-12 md:mt-0 md:w-full text-lg font-semibold border-wybt-primary border h-[9rem] flex flex-col justify-center px-2  rounded-md">
+					<h3 className="">
+						{showGuestCount
+							? addZero(currentEvent.plusOnesGuestCount)
+							: hiddenCount}
+					</h3>
+					<p>Plus Ones</p>
 				</div>
 			</div>
 			<div className="flex justify-between items-center">
