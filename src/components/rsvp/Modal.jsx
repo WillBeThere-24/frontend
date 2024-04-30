@@ -17,12 +17,16 @@ const Modal = ({ data, isOpen, setIsOpen }) => {
 
   const reduceIndex = () => {
     setIndex((prev) => {
+      if (prev === 0) {
+        navigate("/");
+      }
       return prev - 1;
     });
   };
 
   if (!isOpen) return null;
   const onClose = () => {
+    navigate("/");
     setIsOpen(false);
   };
 
