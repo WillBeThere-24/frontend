@@ -39,9 +39,7 @@ export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
   return (
     <div className='border-wybt-accent border  rounded-md mt-1'>
       <div
-        className={`table__body  ${
-          plusOnes.length == 0 && "without__plusone"
-        } items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
+        className={`table__body  items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
       >
         <p>{name}</p>
         <p className='break-all hidden md:block'>{email}</p>
@@ -51,10 +49,10 @@ export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
         >
           {classValue.text}
         </p>
-        {plusOnes.length > 0 && (
+
           <button
             onClick={handleShowPlusOnes}
-            className='flex items-center justify-center opacity-70 p-1'
+            className={`${plusOnes.length > 0 && "opacity-70 pointer-events-none"} flex items-center justify-center opacity-0 p-1`}
           >
             <img
               className={showPlusOnes && "rotate-180"}
@@ -62,7 +60,6 @@ export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
               alt=''
             />
           </button>
-        )}
       </div>
       {showPlusOnes && (
         <div className='pl-3'>
