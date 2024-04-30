@@ -8,3 +8,4 @@ export { default as DashboardSharedLayout } from "./DashboardSharedLayout";
 export { default as Rsvp } from "./Rsvp";
 export { default as EventsPage } from "./EventsPage";
 export { default as Error } from "./Error";
+export { default as RsvpError } from "./RsvpError";

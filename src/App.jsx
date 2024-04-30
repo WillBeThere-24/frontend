@@ -9,6 +9,7 @@ import {
   EventsPage,
   Rsvp,
   Error,
+  RsvpError,
 } from "./pages";
 import { Authentication } from "./components/common";
 import { Toaster } from "react-hot-toast";
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
     path: "/rsvp/:id",
     element: <Rsvp />,
     errorElement: (
-      <Error
+      <RsvpError
         error='401'
         title='Attendance Already Confirmed'
         text='To modify your RSVP response, please register to the application.'
@@ -92,20 +93,26 @@ const router = createBrowserRouter([
       />
     ),
     loader: async ({ params }) => {
-      try {
-        const searchParams = new URLSearchParams(window.location.search);
-        const guestId = searchParams.get("guest");
+      const searchParams = new URLSearchParams(window.location.search);
+      const guestId = searchParams.get("guest");
 
-        const { data } = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
-            guestId ? `?guest=${guestId}` : ""
-          }`
-        );
-        console.log(data);
-        return data;
-      } catch (error) {
-        console.error(error);
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
+          guestId ? `?guest=${guestId}` : ""
+        }`
+      );
+      if (res.status === 401) {
+        console.log(res.message);
+        throw new Error(res, { status: 401 }); //unauthorized
       }
+      if (res.status === 400) {
+        throw new Error(res, { status: 400 }); //not found
+      }
+      if (res.status === 500) {
+        throw new Error(res, { status: 500 }); //server error
+      }
+      const { data } = res;
+      return data;
     },
   },
 

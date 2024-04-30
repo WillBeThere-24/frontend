@@ -18,7 +18,8 @@ const noData = [
 ];
 
 const Card = ({ data }) => {
-  const { guest, event } = data;
+  const guest = data?.guest;
+  const event = data?.event;
   const [friends, setFriends] = useState([]);
   const [option, setOption] = useState("yes");
   const [modalData, setModalData] = useState([]);
@@ -47,7 +48,7 @@ const Card = ({ data }) => {
     {
       children: (
         <div className='absolute bottom-0 bg-wybt-primary w-full h-[50%] flex flex-col gap-4 justify-center items-center text-3xl  font-extrabold  font-caveat md:text-6xl text-center text-white'>
-          <p>{event.location}</p>
+          <p>{event?.location}</p>
         </div>
       ),
       parentClassName: "bg-location-bg-modal bg-no-repeat bg-cover ",
@@ -93,7 +94,7 @@ const Card = ({ data }) => {
         // post attending to false
         const { data } = await postData(
           import.meta.env.VITE_BASE_URL +
-            `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`,
+            `/events/rsvp/${event?.id}${guest ? `?guest=${guest?._id}` : ""}`,
           guest
             ? {
                 attending: false,
@@ -139,7 +140,7 @@ const Card = ({ data }) => {
         }));
         const { data } = await postData(
           import.meta.env.VITE_BASE_URL +
-            `/events/rsvp/${event.id}${guest ? `?guest=${guest._id}` : ""}`,
+            `/events/rsvp/${event?.id}${guest ? `?guest=${guest?._id}` : ""}`,
           guest
             ? {
                 attending: true,
@@ -178,13 +179,13 @@ const Card = ({ data }) => {
 
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
-      <div className='flex flex-col gap-8 max-h-[75vh] overflow-y-auto scrollbar-hide'>
+      <div className='flex flex-col gap-8'>
         <div className='bg-wybt-primary text-white py-12 px-6 md:py-16 md:px-8 flex flex-col gap-8 '>
           <h4 className='text-center font-bold text-2xl md:text-4xl '>
-            RSVP for {event.name}
+            RSVP for {event?.name}
           </h4>
           <p className='text-center font-light text-base md:text-xl'>
-            Kindly respond before {formatDateTime(event.end)}. We look forward
+            Kindly respond before {formatDateTime(event?.end)}. We look forward
             to celebrating with you.
           </p>
           <p className='text-center text-3xl md:text-5xl font-caveat'>
@@ -201,8 +202,8 @@ const Card = ({ data }) => {
                 Please pick any item you can bring to the event
               </p>
               <div className='flex justify-center items-center flex-wrap gap-4'>
-                {event.items &&
-                  event.items.map((item, id) => {
+                {event?.items &&
+                  event?.items.map((item, id) => {
                     return (
                       <div key={id} className='flex gap-2'>
                         <input
