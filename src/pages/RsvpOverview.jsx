@@ -4,13 +4,15 @@ import Toogle from '../components/toogle/Toogle';
 import { Fragment, useState } from 'react';
 import { usePost } from '../utils/hooks';
 import showToast from '../utils/showToast';
+import { Navigate } from 'react-router-dom';
+
 
 function RsvpOverview() {
 	const currentRsvp = useRsvp((state) => state.currentRsvp);
 	const { postData, loading } = usePost();
 
 
-	const [isAttending, setIsAttending] = useState(currentRsvp.attending);
+	const [isAttending, setIsAttending] = useState(currentRsvp?.attending);
 
 	const handleChangeStatus = async () => {
 		try {
@@ -25,6 +27,10 @@ function RsvpOverview() {
 			showToast.error(error.message);
 		}
 	};
+
+	if (!currentRsvp) {
+		return <Navigate to="/dashboard/rsvp" />
+	}
 
 	return (
 		<div className="w-full">
