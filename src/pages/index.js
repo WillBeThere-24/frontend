@@ -7,3 +7,4 @@ export { default as HomeSharedLayout } from "./HomeSharedLayout";
 export { default as DashboardSharedLayout } from "./DashboardSharedLayout";
 export { default as Rsvp } from "./Rsvp";
 export { default as EventsPage } from "./EventsPage";
+export { default as Error } from "./Error";
