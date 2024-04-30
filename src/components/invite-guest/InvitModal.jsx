@@ -3,6 +3,7 @@ import { Button } from "../common";
 import FriendInputs from "../rsvp/FriendInputs";
 import toast from "react-hot-toast";
 import { usePost } from "../../utils/hooks";
+import Loader from "../circle-loader/Loader";
 
 const InviteModal = ({ isOpen, setIsOpen, id }) => {
   const [friends, setFriends] = useState([
@@ -86,7 +87,13 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
               onClick={handleSubmit}
               disabled={loading}
             >
-              Send
+              {loading ? (
+                <span className='flex justify-center items-center w-full h-6'>
+                  <Loader />
+                </span>
+              ) : (
+                "Send"
+              )}
             </Button>
           </div>
         </div>

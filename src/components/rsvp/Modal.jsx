@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "../common";
 import { cn } from "../../utils/cn";
 import { useNavigate } from "react-router-dom";
-useNavigate;
+
 const Modal = ({ data, isOpen, setIsOpen }) => {
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();

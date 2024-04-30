@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import { usePost } from "../../utils/hooks";
 import showToast from "../../utils/showToast";
 import formatDateTime from "../../utils/formatDataTime";
+import Loader from "../circle-loader/Loader";
 const noData = [
   {
     children: (
@@ -29,7 +30,7 @@ const Card = ({ data }) => {
     email: "",
     congratulatoryMessage: "",
   });
-  const { postData } = usePost();
+  const { postData, loading } = usePost();
 
   const yesData = [
     {
@@ -325,9 +326,15 @@ const Card = ({ data }) => {
         type='submit'
         className='bg-wybt-primary self-center text-wybt-white w-full md:w-[75%] lg:w-[50%]'
         onClick={handleSubmit}
-        // disabled={loading}
+        disabled={loading}
       >
-        Submit
+        {loading ? (
+          <span className='flex justify-center items-center w-full h-6'>
+            <Loader />
+          </span>
+        ) : (
+          "Submit"
+        )}
       </Button>
 
       {isOpened && (
