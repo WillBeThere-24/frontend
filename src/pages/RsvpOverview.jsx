@@ -6,11 +6,12 @@ import { usePost } from '../utils/hooks';
 import showToast from '../utils/showToast';
 import { Navigate } from 'react-router-dom';
 
-
 function RsvpOverview() {
 	const currentRsvp = useRsvp((state) => state.currentRsvp);
 	const { postData, loading } = usePost();
-
+	const userRsvps = useRsvp((state) => state.rsvps);
+	const setRsvps = useRsvp((state) => state.setRsvps);
+	const setCurrentRsvp = useRsvp(state => state.setCurrentRsvp);
 
 	const [isAttending, setIsAttending] = useState(currentRsvp?.attending);
 
@@ -19,17 +20,31 @@ function RsvpOverview() {
 			const { data } = await postData(
 				`${import.meta.env.VITE_BASE_URL}/events/rsvp/${
 					currentRsvp.event._id
-				}?guest=${currentRsvp._id}`, {"attending": !isAttending}
+				}?guest=${currentRsvp._id}`,
+				{ attending: !isAttending }
 			);
+			const newRsvpData = userRsvps.map((rsvp) => {
+				if (rsvp._id == currentRsvp._id) {
+					return {
+						...rsvp,
+						attending: data.attending
+					};
+				}
+				return rsvp;
+			});
 			setIsAttending(data.attending);
-			console.log(data);
+			setCurrentRsvp({
+				...currentRsvp,
+				attending: data.attending
+			})
+			setRsvps(newRsvpData);
 		} catch (error) {
 			showToast.error(error.message);
 		}
 	};
 
 	if (!currentRsvp) {
-		return <Navigate to="/dashboard/rsvp" />
+		return <Navigate to="/dashboard/rsvp" />;
 	}
 
 	return (
@@ -86,15 +101,16 @@ function RsvpOverview() {
 				isAttending={isAttending}
 			/>
 			<div className="mt-10 w-[70%] mb-8">
-				<label className="block text-sm mb-2" htmlFor="name">
+				<label className="block text-sm mb-2 opacity-50" htmlFor="name">
 					Congratulatory Message
 				</label>
 				<input
-					className="block w-full h-[2.7rem] rounded-md border border-wybt-secondary p-3"
+					className="block w-full h-[2.7rem] rounded-md border border-wybt-secondary p-3 opacity-35"
 					type="text"
 					required
 					value={currentRsvp.message}
-					// onChange={handleFormChange}
+					disabled
+
 					name="location"
 				/>
 			</div>
