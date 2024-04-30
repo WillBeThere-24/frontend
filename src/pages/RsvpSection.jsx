@@ -56,7 +56,7 @@ function RsvpSection() {
 			)}
 
 			{loading && (
-				<div className="flex justify-center items-center w-[5rem] mx-auto mt-[5rem]">
+				<div className="flex justify-center items-center w-[5rem] mx-auto my-[5rem]">
 					<Loader />
 				</div>
 			)}

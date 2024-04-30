@@ -11,6 +11,8 @@ const useStore = create(
 		setUser: (user) => set({ user }),
 		setSideBar: (value) => set({ sideBarState: value }),
 		resetUser: () => set({ ...initialState }),
+		increaseEventCount: () =>
+			set((state) => ({ user: { ...(state.user.eventCount + 1) } })),
 	}))
 );
 

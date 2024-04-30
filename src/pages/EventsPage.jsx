@@ -59,7 +59,7 @@ function EventsPage() {
 			)}
 	
 			{loading && (
-				<div className="flex justify-center items-center w-[5rem] mx-auto mt-[5rem]">
+				<div className="flex justify-center items-center w-[5rem] mx-auto mt-[5rem] my-[5rem]">
 					<Loader />
 				</div>
 			)}

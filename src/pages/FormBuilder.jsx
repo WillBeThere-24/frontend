@@ -5,6 +5,7 @@ import { usePost } from '../utils/hooks';
 import useEvents from '../utils/store/useEvents';
 import {  useNavigate } from 'react-router-dom';
 import Loader from '../components/circle-loader/Loader';
+import useStore from '../utils/store/useStore';
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -316,6 +317,7 @@ const FormBuilder = () => {
   const addNewEvent = useEvents((state) => state.addEvent);
   const [loading, setLoading] = useState(false);
   const setCurrentEvent = useEvents((state) => state.setCurrentEvent);
+  const increaseEventCount = useStore(state => state.increaseEventCount);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -367,6 +369,7 @@ const FormBuilder = () => {
       );
       setCurrentEvent(data);
       addNewEvent(data);
+      increaseEventCount();
 
       showToast.success("Form Submitted");
       navigate(`/dashboard/events/${data._id}`);
