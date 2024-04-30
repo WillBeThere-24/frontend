@@ -4,6 +4,8 @@ import { Button } from "../common";
 import Modal from "./Modal";
 import { usePost } from "../../utils/hooks";
 import showToast from "../../utils/showToast";
+import formatDateTime from "../../utils/formatDataTime";
+import Loader from "../circle-loader/Loader";
 const noData = [
   {
     children: (
@@ -28,7 +30,7 @@ const Card = ({ data }) => {
     email: "",
     congratulatoryMessage: "",
   });
-  const { postData } = usePost();
+  const { postData, loading } = usePost();
 
   const yesData = [
     {
@@ -173,12 +175,6 @@ const Card = ({ data }) => {
       setItemsToBring((previousItems) => [...previousItems, value]);
     }
   };
-  const time = new Date(event.end);
-  const year = time.getFullYear();
-  const month = time.getMonth() + 1;
-  const day = time.getDate();
-  const hours = time.getHours();
-  const minutes = time.getMinutes();
 
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
@@ -188,9 +184,8 @@ const Card = ({ data }) => {
             RSVP for {event.name}
           </h4>
           <p className='text-center font-light text-base md:text-xl'>
-            Kindly respond before{" "}
-            {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
-            forward to celebrating with you.
+            Kindly respond before {formatDateTime(event.end)}. We look forward
+            to celebrating with you.
           </p>
           <p className='text-center text-3xl md:text-5xl font-caveat'>
             Will You Be There?
@@ -331,9 +326,15 @@ const Card = ({ data }) => {
         type='submit'
         className='bg-wybt-primary self-center text-wybt-white w-full md:w-[75%] lg:w-[50%]'
         onClick={handleSubmit}
-        // disabled={loading}
+        disabled={loading}
       >
-        Submit
+        {loading ? (
+          <span className='flex justify-center items-center w-full h-6'>
+            <Loader />
+          </span>
+        ) : (
+          "Submit"
+        )}
       </Button>
 
       {isOpened && (
