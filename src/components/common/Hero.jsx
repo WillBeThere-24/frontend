@@ -17,14 +17,14 @@ function Hero() {
           together fun gatherings, from carefully making guest lists to creating
           exciting themes - we make it all happen smoothly.{" "}
         </p>
-        <div className='flex  gap-8 items-center'>
-          <Link to='/dashboard/new-event'>
-            <button className='rounded-lg w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
+        <div className='flex gap-4 md:gap-8 items-center'>
+          <Link to='/dashboard/new-event' className='w-full'>
+            <button className='rounded-lg w-full max-w-30 md:max-w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
               Create An Event
             </button>
           </Link>
-          <Link to='/dashboard/rsvp'>
-            <button className='rounded-lg w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
+          <Link to='/dashboard/rsvp' className='w-full'>
+            <button className='rounded-lg w-full max-w-30 md:max-w-40 py-2 text-wybt-neutral-white font-bold border border-white bg-wybt-primary'>
               RSVP
             </button>
           </Link>
