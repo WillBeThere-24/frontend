@@ -1,8 +1,21 @@
 import './style.css';
 
-function Toogle({ id, isAttending , handleChange }) {
+function Toogle({ id, isAttending , handleChange, loading }) {
 	return (
-		<div className="flex absolute top-2 right-1 items-center justify-center">
+		<div className={`flex relative top-2 right-1 items-center justify-center ${loading && "opacity-50"}`}>
+			
+			<div className="toggle-switch">
+				<input
+					className="toggle-input"
+					id={`toggle-${id}`}
+					type="checkbox"
+					name={`toggle-${id}`}
+					checked={isAttending}
+					onChange={handleChange}
+					disabled={loading}
+				/>
+				<label className="toggle-label" htmlFor={`toggle-${id}`}></label>
+			</div>
 			<p
 				className={`text-sm  border ${
 					isAttending
@@ -12,17 +25,6 @@ function Toogle({ id, isAttending , handleChange }) {
 			>
 				{isAttending? "Attending": "Absent"}
 			</p>
-			<div className="toggle-switch">
-				<input
-					className="toggle-input"
-					id={`toggle-${id}`}
-					type="checkbox"
-					name={`toggle-${id}`}
-					checked={isAttending}
-					onChange={handleChange}
-				/>
-				<label className="toggle-label" htmlFor={`toggle-${id}`}></label>
-			</div>
 		</div>
 	);
 }

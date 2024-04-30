@@ -11,12 +11,12 @@ function EventsPage() {
 	const setEvents = useEvents((state) => state.setEvents);
 	const { fetchData, loading } = useFetch();
 
+
 	const fetchUserEvents = async () => {
 		try {
 			const { data } = await fetchData(
 				`${import.meta.env.VITE_BASE_URL}/events`
 			);
-			console.log(data);
 			setEvents(data);
 		} catch (error) {
 			showToast.error(error.message);

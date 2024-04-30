@@ -49,8 +49,8 @@ function RsvpSection() {
 			)}
 			{!loading && (
 				<div className="events__container">
-					{userRsvps?.map((item, index) => (
-						<RsvpCard key={index} event={item.event} />
+					{userRsvps?.map((item, index) => item.event && (
+						<RsvpCard key={index} rsvp={item} />
 					))}
 				</div>
 			)}

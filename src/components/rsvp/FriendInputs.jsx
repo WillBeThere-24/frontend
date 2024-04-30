@@ -1,9 +1,9 @@
 const FriendInputs = ({
-  friend,
-  id,
-  handleInputsChange,
-  text = "Plus",
-  handleMyselfChange,
+	friend,
+	id,
+	handleInputsChange,
+	text = 'Plus',
+	handleMyselfChange,
 }) => {
   return (
     <form

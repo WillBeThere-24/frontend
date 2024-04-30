@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
-import timezone from "../utils/timezone.json";
-import showToast from "../utils/showToast";
-import { usePost } from "../utils/hooks";
-import useEvents from "../utils/store/useEvents";
-import { useNavigate } from "react-router-dom";
-import Loader from "../components/circle-loader/Loader";
+import { useRef, useState } from 'react';
+import timezone from '../utils/timezone.json';
+import showToast from '../utils/showToast';
+import { usePost } from '../utils/hooks';
+import useEvents from '../utils/store/useEvents';
+import {  useNavigate } from 'react-router-dom';
+import Loader from '../components/circle-loader/Loader';
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
