@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
-import timezone from '../utils/timezone.json';
-import showToast from '../utils/showToast';
-import { usePost } from '../utils/hooks';
-import useEvents from '../utils/store/useEvents';
-import {  useNavigate } from 'react-router-dom';
-import Loader from '../components/circle-loader/Loader';
+import { useRef, useState } from "react";
+import timezone from "../utils/timezone.json";
+import showToast from "../utils/showToast";
+import { usePost } from "../utils/hooks";
+import useEvents from "../utils/store/useEvents";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/circle-loader/Loader";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -207,7 +207,8 @@ const ThirdForm = ({
       </div>
       <div className='mb-5'>
         <label className='block text-sm mb-2' htmlFor='name'>
-          Event Items
+          Event Items:{" "}
+          <span className='text-xs text-gray-400'> (Type and press Enter)</span>
         </label>
         <input
           className='block w-full h-[2.7rem] rounded-md border border-wybt-secondary p-3 placeholder:text-sm'
@@ -277,16 +278,20 @@ const FourthForm = ({
   };
 
   return (
-    <div className='mt-8'>
+    <div className='mt-8 flex flex-col'>
       <h1 className='text-center font-bold text-3xl font-montserrat text-wybt-primary mb-12'>
-        Upload the Event Image{" "}
+        Upload the Event Image
       </h1>
-      <img
-        className='cursor-pointer w-full h-[22rem] object-contain block mx-auto'
-        onClick={handleEditIconClick}
-        src={formDetails.image || "/icons/add-image.svg"}
-        alt=''
-      />
+      <div className='w-full flex justify-center items-center'>
+        <div className='md:size-[25rem] size-[20rem]'>
+          <img
+            className='cursor-pointer size-full object-cover block mx-auto'
+            onClick={handleEditIconClick}
+            src={formDetails.image || "/icons/add-image.svg"}
+            alt=''
+          />
+        </div>
+      </div>
       <input
         onChange={handleFileInputChange}
         className='hidden'
@@ -294,7 +299,7 @@ const FourthForm = ({
         type='file'
       />
       <button
-        className='bg-wybt-primary text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold disabled:opacity-50'
+        className='bg-wybt-primary self-center max-w-[30rem] text-white py-3 px-10 mt-12  rounded-lg  block w-full font-bold disabled:opacity-50'
         onClick={handleClick}
         disabled={loading}
       >
