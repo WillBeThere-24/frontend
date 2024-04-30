@@ -4,6 +4,7 @@ import { Button } from "../common";
 import Modal from "./Modal";
 import { usePost } from "../../utils/hooks";
 import showToast from "../../utils/showToast";
+import formatDateTime from "../../utils/formatDataTime";
 const noData = [
   {
     children: (
@@ -173,12 +174,6 @@ const Card = ({ data }) => {
       setItemsToBring((previousItems) => [...previousItems, value]);
     }
   };
-  const time = new Date(event.end);
-  const year = time.getFullYear();
-  const month = time.getMonth() + 1;
-  const day = time.getDate();
-  const hours = time.getHours();
-  const minutes = time.getMinutes();
 
   return (
     <main className='flex flex-col gap-8 my-8 md:my-16 font-montserrat w-full md:w-[75%] lg:w-[50%]'>
@@ -188,9 +183,8 @@ const Card = ({ data }) => {
             RSVP for {event.name}
           </h4>
           <p className='text-center font-light text-base md:text-xl'>
-            Kindly respond before{" "}
-            {`${hours} : ${minutes} on ${day} / ${month} / ${year}`}. We look
-            forward to celebrating with you.
+            Kindly respond before {formatDateTime(event.end)}. We look forward
+            to celebrating with you.
           </p>
           <p className='text-center text-3xl md:text-5xl font-caveat'>
             Will You Be There?
