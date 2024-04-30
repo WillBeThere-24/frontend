@@ -3,7 +3,8 @@ import { useLoaderData } from "react-router-dom";
 
 const Rsvp = () => {
   const receivedData = useLoaderData();
-  const { data } = receivedData;
+  const data = receivedData?.data;
+  // console.log(data);
 
   return (
     <div className='bg-wybt-white px-5 flex justify-center items-center min-h-screen'>
