@@ -1,122 +1,121 @@
-import { useEffect, useState } from 'react';
-import { addZero } from '../utils/addZero';
-import useEvents from '../utils/store/useEvents';
-import InviteModal from '../components/invite-guest/InvitModal';
-import { useFetch } from '../utils/hooks';
-import showToast from '../utils/showToast';
-import formatDateTime from '../utils/formatDataTime';
-import ClosedEye from '/icons/form/Closed-Eye.svg';
-import OpenedEye from '/icons/form/Open-Eye.svg';
-import Loader from '../components/circle-loader/Loader';
-import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { addZero } from "../utils/addZero";
+import useEvents from "../utils/store/useEvents";
+import InviteModal from "../components/invite-guest/InvitModal";
+import { useFetch } from "../utils/hooks";
+import showToast from "../utils/showToast";
+import formatDateTime from "../utils/formatDataTime";
+import ClosedEye from "/icons/form/Closed-Eye.svg";
+import OpenedEye from "/icons/form/Open-Eye.svg";
+import Loader from "../components/circle-loader/Loader";
+import { Navigate } from "react-router-dom";
 
-
-const hiddenCount = '***';
+const hiddenCount = "***";
 
 const getAttenddingClass = (isAttending) => {
-	if (isAttending === undefined || isAttending === null) {
-		return {
-			color: 'bg-gray-500',
-			text: 'Not Responded',
-		};
-	}
-	if (isAttending) {
-		return {
-			color: 'bg-green-500',
-			text: 'Attending',
-		};
-	} else if (!isAttending) {
-		return { color: 'bg-red-500', text: 'Not Attending' };
-	}
+  if (isAttending === undefined || isAttending === null) {
+    return {
+      color: "bg-gray-500",
+      text: "Not Responded",
+    };
+  }
+  if (isAttending) {
+    return {
+      color: "bg-green-500",
+      text: "Attending",
+    };
+  } else if (!isAttending) {
+    return { color: "bg-red-500", text: "Not Attending" };
+  }
 };
 
 export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
-	const [showPlusOnes, setShowPlusOnes] = useState(false);
-	const handleShowPlusOnes = () => {
-		setShowPlusOnes(!showPlusOnes);
-	};
-	const classValue = getAttenddingClass(isAttending);
+  const [showPlusOnes, setShowPlusOnes] = useState(false);
+  const handleShowPlusOnes = () => {
+    setShowPlusOnes(!showPlusOnes);
+  };
+  const classValue = getAttenddingClass(isAttending);
 
-	return (
-		<div className="border-wybt-accent border  rounded-md mt-1">
-			<div
-				className={`table__body  ${
-					plusOnes.length == 0 && 'without__plusone'
-				} items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
-			>
-				<p>{name}</p>
-				<p className="break-all hidden md:block">{email}</p>
-				<p className="hidden md:block">{message || '__'}</p>
-				<p
-					className={`${classValue.color} w-full md:w-[80%] py-2 text-center text-white font-bold rounded-lg`}
-				>
-					{classValue.text}
-				</p>
-				{plusOnes.length > 0 && (
-					<button
-						onClick={handleShowPlusOnes}
-						className="flex items-center justify-center opacity-70 p-1"
-					>
-						<img
-							className={showPlusOnes && 'rotate-180'}
-							src="/icons/arrow-down.svg"
-							alt=""
-						/>
-					</button>
-				)}
-			</div>
-			{showPlusOnes && (
-				<div className="pl-3">
-					<p className="font-bold my-2">Plus Ones</p>
-					{plusOnes.map((guest, index) => (
-						<div
-							key={index}
-							className="table__body plus__one [&>p]:text-sm my-2"
-						>
-							<p>{guest.name}</p>
-							<p>{guest.email}</p>
-						</div>
-					))}
-				</div>
-			)}
-		</div>
-	);
+  return (
+    <div className='border-wybt-accent border  rounded-md mt-1'>
+      <div
+        className={`table__body  ${
+          plusOnes.length == 0 && "without__plusone"
+        } items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
+      >
+        <p>{name}</p>
+        <p className='break-all hidden md:block'>{email}</p>
+        <p className='hidden md:block'>{message || "__"}</p>
+        <p
+          className={`${classValue.color} w-full md:w-[80%] py-2 text-center text-white font-bold rounded-lg`}
+        >
+          {classValue.text}
+        </p>
+        {plusOnes.length > 0 && (
+          <button
+            onClick={handleShowPlusOnes}
+            className='flex items-center justify-center opacity-70 p-1'
+          >
+            <img
+              className={showPlusOnes && "rotate-180"}
+              src='/icons/arrow-down.svg'
+              alt=''
+            />
+          </button>
+        )}
+      </div>
+      {showPlusOnes && (
+        <div className='pl-3'>
+          <p className='font-bold my-2'>Plus Ones</p>
+          {plusOnes.map((guest, index) => (
+            <div
+              key={index}
+              className='table__body plus__one [&>p]:text-sm my-2'
+            >
+              <p>{guest.name}</p>
+              <p>{guest.email}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function EventOverview() {
-	const [showGuests, setShowGuests] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const currentEvent = useEvents((state) => state.currentEvent);
-	const [eventGuests, setEventGuest] = useState([]);
-	const [showGuestCount, setShowGuestCount] = useState(false);
+  const [showGuests, setShowGuests] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const currentEvent = useEvents((state) => state.currentEvent);
+  const [eventGuests, setEventGuest] = useState([]);
+  const [showGuestCount, setShowGuestCount] = useState(false);
 
-	const { fetchData, loading } = useFetch();
+  const { fetchData, loading } = useFetch();
 
-	useEffect(() => {
-		fetchEventGuest();
-	}, []);
+  useEffect(() => {
+    fetchEventGuest();
+  }, []);
 
-	if (!currentEvent) {
-		return <Navigate to="/dashboard/events" />
-	}
+  if (!currentEvent) {
+    return <Navigate to='/dashboard/events' />;
+  }
 
-	const fetchEventGuest = async () => {
-		try {
-			const { data } = await fetchData(
-				`${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/guests`
-			);
+  const fetchEventGuest = async () => {
+    try {
+      const { data } = await fetchData(
+        `${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/guests`
+      );
 
-			setEventGuest(data);
-		} catch (error) {
-			showToast.error(error);
-		}
-	};
-	const handleToggleList = () => {
-		setShowGuests(!showGuests);
-	};
-	const handleShowGuestCount = () => {
-		setShowGuestCount(!showGuestCount);
-	};
+      setEventGuest(data);
+    } catch (error) {
+      showToast.error(error);
+    }
+  };
+  const handleToggleList = () => {
+    setShowGuests(!showGuests);
+  };
+  const handleShowGuestCount = () => {
+    setShowGuestCount(!showGuestCount);
+  };
 
 	return (
 		<div className="w-full">
@@ -234,26 +233,26 @@ function EventOverview() {
 						</div>
 					)}
 
-					{eventGuests.map((item, index) => (
-						<InvitedGuest
-							key={index}
-							plusOnes={item.plus_ones}
-							isAttending={item.attending}
-							email={item.email}
-							name={item.name}
-							message={item.message}
-						/>
-					))}
-				</div>
-			)}
-			{isModalOpen && (
-				<InviteModal
-					isOpen={isModalOpen}
-					setIsOpen={setIsModalOpen}
-					id={currentEvent?._id}
-				/>
-			)}
-		</div>
-	);
+          {eventGuests.map((item, index) => (
+            <InvitedGuest
+              key={index}
+              plusOnes={item.plus_ones}
+              isAttending={item.attending}
+              email={item.email}
+              name={item.name}
+              message={item.message}
+            />
+          ))}
+        </div>
+      )}
+      {isModalOpen && (
+        <InviteModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          id={currentEvent?._id}
+        />
+      )}
+    </div>
+  );
 }
 export default EventOverview;
