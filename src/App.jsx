@@ -83,18 +83,49 @@ const router = createBrowserRouter([
     path: "/rsvp/:id",
     element: <Rsvp />,
     loader: async ({ params }) => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const guestId = searchParams.get("guest");
+      try {
+        const searchParams = new URLSearchParams(window.location.search);
+        const guestId = searchParams.get("guest");
 
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
-          guestId ? `?guest=${guestId}` : ""
-        }`
-      );
-      return data;
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/events/rsvp/${params.id}${
+            guestId ? `?guest=${guestId}` : ""
+          }`
+        );
+        console.log("data from loader", data);
+        return data;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
-  { path: "*", element: <Error /> },
+  {
+    path: "/attendance-already-confirmed",
+    element: (
+      <Error
+        error='401'
+        title='Attendance Already Confirmed'
+        text='To modify your RSVP response, please register to the application.'
+        path='/register'
+        pathText='Register'
+      />
+    ),
+  },
+
+  {
+    path: "*",
+    element: (
+      <Error
+        error='404'
+        title='UH OH! You are lost.'
+        text='The page you are looking for does not exist. How you got here is a
+        mystery. But you can click the button below to go back to the
+        homepage.'
+        path='/'
+        pathText='Return Home'
+      />
+    ),
+  },
 ]);
 
 const App = () => {
