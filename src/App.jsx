@@ -9,6 +9,7 @@ import {
   EventsPage,
   Rsvp,
   Error,
+  RsvpError,
 } from "./pages";
 import { Authentication } from "./components/common";
 import { Toaster } from "react-hot-toast";
@@ -83,12 +84,12 @@ const router = createBrowserRouter([
     path: "/rsvp/:id",
     element: <Rsvp />,
     errorElement: (
-      <Error
-        error='401'
-        title='Attendance Already Confirmed'
-        text='To modify your RSVP response, please register to the application.'
-        path='/register'
-        pathText='Register'
+      <RsvpError
+      // error='401'
+      // title='Attendance Already Confirmed'
+      // text='To modify your RSVP response, please register to the application.'
+      // path='/register'
+      // pathText='Register'
       />
     ),
     loader: async ({ params }) => {
@@ -101,10 +102,10 @@ const router = createBrowserRouter([
             guestId ? `?guest=${guestId}` : ""
           }`
         );
-        console.log(data);
-        return data;
+        if (data) return data;
       } catch (error) {
         console.error(error);
+        return null;
       }
     },
   },
