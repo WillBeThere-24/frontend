@@ -84,11 +84,11 @@ const router = createBrowserRouter([
     element: <Rsvp />,
     errorElement: (
       <Error
-        error='500'
-        title='Internal Server Error'
-        text='Oops! Something went wrong on our end. The tech gremlins are at it again. Click the button below to return to safety to the homepage.'
-        path='/'
-        pathText='Return Home'
+        error='401'
+        title='Attendance Already Confirmed'
+        text='To modify your RSVP response, please register to the application.'
+        path='/register'
+        pathText='Register'
       />
     ),
     loader: async ({ params }) => {
@@ -107,18 +107,6 @@ const router = createBrowserRouter([
         console.error(error);
       }
     },
-  },
-  {
-    path: "/attendance-already-confirmed",
-    element: (
-      <Error
-        error='401'
-        title='Attendance Already Confirmed'
-        text='To modify your RSVP response, please register to the application.'
-        path='/register'
-        pathText='Register'
-      />
-    ),
   },
 
   {
