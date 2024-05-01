@@ -400,7 +400,6 @@ const FormBuilder = () => {
       showToast.success("Form Submitted");
       navigate(`/dashboard/events/${data._id}`);
     } catch (error) {
-      console.error(error);
       showToast.error(error.message);
     } finally {
       setLoading(false);
