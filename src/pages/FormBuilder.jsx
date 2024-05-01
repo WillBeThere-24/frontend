@@ -344,6 +344,8 @@ const FormBuilder = () => {
   const [loading, setLoading] = useState(false);
   const setCurrentEvent = useEvents((state) => state.setCurrentEvent);
   const increaseEventCount = useStore((state) => state.increaseEventCount);
+  const setUserLatestEvent = useStore((state) => state.setUserLatestEvent);
+  const currentUser = useStore(state => state.user);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
@@ -353,7 +355,7 @@ const FormBuilder = () => {
     startTime: "",
     endDate: "",
     endTime: "",
-    timezone: "",
+    timezone: timezone[0],
     items: [],
     isPrivate: false,
   });
@@ -396,6 +398,7 @@ const FormBuilder = () => {
       setCurrentEvent(data);
       addNewEvent(data);
       increaseEventCount();
+      setUserLatestEvent([data, ...currentUser.latestThree])
 
       showToast.success("Form Submitted");
       navigate(`/dashboard/events/${data._id}`);

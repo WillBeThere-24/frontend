@@ -89,7 +89,7 @@ const SideBar = () => {
 				handleClick={handleLogOut}
 			/>
 
-			{useEvents?.length > 0 && (
+			{currentUser.latestThree?.length > 0 && (
 				<p className="text-gray-400 text-sm my-4 pl-6">Recent Events</p>
 			)}
 			{currentUser.latestThree?.map(

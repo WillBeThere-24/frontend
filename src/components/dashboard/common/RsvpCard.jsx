@@ -22,7 +22,7 @@ function RsvpCard({ rsvp }) {
 			onClick={handleCurrentRsvp}
 			className=" h-[15rem] min-w-[18rem] relative "
 		>
-			{rsvp.event.isPrivate ===false && rsvp.attending && <button
+				{rsvp.event.isPrivate ===false && rsvp.attending && <button
 				title="copy event link"
 				className="flex justify-center items-center gap-3 bg-white absolute top-4 right-3 rounded-lg w-10 h-10 p-2 shadow-lg active:scale-[.9] z-10"
 				onClick={(e) => handleCopy(e, `https://willbethere.netlify.app/rsvp/${rsvp._id}`)}

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 const initialState = {
-	events: null,
+	events: [],
 	status: 'idle',
 	currentEvent: null,
 };

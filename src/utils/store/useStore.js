@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
+
 const initialState = {
-	user: true,
+	user: null,
 	sideBarState: false,
 };
 const useStore = create(
@@ -11,8 +12,10 @@ const useStore = create(
 		setUser: (user) => set({ user }),
 		setSideBar: (value) => set({ sideBarState: value }),
 		resetUser: () => set({ ...initialState }),
+		setUserLatestEvent:(newEvents)=> set((state) => ({state:  {...state.user, latestThree: newEvents }})),
+		decreaseEventCount: ()=> set((state) => ({ user:  {...state.user, eventCount: (state.user.eventCount - 1) } })),
 		increaseEventCount: () =>
-			set((state) => ({ user: { ...(state.user.eventCount + 1) } })),
+			set((state) => ({ user: {...state.user, eventCount: (state.user.eventCount + 1) } })),
 	}))
 );
 
