@@ -1,120 +1,147 @@
-import { useEffect, useState } from "react";
-import { addZero } from "../utils/addZero";
-import useEvents from "../utils/store/useEvents";
-import InviteModal from "../components/invite-guest/InvitModal";
-import { useFetch } from "../utils/hooks";
-import showToast from "../utils/showToast";
-import formatDateTime from "../utils/formatDataTime";
-import ClosedEye from "/icons/form/Closed-Eye.svg";
-import OpenedEye from "/icons/form/Open-Eye.svg";
-import Loader from "../components/circle-loader/Loader";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { addZero } from '../utils/addZero';
+import useEvents from '../utils/store/useEvents';
+import InviteModal from '../components/invite-guest/InvitModal';
+import { useFetch } from '../utils/hooks';
+import showToast from '../utils/showToast';
+import formatDateTime from '../utils/formatDataTime';
+import ClosedEye from '/icons/form/Closed-Eye.svg';
+import OpenedEye from '/icons/form/Open-Eye.svg';
+import Loader from '../components/circle-loader/Loader';
+import { Navigate, useNavigate } from 'react-router-dom';
+import useDelete from '../utils/hooks/useDelete';
 
-const hiddenCount = "***";
+const hiddenCount = '***';
 
 const getAttenddingClass = (isAttending) => {
-  if (isAttending === undefined || isAttending === null) {
-    return {
-      color: "bg-gray-500",
-      text: "Not Responded",
-    };
-  }
-  if (isAttending) {
-    return {
-      color: "bg-green-500",
-      text: "Attending",
-    };
-  } else if (!isAttending) {
-    return { color: "bg-red-500", text: "Not Attending" };
-  }
+	if (isAttending === undefined || isAttending === null) {
+		return {
+			color: 'bg-gray-500',
+			text: 'Not Responded',
+		};
+	}
+	if (isAttending) {
+		return {
+			color: 'bg-green-500',
+			text: 'Attending',
+		};
+	} else if (!isAttending) {
+		return { color: 'bg-red-500', text: 'Not Attending' };
+	}
 };
 
 export function InvitedGuest({ isAttending, name, email, plusOnes, message }) {
-  const [showPlusOnes, setShowPlusOnes] = useState(false);
-  const handleShowPlusOnes = () => {
-    setShowPlusOnes(!showPlusOnes);
-  };
-  const classValue = getAttenddingClass(isAttending);
-  console.log(plusOnes)
+	const [showPlusOnes, setShowPlusOnes] = useState(false);
+	const handleShowPlusOnes = () => {
+		setShowPlusOnes(!showPlusOnes);
+	};
+	const classValue = getAttenddingClass(isAttending);
 
-  return (
-    <div className='border-wybt-accent border  rounded-md mt-1'>
-      <div
-        className={`table__body  items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
-      >
-        <p>{name}</p>
-        <p className='break-all hidden md:block'>{email}</p>
-        <p className='hidden md:block'>{message || "__"}</p>
-        <p
-          className={`${classValue.color} w-full md:w-[80%] py-2 text-center text-white font-bold rounded-lg`}
-        >
-          {classValue.text}
-        </p>
+	return (
+		<div className="border-wybt-accent border  rounded-md mt-1">
+			<div
+				className={`table__body  items-start  py-2 md:py-4 px-4 [&>p]:text-sm `}
+			>
+				<p>{name}</p>
+				<p className="break-all hidden md:block">{email}</p>
+				<p className="hidden md:block">{message || '__'}</p>
+				<p
+					className={`${classValue.color} w-full md:w-[80%] py-2 text-center text-white font-bold rounded-lg`}
+				>
+					{classValue.text}
+				</p>
 
-          <button
-            onClick={handleShowPlusOnes}
-            className={`${plusOnes.length > 0 ? "opacity-70 " : "opacity-0 pointer-events-none"} flex items-center justify-center   p-1`}
-          >
-            <img
-              className={showPlusOnes && "rotate-180"}
-              src='/icons/arrow-down.svg'
-              alt=''
-            />
-          </button>
-      </div>
-      {showPlusOnes && (
-        <div className='pl-3'>
-          <p className='font-bold my-2'>Plus Ones</p>
-          {plusOnes.map((guest, index) => (
-            <div
-              key={index}
-              className='table__body plus__one [&>p]:text-sm my-2'
-            >
-              <p>{guest.name}</p>
-              <p>{guest.email}</p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+				<button
+					onClick={handleShowPlusOnes}
+					className={`${
+						plusOnes.length > 0
+							? 'opacity-70 '
+							: 'opacity-0 pointer-events-none'
+					} flex items-center justify-center   p-1`}
+				>
+					<img
+						className={showPlusOnes && 'rotate-180'}
+						src="/icons/arrow-down.svg"
+						alt=""
+					/>
+				</button>
+			</div>
+			{showPlusOnes && (
+				<div className="pl-3">
+					<p className="font-bold my-2">Plus Ones</p>
+					{plusOnes.map((guest, index) => (
+						<div
+							key={index}
+							className="table__body plus__one [&>p]:text-sm my-2"
+						>
+							<p>{guest.name}</p>
+							<p>{guest.email}</p>
+						</div>
+					))}
+				</div>
+			)}
+		</div>
+	);
 }
 
 function EventOverview() {
-  const [showGuests, setShowGuests] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const currentEvent = useEvents((state) => state.currentEvent);
-  const [eventGuests, setEventGuest] = useState([]);
-  const [showGuestCount, setShowGuestCount] = useState(false);
-  console.log(currentEvent)
+	const [showGuests, setShowGuests] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const currentEvent = useEvents((state) => state.currentEvent);
+	const [eventGuests, setEventGuest] = useState([]);
+	const [showGuestCount, setShowGuestCount] = useState(false);
+	const setEvents = useEvents((state) => state.setEvents);
+	const usersEvents = useEvents((state) => state.events);
 
-  const { fetchData, loading } = useFetch();
+	console.log(currentEvent);
 
-  useEffect(() => {
-    fetchEventGuest();
-  }, []);
+	const { fetchData, loading } = useFetch();
+	const { deleteData, loading:loadingDelete } = useDelete();
+	const navigate = useNavigate()
 
-  if (!currentEvent) {
-    return <Navigate to='/dashboard/events' />;
-  }
+	useEffect(() => {
+		fetchEventGuest();
+	}, []);
 
-  const fetchEventGuest = async () => {
-    try {
-      const { data } = await fetchData(
-        `${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/guests`
-      );
+	if (!currentEvent) {
+		return <Navigate to="/dashboard/events" />;
+	}
 
-      setEventGuest(data);
-    } catch (error) {
-      showToast.error(error);
-    }
-  };
-  const handleToggleList = () => {
-    setShowGuests(!showGuests);
-  };
-  const handleShowGuestCount = () => {
-    setShowGuestCount(!showGuestCount);
-  };
+	const deleteEvent = async () => {
+		showToast.loading("Deleting Event")
+		try {
+			await deleteData(
+				`${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/`
+			);
+
+			const newEvents = usersEvents.filter(
+				(event) => event.id !== currentEvent._id
+			);
+			setEvents(newEvents);
+			navigate("/dashboard/events");
+			showToast.success("Event Deleted")
+		} catch (error) {
+			showToast.error(error.message);
+		}
+	};
+
+	const fetchEventGuest = async () => {
+		try {
+			const { data } = await fetchData(
+				`${import.meta.env.VITE_BASE_URL}/events/${currentEvent._id}/guests`
+			);
+
+			setEventGuest(data);
+		} catch (error) {
+			showToast.error(error);
+		}
+	};
+	const handleToggleList = () => {
+		setShowGuests(!showGuests);
+	};
+	const handleShowGuestCount = () => {
+		setShowGuestCount(!showGuestCount);
+	};
 
 	return (
 		<div className="w-full">
@@ -140,7 +167,7 @@ function EventOverview() {
 						{formatDateTime(currentEvent.start)}
 					</p>
 				</div>
-				
+
 				<div className="flex justify-center items-center gap-1 mt-3">
 					<img
 						className="w-4 md:w-6 block  brightness-200"
@@ -153,10 +180,23 @@ function EventOverview() {
 				</div>
 			</div>
 			<div className="flex justify-between items-center mt-8">
-				<h1 className="text-xl md:text-2xl font-bold font-montserrat">Guest</h1>
+				<button
+					onClick={deleteEvent}
+					disabled={loadingDelete}
+					
+					className="flex justify-center items-center gap-2 bg-red-50 border border-red-400 shadow-lg px-4 rounded-xl  py-2 md:py-2 disabled:opacity-50"
+				>
+					<img
+						src="/icons/delete.svg"
+						alt=""
+						className="p-0 m-0 w-4 md:w-6 block"
+					/>
+
+					<p className="text-[.7rem]  md:text-sm text-[#ff2929] ">Delete Event</p>
+				</button>
 				<button
 					onClick={handleShowGuestCount}
-					className="flex justify-center items-center gap-2 bg-gray-200 shadowlg px-4 rounded-xl border border-gray-700 py-2 md:py-0"
+					className="flex justify-center items-center gap-2 bg-gray-200 shadow-lg px-4 rounded-xl border border-gray-700 py-2 md:py-0"
 				>
 					<img
 						src={showGuestCount ? ClosedEye : OpenedEye}
@@ -241,26 +281,26 @@ function EventOverview() {
 						</div>
 					)}
 
-          {eventGuests.map((item, index) => (
-            <InvitedGuest
-              key={index}
-              plusOnes={item.plus_ones}
-              isAttending={item.attending}
-              email={item.email}
-              name={item.name}
-              message={item.message}
-            />
-          ))}
-        </div>
-      )}
-      {isModalOpen && (
-        <InviteModal
-          isOpen={isModalOpen}
-          setIsOpen={setIsModalOpen}
-          id={currentEvent?._id}
-        />
-      )}
-    </div>
-  );
+					{eventGuests.map((item, index) => (
+						<InvitedGuest
+							key={index}
+							plusOnes={item.plus_ones}
+							isAttending={item.attending}
+							email={item.email}
+							name={item.name}
+							message={item.message}
+						/>
+					))}
+				</div>
+			)}
+			{isModalOpen && (
+				<InviteModal
+					isOpen={isModalOpen}
+					setIsOpen={setIsModalOpen}
+					id={currentEvent?._id}
+				/>
+			)}
+		</div>
+	);
 }
 export default EventOverview;
