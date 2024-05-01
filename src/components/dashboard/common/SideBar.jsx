@@ -7,7 +7,6 @@ import useRsvp from '../../../utils/store/useRvsp';
 
 const SideBar = () => {
 	const sideBarState = useStore((state) => state.sideBarState);
-	const userEvents = useEvents((state) => state.events);
 	const setCurrentEvent = useEvents((state) => state.setCurrentEvent);
 	const setSideBar = useStore((state) => state.setSideBar);
 	const navigate = useNavigate();
@@ -42,7 +41,7 @@ const SideBar = () => {
 				sideBarState ? 'block bg-slate-50' : 'hidden'
 			} md:block  md:w-[28%] border border-wybt-primary   pb-2`}
 		>
-			{/* <p className="text-gray-400 text-sm mb-2 pl-6">User Details</p> */}
+			
 			<div className=" items-center  gap-3 md:hidden flex pl-6  mb-3 mt-4">
 				<span className="">
 					<img
@@ -91,9 +90,9 @@ const SideBar = () => {
 			/>
 
 			{useEvents?.length > 0 && (
-				<p className="text-gray-400 text-sm my-4 pl-6">Recents</p>
+				<p className="text-gray-400 text-sm my-4 pl-6">Recent Events</p>
 			)}
-			{userEvents?.map(
+			{currentUser.latestThree?.map(
 				(event, index) =>
 					index <= 2 && (
 						<SidebarItem
