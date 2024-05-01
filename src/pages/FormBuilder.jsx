@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react';
-import timezone from '../utils/timezone.json';
-import showToast from '../utils/showToast';
-import { usePost } from '../utils/hooks';
-import useEvents from '../utils/store/useEvents';
-import {  useNavigate } from 'react-router-dom';
-import Loader from '../components/circle-loader/Loader';
-import useStore from '../utils/store/useStore';
+import { useRef, useState } from "react";
+import timezone from "../utils/timezone.json";
+import showToast from "../utils/showToast";
+import { usePost } from "../utils/hooks";
+import useEvents from "../utils/store/useEvents";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/circle-loader/Loader";
+import useStore from "../utils/store/useStore";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -96,7 +96,7 @@ const SecondForm = ({ formDetails, handleFormChange, handleClick }) => {
       <div className='flex justify-center items-end gap-3 my-4'>
         <div className='w-[70%]'>
           <label className='block text-sm' htmlFor='name'>
-            Evnet End
+            Event End
           </label>
           <input
             className='block w-full h-[2.7rem] rounded-md border border-wybt-secondary p-3'
@@ -322,7 +322,7 @@ const FormBuilder = () => {
   const addNewEvent = useEvents((state) => state.addEvent);
   const [loading, setLoading] = useState(false);
   const setCurrentEvent = useEvents((state) => state.setCurrentEvent);
-  const increaseEventCount = useStore(state => state.increaseEventCount);
+  const increaseEventCount = useStore((state) => state.increaseEventCount);
   const [formDetails, setFormDetails] = useState({
     name: "",
     description: "",
