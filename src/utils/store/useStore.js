@@ -12,7 +12,7 @@ const useStore = create(
 		setUser: (user) => set({ user }),
 		setSideBar: (value) => set({ sideBarState: value }),
 		resetUser: () => set({ ...initialState }),
-		setUserLatestEvent:(newEvents)=> set((state) => ({state:  {...state.user, latestThree: newEvents }})),
+		setUserLatestEvent:(newEvents)=> set((state) => ({user:  {...state.user, latestThree: newEvents }})),
 		decreaseEventCount: ()=> set((state) => ({ user:  {...state.user, eventCount: (state.user.eventCount - 1) } })),
 		increaseEventCount: () =>
 			set((state) => ({ user: {...state.user, eventCount: (state.user.eventCount + 1) } })),

@@ -95,7 +95,7 @@ function EventOverview() {
   const setEvents = useEvents((state) => state.setEvents);
   const usersEvents = useEvents((state) => state.events);
   const setUserLatestEvent = useStore((state) => state.setUserLatestEvent);
-
+  const decreaseEventCount = useStore(state => state.decreaseEventCount)
   const { fetchData, loading } = useFetch();
   const { deleteData, loading: loadingDelete } = useDelete();
   const navigate = useNavigate();
@@ -120,6 +120,7 @@ function EventOverview() {
       );
       setEvents(newEvents);
       setUserLatestEvent(newEvents)
+      decreaseEventCount()
       navigate("/dashboard/events");
       showToast.success("Event Deleted");
     } catch (error) {
