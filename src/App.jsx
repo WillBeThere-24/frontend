@@ -102,7 +102,6 @@ const router = createBrowserRouter([
         }`
       );
       if (res.status === 401) {
-        console.log(res.message);
         throw new Error(res, { status: 401 }); //unauthorized
       }
       if (res.status === 400) {

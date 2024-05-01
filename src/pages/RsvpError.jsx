@@ -3,7 +3,6 @@ import Error from "./Error";
 
 const RsvpError = () => {
   const error = useRouteError();
-  console.error("error from rsvp error", error);
   if (error.response.status === 401) {
     return (
       <Error
