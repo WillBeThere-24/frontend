@@ -6,6 +6,7 @@ import useEvents from "../utils/store/useEvents";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/circle-loader/Loader";
 import useStore from "../utils/store/useStore";
+import toast from "react-hot-toast";
 
 const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
   return (
@@ -65,6 +66,27 @@ const FirstForm = ({ handleFormChange, formDetails, handleClick }) => {
 };
 
 const SecondForm = ({ formDetails, handleFormChange, handleClick }) => {
+  const start = new Date(formDetails.startDate);
+  const end = new Date(formDetails.endDate);
+  const todaysDate = new Date();
+  console.log(todaysDate, start, end);
+
+  if (start > end) {
+    toast.error("Start date must be before end date");
+    formDetails.startDate = "";
+    formDetails.endDate = "";
+  }
+  if (todaysDate > start || todaysDate > end) {
+    if (todaysDate > start) {
+      toast.error("start date cannot be in the past");
+      formDetails.startDate = "";
+      return;
+    } else {
+      toast.error("End date cannot be in the past");
+      formDetails.endDate = "";
+      return;
+    }
+  }
   return (
     <div className='mt-8'>
       <h1 className='text-center font-bold text-3xl font-montserrat text-wybt-primary mb-4'>
