@@ -52,7 +52,6 @@ const InviteModal = ({ isOpen, setIsOpen, id }) => {
         }
       }
     } catch (error) {
-      console.error(error);
       toast.error(error.message);
     }
   };
