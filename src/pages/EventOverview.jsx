@@ -10,6 +10,8 @@ import OpenedEye from "/icons/form/Open-Eye.svg";
 import Loader from "../components/circle-loader/Loader";
 import { Navigate, useNavigate } from "react-router-dom";
 import useDelete from "../utils/hooks/useDelete";
+import useStore from "../utils/store/useStore";
+
 
 const hiddenCount = "***";
 
@@ -92,6 +94,7 @@ function EventOverview() {
   const [showGuestCount, setShowGuestCount] = useState(false);
   const setEvents = useEvents((state) => state.setEvents);
   const usersEvents = useEvents((state) => state.events);
+  const setUserLatestEvent = useStore((state) => state.setUserLatestEvent);
 
   const { fetchData, loading } = useFetch();
   const { deleteData, loading: loadingDelete } = useDelete();
@@ -113,9 +116,10 @@ function EventOverview() {
       );
 
       const newEvents = usersEvents.filter(
-        (event) => event.id !== currentEvent._id
+        (event) => event._id !== currentEvent._id
       );
       setEvents(newEvents);
+      setUserLatestEvent(newEvents)
       navigate("/dashboard/events");
       showToast.success("Event Deleted");
     } catch (error) {
