@@ -69,7 +69,6 @@ const SecondForm = ({ formDetails, handleFormChange, handleClick }) => {
   const start = new Date(formDetails.startDate);
   const end = new Date(formDetails.endDate);
   const todaysDate = new Date();
-  console.log(todaysDate, start, end);
 
   if (start > end) {
     toast.error("Start date must be before end date");
