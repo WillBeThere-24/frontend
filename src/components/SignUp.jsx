@@ -54,14 +54,14 @@ const SignUp = () => {
     });
   };
 
-  const signUpWithGoogle = async () => {
+  const signUpWithGoogle= async()=> {
+    showToast.loading("Registering User ...");
+
     try {
       const userDetails = await handleGoogleAuth();
-      const result = await postData(
-        `${import.meta.env.VITE_BASE_URL}/auth/register`,
-        { ...userDetails, auth: "google", name: userDetails.displayName }
-      );
-      setCurrentUser(result.data);
+       await postData(`${import.meta.env.VITE_BASE_URL}/auth/register`, {...userDetails, auth: "google", name: userDetails.displayName})
+      const loginResult = await postData(`${import.meta.env.VITE_BASE_URL}/auth/login`, {...userDetails, auth: "google", name: userDetails.displayName})
+      setCurrentUser(loginResult.data);
       navigate("/dashboard/overview");
       showToast.success("Registration Successful");
     } catch (error) {
